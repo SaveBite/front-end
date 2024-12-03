@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Noto_Sans } from "next/font/google";
+
+const notoSans = Noto_Sans({
+  subsets: ["latin"], // Add subsets as needed
+  weight: ["400", "600", "700"], // Specify weights
+  style: ["normal", "italic"], // Specify styles
+});
 
 export const metadata: Metadata = {
   title: "save bite | home",
@@ -12,8 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`antialiased min-h-screen`}>{children}</body>
+    <html lang="en" className={notoSans.className}>
+      <body
+        className={`antialiased min-h-screen`}
+        suppressHydrationWarning={true}
+      >
+        {children}
+      </body>
     </html>
   );
 }
