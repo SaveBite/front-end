@@ -1,6 +1,7 @@
-import LoginInpLabel from "@/components/LoginInplabel";
-import UploadInput from "@/components/UploadInput";
+import LoginForm from "@/components/LoginForm";
+
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Page = () => {
@@ -29,8 +30,8 @@ const Page = () => {
         </div>
       </div>
       <div className="h-full w-full sm:w-1/2 font-[600] relative">
-        <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="block sm:hidden">
+        <div className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="block mb-[10px] sm:hidden">
             <Image
               src="/SaveBite.svg"
               alt="SaveBite"
@@ -42,12 +43,13 @@ const Page = () => {
           <span className="text-black-900 font-[600] h4 md:h2">
             Login to SaveBite
           </span>
-          <form action="">
-            <LoginInpLabel required={true} htmlFor="img">
-              Upload your image
-            </LoginInpLabel>
-            <UploadInput id="img" />
-          </form>
+          <LoginForm />
+          <p className="text-center mt-[32px]">
+            Do not have an account?
+            <Link href="/" className="text-primary-500">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
