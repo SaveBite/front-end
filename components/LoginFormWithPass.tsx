@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
 import CustomCheckbox from "./CustomCheckbox";
@@ -8,51 +8,36 @@ import LoginInpLabel from "./LoginInplabel";
 import Input from "./Input";
 import Password from "./Password";
 import { handleLoginFormWithPass } from "@/actions/actions";
-import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+// import { handleLoginFormWithPass } from "@/actions/actions";
+// import { redirect } from "next/navigation";
 
 const LoginFormWithPass = () => {
-  const [emailValue, setEmailValue] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [passwordValue, setPasswordValue] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
+  const [errorMessage, dispatch] = useFormState(
+    handleLoginFormWithPass,
+    undefined
+  );
 
-  function handleOnSubmit(formData: FormData) {
-    if (emailValue === "") {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-    if (passwordValue === "") {
-      setPasswordError(true);
-    } else {
-      setPasswordError(false);
-    }
-    if (emailError === true || passwordError === true) return;
-
-    handleLoginFormWithPass(formData);
-
-    redirect("/");
-  }
   return (
-    <form action={(formData) => handleOnSubmit(formData)}>
+    <form action={dispatch}>
       <div className="pt-[20px]">
         <LoginInpLabel required={true} htmlFor="email">
           Email
         </LoginInpLabel>
         <Input
           id="email"
-          error={emailError}
-          value={emailValue}
-          setValue={setEmailValue}
+          error={
+            errorMessage === "email cannot empty or wrong" ? errorMessage : ""
+          }
         />
         <LoginInpLabel required={true} htmlFor="password">
           Password
         </LoginInpLabel>
         <Password
           id="password"
-          error={passwordError}
-          value={passwordValue}
-          setValue={setPasswordValue}
+          error={
+            errorMessage === "password cannot be empty" ? errorMessage : ""
+          }
         />
       </div>
       <div className="flex justify-between items-center mt-[20px] max-w-[500px]">

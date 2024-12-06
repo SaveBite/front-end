@@ -1,19 +1,18 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const UploadInput = ({
   id,
   name,
-  fileRef,
-  error,
+  error = "",
 }: {
   id: string;
   name: string;
-  fileRef: React.RefObject<HTMLInputElement>;
-  error: boolean;
+  error: string;
 }) => {
   const [fileInfo, setFileInfo] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null)!;
 
   function handleOnChange() {
     const file = fileRef?.current?.files?.[0]?.name;
@@ -51,9 +50,7 @@ const UploadInput = ({
         />
       </label>
       {error && (
-        <span className="text-error-400 font-[400] title2">
-          Please Complete this required field.
-        </span>
+        <span className="text-error-400 font-[400] title2">{error}</span>
       )}
     </>
   );

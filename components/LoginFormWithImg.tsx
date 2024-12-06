@@ -1,50 +1,32 @@
 "use client";
-import React, { useRef, useState } from "react";
 import LoginInpLabel from "./LoginInplabel";
 import UploadInput from "./UploadInput";
 import CustomCheckbox from "./CustomCheckbox";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
 import Image from "next/image";
-import { handleLoginFormWithImage } from "@/actions/actions";
 import Input from "./Input";
+import { useFormState } from "react-dom";
+import { handleLoginFormWithImage } from "@/actions/actions";
 
 const LoginFormWithImg = () => {
-  const [fileError, setFileError] = useState(false);
-  const [emailValue, setEmailValue] = useState("");
-  const [emailError, setEmailError] = useState(false);
+  const [errorMessage, dispatch] = useFormState(
+    handleLoginFormWithImage,
+    undefined
+  );
 
-  const fileInputRef = useRef<HTMLInputElement>(null)!;
-
-  function handleOnSubmit(formdata: FormData) {
-    const file = fileInputRef?.current?.files?.[0]?.name;
-
-    if (!file) {
-      setFileError(true);
-    } else {
-      setFileError(false);
-    }
-    if (emailValue === "") {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-    if (emailError === true || fileError === true) return;
-
-    handleLoginFormWithImage(formdata);
-  }
   return (
     <>
-      <form action={handleOnSubmit}>
+      <form action={dispatch}>
         <div className="pt-[20px]">
           <LoginInpLabel required={true} htmlFor="email">
             Email
           </LoginInpLabel>
           <Input
             id="email"
-            error={emailError}
-            value={emailValue}
-            setValue={setEmailValue}
+            error={
+              errorMessage === "email cannot empty or wrong" ? errorMessage : ""
+            }
           />
           <LoginInpLabel required={true} htmlFor="img">
             Upload your image
@@ -53,8 +35,7 @@ const LoginFormWithImg = () => {
           <UploadInput
             id="img"
             name="inputImg"
-            fileRef={fileInputRef}
-            error={fileError}
+            error={errorMessage === "file is not found" ? errorMessage : ""}
           />
         </div>
         <div className="flex justify-between items-center mt-[20px] max-w-[500px]">
