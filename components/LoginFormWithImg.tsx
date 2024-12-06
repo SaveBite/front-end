@@ -3,17 +3,25 @@ import LoginInpLabel from "./LoginInplabel";
 import UploadInput from "./UploadInput";
 import CustomCheckbox from "./CustomCheckbox";
 import CustomButton from "./CustomButton";
-import Link from "next/link";
 import Image from "next/image";
 import Input from "./Input";
 import { useFormState } from "react-dom";
 import { handleLoginFormWithImage } from "@/actions/actions";
 
-const LoginFormWithImg = () => {
+interface Props {
+  switchToLost: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const LoginFormWithImg = ({ switchToLost }: Props) => {
   const [errorMessage, dispatch] = useFormState(
     handleLoginFormWithImage,
     undefined
   );
+
+  function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    switchToLost(3);
+  }
 
   return (
     <>
@@ -40,14 +48,14 @@ const LoginFormWithImg = () => {
         </div>
         <div className="flex justify-between items-center mt-[20px] max-w-[500px]">
           <CustomCheckbox id="remember" />
-          <Link
-            href="/"
+          <button
+            onClick={handleOnClick}
             className="font-[400] title2 relative after:content-[''] after:w-full after:h-[1px] after:bg-black-500 after:absolute after:left-0 after:bottom-[3px] "
           >
             lost your image?
-          </Link>
+          </button>
         </div>
-        <div className="mt-20">
+        <div className="mt-[32px]">
           <CustomButton>
             <div className="flex gap-4">
               <p>Login</p>

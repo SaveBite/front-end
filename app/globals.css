@@ -12,30 +12,111 @@ body {
   }
   .h1 {
     font-size: 48px;
+    font-weight: 400;
+  }
+  .h1bold {
+    font-size: 48px;
+    font-weight: 700;
+  }
+  .h1medium {
+    font-size: 48px;
+    font-weight: 500;
   }
   .h2 {
     font-size: 40px;
+    font-weight: 400;
+  }
+  .h2bold {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  .h2medium {
+    font-size: 40px;
+    font-weight: 500;
   }
   .h3 {
     font-size: 33px;
+    font-weight: 400;
+  }
+  .h3bold {
+    font-size: 33px;
+    font-weight: 700;
+  }
+  .h3medium {
+    font-size: 33px;
+    font-weight: 500;
   }
   .h4 {
     font-size: 28px;
+    font-weight: 400;
+  }
+  .h4bold {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .h4medium {
+    font-size: 28px;
+    font-weight: 500;
   }
   .h5 {
     font-size: 23px;
+    font-weight: 400;
+  }
+  .h5bold {
+    font-size: 23px;
+    font-weight: 700;
+  }
+  .h5medium {
+    font-size: 23px;
+    font-weight: 500;
   }
   .title1 {
     font-size: 19px;
+    font-weight: 400;
+  }
+  .title1bold {
+    font-size: 19px;
+    font-weight: 700;
+  }
+  .title1medium {
+    font-size: 19px;
+    font-weight: 500;
   }
   .title2 {
     font-size: 16px;
+    font-weight: 400;
+  }
+  .title2bold {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .title2medium {
+    font-size: 16px;
+    font-weight: 500;
   }
   .body {
     font-size: 13px;
+    font-weight: 400;
+  }
+  .bodybold {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .bodymedium {
+    font-size: 13px;
+    font-weight: 500;
   }
   .caption {
     font-size: 11px;
+    font-weight: 400;
+  }
+  .captionbold {
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .captionmedium {
+    font-size: 11px;
+    font-weight: 500;
   }
 }
 

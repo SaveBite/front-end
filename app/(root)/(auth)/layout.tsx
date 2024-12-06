@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "save bite | login",
@@ -48,16 +47,8 @@ export default function authLayout({
                 className="object-fill"
               />
             </div>
-            <span className="text-black-900 font-[600] h4 md:h2">
-              Login to SaveBite
-            </span>
+
             {children}
-            <p className="text-center mt-[32px]">
-              Do not have an account?
-              <Link href="/" className="text-primary-500">
-                Sign up
-              </Link>
-            </p>
           </div>
         </div>
       </div>

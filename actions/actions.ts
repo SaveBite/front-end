@@ -9,15 +9,16 @@ export async function handleLoginFormWithImage(
   _currentState: unknown,
   formData: FormData
 ) {
+  const email = formData.get("email") as string;
+  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+
+  console.log(email);
+
   const inputImg = formData.get("inputImg") as File;
   if (inputImg instanceof File) {
     if (inputImg.name === "undefined") return "file is not found";
   }
 
-  const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
-
-  console.log(email);
   if (inputImg instanceof File) {
     console.log(inputImg.name);
   }
@@ -40,6 +41,24 @@ export async function handleLoginFormWithPass(
   console.log(email);
   console.log(password);
   console.log(remember);
+  revalidatePath("/");
+
+  redirect("/");
+}
+export async function handleLostImg(
+  _currentState: unknown,
+  formData: FormData
+) {
+  const email = formData.get("email") as string;
+  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+
+  const question = formData.get("question") as string;
+  console.log(question);
+  console.log(typeof question);
+  if (question === "") return "you must answer the question";
+
+  console.log(email);
+  console.log(question);
   revalidatePath("/");
 
   redirect("/");

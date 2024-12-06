@@ -1,13 +1,18 @@
 "use client";
-import React from "react";
+
 import { Button } from "./ui/button";
 interface Props {
   type?: string;
-  children: React.ReactNode;
+  children: string;
+  otpValue: string;
 }
-const CustomButton = ({ type = "primary", children }: Props) => {
+const CustomOtpButton = ({ type = "primary", children, otpValue }: Props) => {
+  function handleOnClick() {
+    if (otpValue.length === 4) console.log(otpValue);
+  }
   return (
     <Button
+      onClick={handleOnClick}
       className={`h-[72px] mt-[16px] w-[300px] md:w-[350px] lg:w-[500px] text-[19px] font-[500] ${
         type === "primary" &&
         "bg-primary-500 border-none text-white hover:bg-white hover:text-primary-400"
@@ -23,4 +28,4 @@ const CustomButton = ({ type = "primary", children }: Props) => {
   );
 };
 
-export default CustomButton;
+export default CustomOtpButton;

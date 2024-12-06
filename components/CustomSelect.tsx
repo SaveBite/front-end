@@ -1,0 +1,43 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface Props {
+  arr: Array<string>;
+  error?: string;
+}
+
+const CustomSelect = ({ arr, error = "" }: Props) => {
+  if (error) console.log("error form");
+  return (
+    <>
+      <Select name="question">
+        <SelectTrigger
+          className={`px-[12px] py-[30px] border-[1px] ${
+            error ? "border-error-500" : "border-black-200"
+          }  rounded-sm  w-[300px] lg:w-[500px] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
+        >
+          <SelectValue placeholder="what is your favourite drink ?" />
+        </SelectTrigger>
+        <SelectContent>
+          {arr.map((choice) => (
+            <SelectItem
+              key={choice}
+              className="hover:bg-[#2E70FE]"
+              value={choice}
+            >
+              {choice}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <span className="text-error-400 font-[400] title2">{error}</span>
+    </>
+  );
+};
+
+export default CustomSelect;
