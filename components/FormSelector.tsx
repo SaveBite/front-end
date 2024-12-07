@@ -46,7 +46,7 @@ const FormSelector = () => {
         <>
           <p className="text-center mt-[32px] ">
             Do not have an account?
-            <Link href="/" className="text-primary-500">
+            <Link href="/signup" className="text-primary-500">
               Sign up
             </Link>
           </p>

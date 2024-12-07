@@ -9,7 +9,7 @@ const UploadInput = ({
 }: {
   id: string;
   name: string;
-  error: string;
+  error?: string;
 }) => {
   const [fileInfo, setFileInfo] = useState("");
   const fileRef = useRef<HTMLInputElement>(null)!;
