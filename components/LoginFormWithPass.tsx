@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
-// import React, { useState } from "react";
-import CustomButton from "./CustomButton";
 import CustomCheckbox from "./CustomCheckbox";
 import LoginInpLabel from "./LoginInplabel";
 import Input from "./Input";
 import Password from "./Password";
 import { handleLoginFormWithPass } from "@/actions/actions";
 import { useFormState } from "react-dom";
+import ReuseableButton from "./ReuseableButton";
 interface Props {
   switchToLost: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -55,7 +54,7 @@ const LoginFormWithPass = ({ switchToLost }: Props) => {
         </button>
       </div>
       <div className="mt-[32px]">
-        <CustomButton>
+        <ReuseableButton>
           <div className="flex gap-4">
             <p>Login</p>
             <Image
@@ -66,7 +65,7 @@ const LoginFormWithPass = ({ switchToLost }: Props) => {
               height={30}
             />
           </div>
-        </CustomButton>
+        </ReuseableButton>
       </div>
     </form>
   );

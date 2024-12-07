@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import LoginFormWithImg from "./LoginFormWithImg";
 import LoginFormWithPass from "./LoginFormWithPass";
-import SwitchButton from "./SwitchButton";
+import ReuseableButton from "./ReuseableButton";
 import LostImgForm from "./LostImgForm";
 import Link from "next/link";
 
@@ -15,10 +15,12 @@ const FormSelector = () => {
   return (
     <div>
       {selectedForm !== 3 ? (
-        <span className="text-black-900 h2bold">Login to SaveBite</span>
+        <span className="text-black-900 h3bold lg:h2bold">
+          Login to SaveBite
+        </span>
       ) : (
         <div className="flex flex-col">
-          <span className="text-black-900 h2bold">Lost your Img</span>
+          <span className="text-black-900 h3bold lg:h2bold">Lost your Img</span>
           <span className="text-black-300 title1">
             A verification code will be sent to the your mail, Please check it.
           </span>
@@ -33,9 +35,9 @@ const FormSelector = () => {
       {selectedForm === 3 && <LostImgForm />}
 
       {selectedForm !== 3 && (
-        <SwitchButton type="secondary" onclick={handleOnClick}>
+        <ReuseableButton type="secondary" onclick={handleOnClick}>
           Login With email and password
-        </SwitchButton>
+        </ReuseableButton>
       )}
 
       {selectedForm !== 3 && (

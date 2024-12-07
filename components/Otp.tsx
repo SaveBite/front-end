@@ -2,13 +2,16 @@
 import { useState } from "react";
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
-import CustomOtpButton from "./CustomOtpButton";
+import ReuseableButton from "./ReuseableButton";
 
 const Otp = () => {
   const [otpCode, setOtpCode] = useState("");
   function handleOnChange(v: string) {
     if (v.length < 4) return;
     if (v.length === 4) setOtpCode(v);
+  }
+  function handleOnClick() {
+    if (otpCode.length === 4) console.log(otpCode);
   }
   return (
     <div>
@@ -35,7 +38,7 @@ const Otp = () => {
         </InputOTP>
       </div>
       <div className="pt-[40px]">
-        <CustomOtpButton otpValue={otpCode}>Verify</CustomOtpButton>
+        <ReuseableButton onclick={handleOnClick}>Verify</ReuseableButton>
 
         <div className="flex flex-col gap-[8px] text-center mt-[80px]">
           <p>Did&apos;nt get the code ? </p>

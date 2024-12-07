@@ -11,7 +11,7 @@ const Input = ({ id, error = "" }: Props) => {
         type="text"
         className={`px-[12px] py-[26px] border-[1px] ${
           error ? "border-error-500" : "border-black-200"
-        } rounded-sm  w-[300px] lg:w-[500px] outline-none caret-primary-500`}
+        } rounded-sm min-w-[200px] w-[100%] outline-none caret-primary-500`}
         name={id}
         id={id}
       />

@@ -17,13 +17,13 @@ const Password = ({ id, error = "" }: Props) => {
           type={visibility}
           className={`px-[12px] py-[26px] border-[1px] ${
             error ? "border-error-500" : "border-black-200"
-          } rounded-sm  w-[300px] lg:w-[500px] outline-none caret-primary-500`}
+          } rounded-sm min-w-[200px] w-[100%] outline-none caret-primary-500`}
           name={id}
           id={id}
         />
 
         <button
-          className="absolute right-[10px] top-1/2 -translate-y-1/2"
+          className="absolute right-[2%] top-1/2 -translate-y-1/2"
           onClick={(e) => {
             e.preventDefault();
             if (visibility === "text") setVisibility("password");

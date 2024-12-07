@@ -22,7 +22,7 @@ const UploadInput = ({
     <>
       <label htmlFor={id} className="relative cursor-pointer">
         <div
-          className={`p-4 border-[1px] text-black-200 rounded-sm  w-[300px] lg:w-[500px] flex justify-between ${
+          className={`p-4 border-[1px] text-black-200 rounded-sm  min-w-[200px]   w-[100%] flex justify-between ${
             error && "border-error-500"
           }`}
         >

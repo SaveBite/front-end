@@ -19,7 +19,7 @@ const CustomSelect = ({ arr, error = "" }: Props) => {
         <SelectTrigger
           className={`px-[12px] py-[30px] border-[1px] ${
             error ? "border-error-500" : "border-black-200"
-          }  rounded-sm  w-[300px] lg:w-[500px] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
+          }  rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
         >
           <SelectValue placeholder="what is your favourite drink ?" />
         </SelectTrigger>

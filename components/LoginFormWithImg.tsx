@@ -2,11 +2,11 @@
 import LoginInpLabel from "./LoginInplabel";
 import UploadInput from "./UploadInput";
 import CustomCheckbox from "./CustomCheckbox";
-import CustomButton from "./CustomButton";
 import Image from "next/image";
 import Input from "./Input";
 import { useFormState } from "react-dom";
 import { handleLoginFormWithImage } from "@/actions/actions";
+import ReuseableButton from "./ReuseableButton";
 
 interface Props {
   switchToLost: React.Dispatch<React.SetStateAction<number>>;
@@ -56,7 +56,7 @@ const LoginFormWithImg = ({ switchToLost }: Props) => {
           </button>
         </div>
         <div className="mt-[32px]">
-          <CustomButton>
+          <ReuseableButton>
             <div className="flex gap-4">
               <p>Login</p>
               <Image
@@ -67,7 +67,7 @@ const LoginFormWithImg = ({ switchToLost }: Props) => {
                 height={30}
               />
             </div>
-          </CustomButton>
+          </ReuseableButton>
         </div>
       </form>
     </>

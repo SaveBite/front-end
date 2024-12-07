@@ -1,14 +1,11 @@
 "use client";
 import Image from "next/image";
-// import React, { useState } from "react";
-import CustomButton from "./CustomButton";
 import LoginInpLabel from "./LoginInplabel";
 import Input from "./Input";
 import { handleLostImg } from "@/actions/actions";
 import { useFormState } from "react-dom";
 import CustomSelect from "./CustomSelect";
-// import { handleLoginFormWithPass } from "@/actions/actions";
-// import { redirect } from "next/navigation";
+import ReuseableButton from "./ReuseableButton";
 
 const LostImgForm = () => {
   const [errorMessage, dispatch] = useFormState(handleLostImg, undefined);
@@ -37,7 +34,7 @@ const LostImgForm = () => {
       </div>
 
       <div className="mt-[32px]">
-        <CustomButton>
+        <ReuseableButton>
           <div className="flex gap-4">
             <p>Send</p>
             <Image
@@ -48,7 +45,7 @@ const LostImgForm = () => {
               height={30}
             />
           </div>
-        </CustomButton>
+        </ReuseableButton>
       </div>
     </form>
   );

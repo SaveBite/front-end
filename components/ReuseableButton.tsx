@@ -1,19 +1,16 @@
 "use client";
-
+import React from "react";
 import { Button } from "./ui/button";
 interface Props {
   type?: string;
-  children: string;
-  otpValue: string;
+  children: React.ReactNode;
+  onclick?: React.MouseEventHandler<HTMLButtonElement>;
 }
-const CustomOtpButton = ({ type = "primary", children, otpValue }: Props) => {
-  function handleOnClick() {
-    if (otpValue.length === 4) console.log(otpValue);
-  }
+const ReuseableButton = ({ type = "primary", onclick, children }: Props) => {
   return (
     <Button
-      onClick={handleOnClick}
-      className={`h-[72px] mt-[16px] w-[300px] md:w-[350px] lg:w-[500px] text-[19px] font-[500] ${
+      onClick={onclick ? onclick : () => console.log("only fire form")}
+      className={`h-[72px] mt-[16px] w-[100%] text-[19px] font-[500] ${
         type === "primary" &&
         "bg-primary-500 border-none text-white hover:bg-white hover:text-primary-400"
       }
@@ -28,4 +25,4 @@ const CustomOtpButton = ({ type = "primary", children, otpValue }: Props) => {
   );
 };
 
-export default CustomOtpButton;
+export default ReuseableButton;
