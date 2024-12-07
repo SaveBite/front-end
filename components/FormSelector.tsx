@@ -15,12 +15,14 @@ const FormSelector = () => {
   return (
     <div>
       {selectedForm !== 3 ? (
-        <span className="text-black-900 h3bold lg:h2bold">
+        <span className="text-black-900 h4bold md:h3bold lg:h2bold">
           Login to SaveBite
         </span>
       ) : (
         <div className="flex flex-col">
-          <span className="text-black-900 h3bold lg:h2bold">Lost your Img</span>
+          <span className="text-black-900 h4bold md:h3bold lg:h2bold">
+            Lost your Img
+          </span>
           <span className="text-black-300 title1">
             A verification code will be sent to the your mail, Please check it.
           </span>
