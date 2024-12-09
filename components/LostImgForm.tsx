@@ -26,6 +26,7 @@ const LostImgForm = () => {
           Please answer this Question
         </LoginInpLabel>
         <CustomSelect
+          name="question"
           placeholder="what is your favourite drink ?"
           arr={["a", "b", "c"]}
           error={
