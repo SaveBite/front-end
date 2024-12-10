@@ -1,9 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const PhoneNumberInput = () => {
-  const [selectedCountry, setSelectedCountry] = useState("United States");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("Egypt");
+  const [phoneNumber, setPhoneNumber] = useState("+20");
 
   const countries = [
     { name: "Egypt", code: "+20" },
@@ -14,39 +21,37 @@ const PhoneNumberInput = () => {
     { name: "France", code: "+33" },
   ];
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selected = countries.find(
-      (country) => country.name === e.target.value
-    );
+  const handleCountryChange = (value: string) => {
+    const selected = countries.find((country) => country.name === value);
     if (selected) {
       setSelectedCountry(selected.name);
       setPhoneNumber(selected.code);
     }
   };
 
-  useEffect(() => {
-    const defaultCountry = countries.find(
-      (country) => country.name === selectedCountry
-    );
-    if (defaultCountry) {
-      setPhoneNumber(defaultCountry.code);
-    }
-  }, []);
-
   return (
-    <div className="flex items-center">
-      <div className="relative">
-        <select
-          className="mr-[12px] pl-[18px] rounded-md w-[190px] h-[64px] mb-[16px] focus:outline-none border"
-          value={selectedCountry}
-          onChange={handleCountryChange}
-        >
-          {countries.map((country) => (
-            <option key={country.code} value={country.name}>
-              {country.name}
-            </option>
-          ))}
-        </select>
+    <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
+      <div className="relative w-full sm:w-auto">
+        <Select onValueChange={handleCountryChange} value={selectedCountry}>
+          <SelectTrigger
+            className="px-[12px] h-[78px] border-[1px] 
+           border-black-200
+          rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0"
+          >
+            <SelectValue placeholder="Egypt" />
+          </SelectTrigger>
+          <SelectContent>
+            {countries.map((country) => (
+              <SelectItem
+                key={country.code}
+                className="hover:bg-[#2E70FE]"
+                value={country.name}
+              >
+                {country.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <input
@@ -54,7 +59,8 @@ const PhoneNumberInput = () => {
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="Enter your phone number"
-        className="outline-none caret-primary-500 w-[649px] h-[64px] rounded mb-[16px] px-[12px] py-[26px] border-[1px]"
+        className={`px-[12px] py-[26px] border-[1px] border-black-200
+        rounded-sm min-w-[200px]  w-[100%] outline-none caret-primary-500`}
       />
     </div>
   );

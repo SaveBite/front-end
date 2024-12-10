@@ -8,20 +8,22 @@ import {
 
 interface Props {
   arr: Array<string>;
+  placeholder: string;
+  name: string;
   error?: string;
 }
 
-const CustomSelect = ({ arr, error = "" }: Props) => {
+const CustomSelect = ({ name, arr, placeholder, error = "" }: Props) => {
   if (error) console.log("error form");
   return (
     <>
-      <Select name="question">
+      <Select name={name}>
         <SelectTrigger
-          className={`px-[12px] py-[30px] border-[1px] ${
+          className={`px-[12px] h-[78px] border-[1px] ${
             error ? "border-error-500" : "border-black-200"
           }  rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
         >
-          <SelectValue placeholder="what is your favourite drink ?" />
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           {arr.map((choice) => (

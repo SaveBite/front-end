@@ -2,59 +2,110 @@
 import LoginInpLabel from "./LoginInplabel";
 import PhoneNumberInput from "./PhoneNumberInput";
 import UploadInput from "./UploadInput";
-// import ImageUpload from "./ImageUpload";
+import Input from "./Input";
+import Password from "./Password";
+import { Checkbox } from "./ui/checkbox";
+import CustomSelect from "./CustomSelect";
+import ReuseableButton from "./ReuseableButton";
+import { useFormState } from "react-dom";
+import { handleSignupForm } from "@/actions/actions";
 
-const SignupForm = () => {
+const SignupForm = () =>{
+  const [errorMessage, dispatch] = useFormState(
+    handleSignupForm,
+    undefined
+  );
+
+  const err = "Please Complete this required field"
   return (
-    <form className="mt-[32px] py-[32px] px-[68px] mx-auto w-[785px] shadow-md rounded-lg">
-      <div className="username">
+    <form action={dispatch} className="mt-[32px] py-[32px] px-[68px] mx-auto w-[80%] shadow-md rounded-lg mb-[100px]">
+      <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="username">
           User name
         </LoginInpLabel>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          className="outline-none caret-primary-500 w-[649px] h-[64px] ounded mb-[16px] px-[12px] py-[26px] border-[1px]"
-        />
+        <Input id="username" error={
+            errorMessage === err ? errorMessage : ""
+          } />
       </div>
-      <div className="email">
+      <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="email">
           Email
         </LoginInpLabel>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          className="outline-none caret-primary-500 w-[649px] h-[64px] rounded mb-[16px] px-[12px] py-[26px] border-[1px]"
-        />
+        <Input id="email" error={
+            errorMessage === err ? errorMessage : ""
+          } />
       </div>
-      <div className="phone">
+      <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="phone">
           Phone number
         </LoginInpLabel>
         <PhoneNumberInput />
       </div>
-      <div className="img">
+      <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="image">
           Upload an image ( you will use this image to login in the next time)
         </LoginInpLabel>
-        {/* <ImageUpload /> */}
-        <UploadInput id="signupImg" name="signupImg" />
+        <UploadInput id="signupImg" name="signupImg" error={
+            errorMessage === err ? errorMessage : ""
+          } />
       </div>
-      <div className="drink">
+      <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="drink">
           Please answer this Question
         </LoginInpLabel>
-        <select className="mr-[12px] pl-[18px] rounded-md w-full h-[64px] mb-[16px] focus:outline-none border">
-          <option>What is your favorite drink?</option>
-          <option value="">5arbosh shay</option>
-          <option value="">Mango</option>
-          <option value="">Coffee</option>
-          <option value="">Sahlb</option>
-          <option value="">Farawla</option>
-        </select>
+        <CustomSelect
+        name="favorite-drink"
+        placeholder="What's your favorite drink ?"
+          arr={["5arbosh shay", "Mango", "Coffee", "Sahlb", "Farawla"]}
+          error={
+            errorMessage === err ? errorMessage : ""
+          }
+        />
       </div>
+      <div className="mb-[16px]">
+        <LoginInpLabel required={true} htmlFor="password">
+          Password
+        </LoginInpLabel>
+        <Password id="password" error={
+            errorMessage === err ? errorMessage : ""
+          }/>
+      </div>
+      <div className="mb-[16px]">
+        <LoginInpLabel required={true} htmlFor="confirm-password">
+          Confirm Password
+        </LoginInpLabel>
+        <Password id="confirm-password" error={
+            errorMessage === err ? errorMessage : ""
+          }/>
+      </div>
+      <div className="mb-[16px]">
+        <LoginInpLabel required={true} htmlFor="type">
+          Account Type
+        </LoginInpLabel>
+        <CustomSelect
+        name="Account-type"
+        placeholder="Please Select:"
+          arr={["Restaurant", "Supermarket", "Householder"]}
+          error={
+            errorMessage === err ? errorMessage : ""
+          }
+        />
+      </div>
+      <div className="mb-[40px] flex items-center gap-2">
+        <Checkbox className="w-[20px] h-[20px] outline-none border-black-300" />
+        <div>
+          <LoginInpLabel
+            htmlFor="terms"
+            required={false}
+            inline={true}
+            color="black"
+          >
+            Agree with
+          </LoginInpLabel>
+          <span className="text-green-500"> Terms and Conditions</span>
+        </div>
+      </div>
+      <ReuseableButton>Create Account</ReuseableButton>
     </form>
   );
 };
