@@ -63,3 +63,34 @@ export async function handleLostImg(
 
   redirect("/");
 }
+export async function handleSignupForm(
+  _currentState : unknown,
+  formDate:FormData
+){
+  const err = "Please Complete this required field"
+  const fields = [
+    { name: "username", validate: (value: string) => value.trim().length > 0 },
+    { name: "email", validate: (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) },
+    { name: "phone", validate: (value: string) => value.trim().length > 0},
+    { name: "password", validate: (value: string) => value.trim().length > 0 },
+    { name: "confirm-password", validate: (value: string) => value.trim().length > 0 },
+    { name: "Account-type", validate: (value: string) => value.trim().length > 0 },
+  ];
+  for (const field of fields) {
+    const value = formDate.get(field.name) as string;
+
+    if (!field.validate(value)) {
+      return err;
+    }
+    console.log(value)
+  }
+  const password = formDate.get("password") as string;
+  const confirmPassword = formDate.get("confirm-password") as string;
+  if (password !== confirmPassword) {
+    return "Passwords do not match";
+  }
+  revalidatePath("/");
+
+  redirect("/");
+
+}

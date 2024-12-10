@@ -22,10 +22,11 @@ const UploadInput = ({
     <>
       <label htmlFor={id} className="relative cursor-pointer">
         <div
-          className={`p-4 border-[1px] text-black-200 rounded-sm  min-w-[200px]   w-[100%] flex justify-between ${
+          className={`p-4 border-[1px] text-black-200 rounded-sm  min-w-[200px]   w-[100%] flex justify-between border-black-200 ${
             error && "border-error-500"
           }`}
         >
+          
           <div>
             <button className="p-2 bg-black-100 px-[13px] py-[12px] pointer-events-none outline-none border-black-600 border-[1px] text-black-600  ">
               Choose file

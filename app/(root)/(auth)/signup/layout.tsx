@@ -1,4 +1,4 @@
-import NavBar from "@/components/NaBvar";
+import NavBar from "@/components/NavBar";
 import SignupForm from "@/components/SignupForm";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export default function authLayout({
           </Link>
         </p>
       </div>
-      <SignupForm />
+      
       {children}
     </div>
   );
