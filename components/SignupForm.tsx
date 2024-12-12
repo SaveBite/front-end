@@ -10,84 +10,91 @@ import ReuseableButton from "./ReuseableButton";
 import { useFormState } from "react-dom";
 import { handleSignupForm } from "@/actions/actions";
 
-const SignupForm = () =>{
-  const [errorMessage, dispatch] = useFormState(
-    handleSignupForm,
-    undefined
-  );
+const SignupForm = () => {
+  const [errorMessage, dispatch] = useFormState(handleSignupForm, undefined);
 
-  const err = "Please Complete this required field"
   return (
-    <form action={dispatch} className="mt-[32px] py-[32px] px-[68px] mx-auto w-[80%] shadow-md rounded-lg mb-[100px]">
+    <form
+      action={dispatch}
+      className="mt-[32px] py-[32px] px-[68px] mx-auto w-[80%] shadow-md rounded-lg mb-[100px]"
+    >
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="username">
           User name
         </LoginInpLabel>
-        <Input id="username" error={
-            errorMessage === err ? errorMessage : ""
-          } />
+        <Input
+          id="username"
+          error={errorMessage === "Username is required" ? errorMessage : ""}
+        />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="email">
           Email
         </LoginInpLabel>
-        <Input id="email" error={
-            errorMessage === err ? errorMessage : ""
-          } />
+        <Input
+          id="email"
+          error={errorMessage === "Invalid email format" ? errorMessage : ""}
+        />
       </div>
       <div className="mb-[16px]">
-        <LoginInpLabel required={true} htmlFor="phone">
+        <LoginInpLabel required={true} htmlFor="Phone-Number">
           Phone number
         </LoginInpLabel>
-        <PhoneNumberInput />
+        <PhoneNumberInput
+          error={
+            errorMessage === "Phone number is required" ? errorMessage : ""
+          }
+        />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="image">
           Upload an image ( you will use this image to login in the next time)
         </LoginInpLabel>
-        <UploadInput id="signupImg" name="signupImg" error={
-            errorMessage === err ? errorMessage : ""
+        <UploadInput id="image" name="image" error={
+            errorMessage === "File is not found" ? errorMessage : ""
           } />
       </div>
       <div className="mb-[16px]">
-        <LoginInpLabel required={true} htmlFor="drink">
+        <LoginInpLabel required={true} htmlFor="favorite-drink">
           Please answer this Question
         </LoginInpLabel>
         <CustomSelect
-        name="favorite-drink"
-        placeholder="What's your favorite drink ?"
+          name="favorite-drink"
+          placeholder="What's your favorite drink ?"
           arr={["5arbosh shay", "Mango", "Coffee", "Sahlb", "Farawla"]}
-          error={
-            errorMessage === err ? errorMessage : ""
-          }
+          error={errorMessage === "Question is Required" ? errorMessage : ""}
         />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="password">
           Password
         </LoginInpLabel>
-        <Password id="password" error={
-            errorMessage === err ? errorMessage : ""
-          }/>
+        <Password
+          id="password"
+          error={errorMessage === "Password is required" ? errorMessage : ""}
+        />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="confirm-password">
           Confirm Password
         </LoginInpLabel>
-        <Password id="confirm-password" error={
-            errorMessage === err ? errorMessage : ""
-          }/>
+        <Password
+          id="confirm-password"
+          error={
+            errorMessage === "Please confirm your password" ? errorMessage : ""
+          }
+        />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="type">
           Account Type
         </LoginInpLabel>
         <CustomSelect
-        name="Account-type"
-        placeholder="Please Select:"
+          name="Account-type"
+          placeholder="Please Select:"
           arr={["Restaurant", "Supermarket", "Householder"]}
           error={
-            errorMessage === err ? errorMessage : ""
+            errorMessage === "Account type is required" ? errorMessage : ""
           }
         />
       </div>

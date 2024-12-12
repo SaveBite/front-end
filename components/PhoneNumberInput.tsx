@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const PhoneNumberInput = () => {
+const PhoneNumberInput = ({error}:{error?:string}) => {
   const [selectedCountry, setSelectedCountry] = useState("Egypt");
   const [phoneNumber, setPhoneNumber] = useState("+20");
 
@@ -30,13 +30,14 @@ const PhoneNumberInput = () => {
   };
 
   return (
+    <div>
     <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
       <div className="relative w-full sm:w-auto">
         <Select onValueChange={handleCountryChange} value={selectedCountry}>
           <SelectTrigger
-            className="px-[12px] h-[78px] border-[1px] 
-           border-black-200
-          rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0"
+            className={`px-[12px] h-[78px] border-[1px] 
+            ${error ? "border-error-500" : "border-black-200"}
+          rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
           >
             <SelectValue placeholder="Egypt" />
           </SelectTrigger>
@@ -53,16 +54,22 @@ const PhoneNumberInput = () => {
           </SelectContent>
         </Select>
       </div>
-
       <input
         type="text"
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
-        placeholder="Enter your phone number"
-        className={`px-[12px] py-[26px] border-[1px] border-black-200
-        rounded-sm min-w-[200px]  w-[100%] outline-none caret-primary-500`}
+        id="Phone-Number"
+        name="Phone-Number"
+        className={`px-[12px] py-[26px] border-[1px] ${
+          error ? "border-error-500" : "border-black-200"
+        } rounded-sm min-w-[200px] w-[100%] outline-none caret-primary-500`}
       />
+      
     </div>
+      {error && (
+        <span className="text-error-400 font-[400] title2">{error}</span>
+      )}
+      </div>
   );
 };
 
