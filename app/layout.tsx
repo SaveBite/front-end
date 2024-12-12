@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Noto_Sans } from "next/font/google";
+import { NoUserProvider } from "@/contexts/NoUserContext";
+import { LoginFormProvider } from "@/contexts/LoginFormContext";
+import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
@@ -19,13 +22,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={notoSans.className}>
-      <body
-        className={`antialiased min-h-screen`}
-        suppressHydrationWarning={true}
-      >
-        {children}
-      </body>
-    </html>
+    <VerifyOTPProvider>
+      <LoginFormProvider>
+        <NoUserProvider>
+          <html lang="en" className={notoSans.className}>
+            <body
+              className={`antialiased min-h-screen`}
+              suppressHydrationWarning={true}
+            >
+              {children}
+            </body>
+          </html>
+        </NoUserProvider>
+      </LoginFormProvider>
+    </VerifyOTPProvider>
   );
 }

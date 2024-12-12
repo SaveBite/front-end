@@ -1,17 +1,20 @@
 "use client";
 import { useState } from "react";
-
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import ReuseableButton from "./ReuseableButton";
-
-const Otp = () => {
+interface Props {
+  setOTPVerified: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Otp = ({ setOTPVerified }: Props) => {
   const [otpCode, setOtpCode] = useState("");
   function handleOnChange(v: string) {
     if (v.length < 4) return;
     if (v.length === 4) setOtpCode(v);
   }
   function handleOnClick() {
-    if (otpCode.length === 4) console.log(otpCode);
+    if (otpCode.length === 4) {
+      setOTPVerified(true);
+    }
   }
   return (
     <div>

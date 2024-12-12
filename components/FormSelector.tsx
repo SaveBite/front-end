@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
 import LoginFormWithImg from "./LoginFormWithImg";
 import LoginFormWithPass from "./LoginFormWithPass";
 import ReuseableButton from "./ReuseableButton";
 import LostImgForm from "./LostImgForm";
 import Link from "next/link";
+import { useLoginForm } from "@/contexts/LoginFormContext";
 
 const FormSelector = () => {
-  const [selectedForm, setSelectedForm] = useState(1);
+  const { selectedForm, setSelectedForm } = useLoginForm()!;
   function handleOnClick() {
     if (selectedForm === 1) setSelectedForm(2);
     if (selectedForm === 2) setSelectedForm(1);
@@ -38,7 +38,9 @@ const FormSelector = () => {
 
       {selectedForm !== 3 && (
         <ReuseableButton type="secondary" onclick={handleOnClick}>
-          Login With email and password
+          {selectedForm === 2
+            ? "Login With email and password"
+            : "Login With image and password"}
         </ReuseableButton>
       )}
 
@@ -46,7 +48,7 @@ const FormSelector = () => {
         <>
           <p className="text-center mt-[32px] ">
             Do not have an account?
-            <Link href="/signup" className="text-primary-500">
+            <Link href="/signup" className="text-primary-500 ml-[2px]">
               Sign up
             </Link>
           </p>

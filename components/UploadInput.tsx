@@ -26,7 +26,6 @@ const UploadInput = ({
             error && "border-error-500"
           }`}
         >
-          
           <div>
             <button className="p-2 bg-black-100 px-[13px] py-[12px] pointer-events-none outline-none border-black-600 border-[1px] text-black-600  ">
               Choose file

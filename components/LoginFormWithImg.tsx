@@ -7,16 +7,23 @@ import Input from "./Input";
 import { useFormState } from "react-dom";
 import { handleLoginFormWithImage } from "@/actions/actions";
 import ReuseableButton from "./ReuseableButton";
+import { useNoUser } from "@/contexts/NoUserContext";
+import { useEffect } from "react";
 
 interface Props {
   switchToLost: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const LoginFormWithImg = ({ switchToLost }: Props) => {
+  const { setVisible } = useNoUser()!;
   const [errorMessage, dispatch] = useFormState(
     handleLoginFormWithImage,
     undefined
   );
+
+  useEffect(() => {
+    if (errorMessage === "email cannot empty or wrong") setVisible(true);
+  }, [errorMessage, setVisible]);
 
   function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
