@@ -12,6 +12,7 @@ import { handleSignupForm } from "@/actions/actions";
 
 const SignupForm = () => {
   const [errorMessage, dispatch] = useFormState(handleSignupForm, undefined);
+  console.log(errorMessage);
 
   return (
     <form
@@ -50,9 +51,11 @@ const SignupForm = () => {
         <LoginInpLabel required={true} htmlFor="image">
           Upload an image ( you will use this image to login in the next time)
         </LoginInpLabel>
-        <UploadInput id="image" name="image" error={
-            errorMessage === "File is not found" ? errorMessage : ""
-          } />
+        <UploadInput
+          id="image"
+          name="image"
+          error={errorMessage === "File is not found" ? errorMessage : ""}
+        />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="favorite-drink">
@@ -62,7 +65,7 @@ const SignupForm = () => {
           name="favorite-drink"
           placeholder="What's your favorite drink ?"
           arr={["5arbosh shay", "Mango", "Coffee", "Sahlb", "Farawla"]}
-          error={errorMessage === "Question is Required" ? errorMessage : ""}
+          error={errorMessage === "Question is required" ? errorMessage : ""}
         />
       </div>
       <div className="mb-[16px]">

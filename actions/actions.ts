@@ -1,6 +1,4 @@
 "use server";
-
-import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -28,10 +26,51 @@ export async function handleLoginFormWithImage(
 
   redirect("/");
 }
+export async function handleLoginFormWithPass(
+  _currentState: unknown,
+  formData: FormData
+) {
+  const email = formData.get("email") as string;
+  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+
+  const password = formData.get("password") as string;
+  if (password.length === 0) return "password cannot be empty";
+
+  const remember = formData.get("remember") as string;
+  console.log(email);
+  console.log(password);
+  console.log(remember);
+  revalidatePath("/");
+
+  redirect("/");
+}
+export async function handleLostImg(
+  _currentState: unknown,
+  formData: FormData
+) {
+  const email = formData.get("email") as string;
+  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+
+  const question = formData.get("question") as string;
+  console.log(question);
+  console.log(typeof question);
+  if (question === "") return "you must answer the question";
+
+  console.log(email);
+  console.log(question);
+  revalidatePath("/");
+
+  redirect("/");
+}
 export async function handleSignupForm(
   _currentState: unknown,
   formData: FormData
 ) {
+  const choice = formData.get("favorite-drink") as string;
+  console.log(typeof choice);
+  console.log(choice.length);
+  console.log(typeof choice.length);
+
   const fields = [
     {
       name: "username",
@@ -50,7 +89,8 @@ export async function handleSignupForm(
     },
     {
       name: "favorite-drink",
-      validate: (value: string) => value.trim().length > 0,
+      validate: (value: string) => value !== "",
+
       error: "Question is required",
     },
     {
@@ -60,7 +100,13 @@ export async function handleSignupForm(
     },
     {
       name: "confirm-password",
-      validate: (value: string) => value.trim().length > 0,
+      validate: (value: string) => {
+        if (
+          value.trim().length > 0 &&
+          value === (formData.get("password") as string)
+        )
+          return true;
+      },
       error: "Please confirm your password",
     },
     {
@@ -73,23 +119,23 @@ export async function handleSignupForm(
   for (const field of fields) {
     const value = formData.get(field.name) as string;
     if (!field.validate(value)) {
-      return field.error; 
-  }
-  const image = formData.get("image") as File;
-  if (image instanceof File) {
-    if (image.name === "undefined") return "File is not found";
-  }
+      return field.error;
+    }
+    const image = formData.get("image") as File;
+    if (image instanceof File) {
+      if (image.name === "undefined") return "File is not found";
+    }
 
-  if (image instanceof File) {
-    console.log(image.name);
+    if (image instanceof File) {
+      console.log(image.name);
+    }
   }
-  }
-  const password = formData.get("password") as string;
-  const confirmPassword = formData.get("confirm-password") as string;
-  if (password !== confirmPassword) {
-    console.log("oo")
-    return "Passwords do not match" ;
-  }
+  // const password = formData.get("password") as string;
+  // const confirmPassword = formData.get("confirm-password") as string;
+  // if (password !== confirmPassword) {
+  //   console.log("oo");
+  //   return "Passwords do not match";
+  // }
 
   revalidatePath("/");
   redirect("/");
