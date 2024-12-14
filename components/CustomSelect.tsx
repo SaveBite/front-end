@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 
 interface Props {
-  arr: Array<string>;
+  arr: Array<{ id: number | string; content: string }>;
   placeholder: string;
   name: string;
   error?: string;
@@ -28,11 +28,11 @@ const CustomSelect = ({ name, arr, placeholder, error = "" }: Props) => {
         <SelectContent>
           {arr.map((choice) => (
             <SelectItem
-              key={choice}
+              key={choice.id}
               className="hover:bg-[#2E70FE]"
-              value={choice}
+              value={choice?.id?.toString()}
             >
-              {choice}
+              {choice.content}
             </SelectItem>
           ))}
         </SelectContent>

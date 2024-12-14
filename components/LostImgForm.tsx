@@ -6,9 +6,29 @@ import { handleLostImg } from "@/actions/actions";
 import { useFormState } from "react-dom";
 import CustomSelect from "./CustomSelect";
 import ReuseableButton from "./ReuseableButton";
+import { useEffect, useState } from "react";
+import { getLoginAnswers } from "@/helpers/loginAnswers";
 
 const LostImgForm = () => {
   const [errorMessage, dispatch] = useFormState(handleLostImg, undefined);
+  const [answersArr, setAnswersArr] = useState<
+    { id: number; content: string }[] | never
+  >([]);
+
+  useEffect(() => {
+    async function fetchLoginAnswers() {
+      console.log(await getLoginAnswers());
+      const data: Array<{ id: number; content: string }> =
+        await getLoginAnswers();
+      console.log(data);
+
+      if (data && data.length > 0) {
+        setAnswersArr(data);
+      }
+    }
+
+    fetchLoginAnswers();
+  }, []);
 
   return (
     <form action={dispatch}>
@@ -28,7 +48,7 @@ const LostImgForm = () => {
         <CustomSelect
           name="question"
           placeholder="what is your favourite drink ?"
-          arr={["a", "b", "c"]}
+          arr={answersArr}
           error={
             errorMessage === "you must answer the question" ? errorMessage : ""
           }

@@ -1,5 +1,7 @@
 "use server";
+import { encrypt } from "@/helpers/helpers";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -11,8 +13,6 @@ export async function handleLoginFormWithImage(
   const email = formData.get("email") as string;
   if (!emailRegex.test(email)) return "email cannot empty or wrong";
 
-  console.log(email);
-
   const inputImg = formData.get("inputImg") as File;
   if (inputImg instanceof File) {
     if (inputImg.name === "undefined") return "file is not found";
@@ -21,15 +21,59 @@ export async function handleLoginFormWithImage(
   if (inputImg instanceof File) {
     console.log(inputImg.name);
   }
+  const remember = formData.get("remember") as string;
+  const options = {
+    method: "POST",
+
+    body: formData,
+  };
+  //send request
+  try {
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign/in`,
+      options
+    );
+    const data = await req.json();
+    console.log(data.status);
+    if (data.status === 200) {
+      const { name, email, type, is_verified: isVerified, token } = data.data;
+      //session token
+      const session = token;
+      //sessionData
+      const sessionData = { name, email, type, isVerified };
+      //encrypt session data
+      const encryptedSessionData = await encrypt(sessionData);
+      //session length
+      let expires: Date;
+      if (typeof remember === "string") {
+        expires = new Date(Date.now() + 60 * 60 * 1000);
+      } else {
+        expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      }
+      //set cookies for session token
+      cookies().set("session", session, { expires, httpOnly: true });
+      //set cookies for session data
+      cookies().set("sessionData", encryptedSessionData, {
+        expires,
+        httpOnly: true,
+      });
+    } else {
+      throw new Error("email cannot empty or wrong");
+    }
+  } catch (error: any) {
+    console.log(error?.message);
+    return error?.message;
+  }
 
   revalidatePath("/");
 
-  redirect("/");
+  redirect("/dashboard");
 }
 export async function handleLoginFormWithPass(
   _currentState: unknown,
   formData: FormData
 ) {
+  //fetch data
   const email = formData.get("email") as string;
   if (!emailRegex.test(email)) return "email cannot empty or wrong";
 
@@ -37,12 +81,51 @@ export async function handleLoginFormWithPass(
   if (password.length === 0) return "password cannot be empty";
 
   const remember = formData.get("remember") as string;
-  console.log(email);
-  console.log(password);
-  console.log(remember);
-  revalidatePath("/");
 
-  redirect("/");
+  const options = {
+    method: "POST",
+
+    body: formData,
+  };
+  //send request
+  try {
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign/in`,
+      options
+    );
+    const data = await req.json();
+    if (data.status === 200) {
+      const { name, email, type, is_verified: isVerified, token } = data.data;
+      //session token
+      const session = token;
+      //sessionData
+      const sessionData = { name, email, type, isVerified };
+      //encrypt session data
+      const encryptedSessionData = await encrypt(sessionData);
+      //session length
+      let expires: Date;
+      if (typeof remember === "string") {
+        expires = new Date(Date.now() + 60 * 60 * 1000);
+      } else {
+        expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      }
+      //set cookies for session token
+      cookies().set("session", session, { expires, httpOnly: true });
+      //set cookies for session data
+      cookies().set("sessionData", encryptedSessionData, {
+        expires,
+        httpOnly: true,
+      });
+    } else {
+      throw new Error("email cannot empty or wrong");
+    }
+  } catch (error: any) {
+    console.log(error?.message);
+    return error?.message;
+  }
+
+  revalidatePath("/");
+  redirect("/dashboard");
 }
 export async function handleLostImg(
   _currentState: unknown,
@@ -52,24 +135,27 @@ export async function handleLostImg(
   if (!emailRegex.test(email)) return "email cannot empty or wrong";
 
   const question = formData.get("question") as string;
-  console.log(question);
-  console.log(typeof question);
+
   if (question === "") return "you must answer the question";
 
   console.log(email);
   console.log(question);
+  const expires = new Date(Date.now() + 5 * 60 * 1000);
+  if (email && question)
+    cookies().set("intermidate-session", "anas", { expires, httpOnly: true });
   revalidatePath("/");
-
-  redirect("/");
+  if (cookies().get("intermidate-session")) {
+    redirect(`/login/${email}`);
+  }
 }
 export async function handleSignupForm(
   _currentState: unknown,
   formData: FormData
 ) {
-  const choice = formData.get("favorite-drink") as string;
-  console.log(typeof choice);
-  console.log(choice.length);
-  console.log(typeof choice.length);
+  const drink = formData.get("favorite-drink") as string;
+  const type = formData.get("account-type") as string;
+  console.log(drink);
+  console.log(type);
 
   const fields = [
     {
@@ -110,7 +196,7 @@ export async function handleSignupForm(
       error: "Please confirm your password",
     },
     {
-      name: "Account-type",
+      name: "account-type",
       validate: (value: string) => value.trim().length > 0,
       error: "Account type is required",
     },

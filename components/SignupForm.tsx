@@ -9,10 +9,30 @@ import CustomSelect from "./CustomSelect";
 import ReuseableButton from "./ReuseableButton";
 import { useFormState } from "react-dom";
 import { handleSignupForm } from "@/actions/actions";
+import { useEffect, useState } from "react";
+import { getLoginAnswers } from "@/helpers/loginAnswers";
 
 const SignupForm = () => {
+  const [answersArr, setAnswersArr] = useState<
+    { id: number; content: string }[] | never
+  >([]);
   const [errorMessage, dispatch] = useFormState(handleSignupForm, undefined);
   console.log(errorMessage);
+
+  useEffect(() => {
+    async function fetchLoginAnswers() {
+      console.log(await getLoginAnswers());
+      const data: Array<{ id: number; content: string }> =
+        await getLoginAnswers();
+      console.log(data);
+
+      if (data && data.length > 0) {
+        setAnswersArr(data);
+      }
+    }
+
+    fetchLoginAnswers();
+  }, []);
 
   return (
     <form
@@ -64,7 +84,7 @@ const SignupForm = () => {
         <CustomSelect
           name="favorite-drink"
           placeholder="What's your favorite drink ?"
-          arr={["5arbosh shay", "Mango", "Coffee", "Sahlb", "Farawla"]}
+          arr={answersArr}
           error={errorMessage === "Question is required" ? errorMessage : ""}
         />
       </div>
@@ -93,9 +113,13 @@ const SignupForm = () => {
           Account Type
         </LoginInpLabel>
         <CustomSelect
-          name="Account-type"
+          name="account-type"
           placeholder="Please Select:"
-          arr={["Restaurant", "Supermarket", "Householder"]}
+          arr={[
+            { id: "user", content: "user" },
+            { id: "restaurant", content: "restaurant" },
+            { id: "super_market", content: "super_market" },
+          ]}
           error={
             errorMessage === "Account type is required" ? errorMessage : ""
           }

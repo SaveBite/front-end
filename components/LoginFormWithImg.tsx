@@ -49,7 +49,7 @@ const LoginFormWithImg = ({ switchToLost }: Props) => {
 
           <UploadInput
             id="img"
-            name="inputImg"
+            name="image"
             error={errorMessage === "file is not found" ? errorMessage : ""}
           />
         </div>
