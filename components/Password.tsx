@@ -31,7 +31,9 @@ const Password = ({ id, error = "" }: Props) => {
           }}
         >
           <Image
-            src="/togglePassword.svg"
+            src={`${
+              visibility === "text" ? "/togglePassword.svg" : "/eye.svg"
+            }`}
             alt="togglePassword"
             width={35}
             height={35}

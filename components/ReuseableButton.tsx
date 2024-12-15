@@ -24,7 +24,7 @@ const ReuseableButton = ({ type = "primary", onclick, children }: Props) => {
 
       `}
     >
-      {pending ? "wait..." : children}
+      {pending ? <div className="spinner animate-spin"></div> : children}
     </Button>
   );
 };

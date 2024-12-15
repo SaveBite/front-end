@@ -7,15 +7,23 @@ import Password from "./Password";
 import { handleLoginFormWithPass } from "@/actions/actions";
 import { useFormState } from "react-dom";
 import ReuseableButton from "./ReuseableButton";
+import { useNoUser } from "@/contexts/NoUserContext";
+import { useEffect } from "react";
 interface Props {
   switchToLost: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const LoginFormWithPass = ({ switchToLost }: Props) => {
+  const { setVisible } = useNoUser()!;
+
   const [errorMessage, dispatch] = useFormState(
     handleLoginFormWithPass,
     undefined
   );
+  useEffect(() => {
+    if (errorMessage === "email cannot empty or wrong") setVisible(true);
+    else setVisible(false);
+  }, [errorMessage, setVisible]);
 
   function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();

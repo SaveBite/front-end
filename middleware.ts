@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
+// import { updateCurrentUser } from "./helpers/helpers";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
+  // await updateCurrentUser();
   //get pathname
   const pathname = request.nextUrl.pathname;
 
@@ -10,7 +12,7 @@ export function middleware(request: NextRequest) {
   const otpIsOpened = request.cookies.get("intermidate-session");
 
   //protectedRoutes
-  const protectedRoutes = ["/dashboard"];
+  const protectedRoutes = ["/dashboard", "/settings-board"];
 
   //auth routes
   const authRoutes = ["/signup", "/login"];
@@ -22,21 +24,41 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
-  //is otp route ?
+  //is otp route in login ?
   const isDynamicLoginRoute =
     pathname.startsWith("/login/") && pathname !== "/login/";
+  //is otp route in login ?
+  const isDynamicSignupRoute =
+    pathname.startsWith("/signup/") && pathname !== "/signup/";
 
   if (isAuthUser && isAuthRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-  } else if (!isAuthUser && isAuthRoute && !isDynamicLoginRoute) {
-    return NextResponse.next();
-  } else if (!isAuthUser && isAuthRoute && isDynamicLoginRoute) {
-    if (otpIsOpened) {
+  }
+  if (pathname.startsWith("/login")) {
+    if (!isAuthUser && isAuthRoute && !isDynamicLoginRoute) {
       return NextResponse.next();
-    } else {
-      return NextResponse.redirect(new URL("/login", request.url));
     }
-  } else if (isAuthUser && isProtectedRoute) {
+    if (!isAuthUser && isAuthRoute && isDynamicLoginRoute) {
+      if (otpIsOpened) {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    }
+  }
+  if (pathname.startsWith("/signup")) {
+    if (!isAuthUser && isAuthRoute && !isDynamicSignupRoute) {
+      return NextResponse.next();
+    }
+    if (!isAuthUser && isAuthRoute && isDynamicSignupRoute) {
+      if (otpIsOpened) {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    }
+  }
+  if (isAuthUser && isProtectedRoute) {
     return NextResponse.next();
   } else if (!isAuthUser && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", request.url));

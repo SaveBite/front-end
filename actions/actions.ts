@@ -34,8 +34,7 @@ export async function handleLoginFormWithImage(
       options
     );
     const data = await req.json();
-    console.log(data.status);
-    if (data.status === 200) {
+    if (data.status === 200 && data.message === "Successfully authenticated.") {
       const { name, email, type, is_verified: isVerified, token } = data.data;
       //session token
       const session = token;
@@ -46,9 +45,9 @@ export async function handleLoginFormWithImage(
       //session length
       let expires: Date;
       if (typeof remember === "string") {
-        expires = new Date(Date.now() + 60 * 60 * 1000);
-      } else {
         expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      } else {
+        expires = new Date(Date.now() + 60 * 60 * 1000);
       }
       //set cookies for session token
       cookies().set("session", session, { expires, httpOnly: true });
@@ -94,7 +93,7 @@ export async function handleLoginFormWithPass(
       options
     );
     const data = await req.json();
-    if (data.status === 200) {
+    if (data.status === 200 && data.message === "Successfully authenticated.") {
       const { name, email, type, is_verified: isVerified, token } = data.data;
       //session token
       const session = token;

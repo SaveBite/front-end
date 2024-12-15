@@ -118,6 +118,13 @@ body {
     font-size: 11px;
     font-weight: 500;
   }
+  .spinner {
+    width: 20px; /* Adjust size */
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid white;
+    border-radius: 50%;
+  }
 }
 
 @layer base {

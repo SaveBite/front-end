@@ -1,7 +1,4 @@
-import NavBar from "@/components/NavBar";
-import SignupForm from "@/components/SignupForm";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "save bite | Signup",
@@ -13,22 +10,5 @@ export default function authLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className={` min-h-screen`}>
-      <NavBar />
-      <div className="mx-auto text-center font-medium">
-        <p className="pt-[40px] pb-[16px] text-[28px]">
-          Create a Savebite account
-        </p>
-        <p className="text-[19px]">
-          Already have an account?
-          <Link href={"/login"} className="pl-[8px] text-primary-500">
-            Login
-          </Link>
-        </p>
-      </div>
-      
-      {children}
-    </div>
-  );
+  return <div className={` min-h-screen`}>{children}</div>;
 }

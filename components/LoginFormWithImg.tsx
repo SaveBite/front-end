@@ -23,6 +23,7 @@ const LoginFormWithImg = ({ switchToLost }: Props) => {
 
   useEffect(() => {
     if (errorMessage === "email cannot empty or wrong") setVisible(true);
+    else setVisible(false);
   }, [errorMessage, setVisible]);
 
   function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
