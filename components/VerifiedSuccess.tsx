@@ -1,4 +1,5 @@
 "use client";
+import { useLoginForm } from "@/contexts/LoginFormContext";
 import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -8,9 +9,11 @@ interface Props {
   email: string;
 }
 const VerifiedSuccess = ({ email }: Props) => {
+  const { setSelectedForm } = useLoginForm()!;
   const router = useRouter();
   const { setOTPVerified } = useVerifyOTP()!;
   function handleOnCLick() {
+    setSelectedForm(1);
     router.push("/login");
     setTimeout(() => setOTPVerified(false), 1000);
   }
