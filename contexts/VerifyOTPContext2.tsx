@@ -23,10 +23,11 @@ interface VerifyOTPContextProps {
 const VerifyOTPContext = createContext<VerifyOTPContextProps | null>(null);
 
 //createProvider
-function VerifyOTPProvider({ children }: VerifyOTPProviderProps) {
+function VerifyOTPProvider2({ children }: VerifyOTPProviderProps) {
   const [OTPVerified, setOTPVerified] = useState(false); // flag for meet the condition
   const [otpCode, setOTPCode] = useState(" "); // value of the otp
   const [error, setError] = useState(false); // flag for the error state
+
   return (
     <VerifyOTPContext.Provider
       value={{
@@ -44,11 +45,11 @@ function VerifyOTPProvider({ children }: VerifyOTPProviderProps) {
 }
 //consume provider
 
-function useVerifyOTP() {
+function useVerifyOTP2() {
   const context = useContext(VerifyOTPContext);
   if (context === undefined)
     throw new Error("useVerifyOTP is used outside the context");
   return context;
 }
 
-export { VerifyOTPProvider, useVerifyOTP };
+export { VerifyOTPProvider2, useVerifyOTP2 };

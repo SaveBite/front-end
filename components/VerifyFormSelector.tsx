@@ -2,14 +2,22 @@
 import { encodeEmail } from "@/lib/utils";
 import React from "react";
 import Otp from "./Otp";
-import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import VerifiedSuccess from "./VerifiedSuccess";
 interface Props {
   email: string;
+  OTPVerified: boolean;
+  handleOTP: () => void;
+  setOTPCode: React.Dispatch<React.SetStateAction<string>>;
+  error: boolean;
 }
-const VerifyFormSelector = ({ email }: Props) => {
+const VerifyFormSelector = ({
+  email,
+  OTPVerified,
+  handleOTP,
+  setOTPCode,
+  error,
+}: Props) => {
   const codedEmail = encodeEmail(email);
-  const { OTPVerified, setOTPVerified } = useVerifyOTP()!;
 
   return (
     <div>
@@ -25,7 +33,7 @@ const VerifyFormSelector = ({ email }: Props) => {
               </p>
             </div>
 
-            <Otp setOTPVerified={setOTPVerified} />
+            <Otp setOTPCode={setOTPCode} handleOTP={handleOTP} error={error} />
           </div>
         </div>
       ) : (

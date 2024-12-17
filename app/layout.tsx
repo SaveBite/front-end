@@ -4,6 +4,7 @@ import { Noto_Sans } from "next/font/google";
 import { NoUserProvider } from "@/contexts/NoUserContext";
 import { LoginFormProvider } from "@/contexts/LoginFormContext";
 import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
+import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
@@ -22,19 +23,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <VerifyOTPProvider>
-      <LoginFormProvider>
-        <NoUserProvider>
-          <html lang="en" className={notoSans.className}>
-            <body
-              className={`antialiased min-h-screen`}
-              suppressHydrationWarning={true}
-            >
-              {children}
-            </body>
-          </html>
-        </NoUserProvider>
-      </LoginFormProvider>
-    </VerifyOTPProvider>
+    <VerifyOTPProvider2>
+      <VerifyOTPProvider>
+        <LoginFormProvider>
+          <NoUserProvider>
+            <html lang="en" className={notoSans.className}>
+              <body
+                className={`antialiased min-h-screen`}
+                suppressHydrationWarning={true}
+              >
+                {children}
+              </body>
+            </html>
+          </NoUserProvider>
+        </LoginFormProvider>
+      </VerifyOTPProvider>
+    </VerifyOTPProvider2>
   );
 }

@@ -1,24 +1,18 @@
 "use client";
-import { useState } from "react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import ReuseableButton from "./ReuseableButton";
 interface Props {
-  setOTPVerified: React.Dispatch<React.SetStateAction<boolean>>;
+  handleOTP: () => void;
+  setOTPCode: React.Dispatch<React.SetStateAction<string>>;
+  error: boolean;
 }
-const Otp = ({ setOTPVerified }: Props) => {
-  const [otpCode, setOtpCode] = useState("");
-  const [error, setError] = useState(false);
+const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
   function handleOnChange(v: string) {
     if (v.length < 4) return;
-    if (v.length === 4) setOtpCode(v);
+    if (v.length === 4) setOTPCode(v);
   }
   function handleOnClick() {
-    if (otpCode.length === 4) {
-      setOTPVerified(true);
-      setError(false);
-    } else {
-      setError(true);
-    }
+    handleOTP();
   }
   return (
     <div>
