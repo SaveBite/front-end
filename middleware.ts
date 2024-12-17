@@ -1,8 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-// import { updateCurrentUser } from "./helpers/helpers";
+import { updateCurrentUser } from "./helpers/helpers";
 
 export async function middleware(request: NextRequest) {
-  // await updateCurrentUser();
+  const res = await updateCurrentUser();
+  // const res = NextResponse.next();
   //get pathname
   const pathname = request.nextUrl.pathname;
 
@@ -36,11 +37,11 @@ export async function middleware(request: NextRequest) {
   }
   if (pathname.startsWith("/login")) {
     if (!isAuthUser && isAuthRoute && !isDynamicLoginRoute) {
-      return NextResponse.next();
+      return res;
     }
     if (!isAuthUser && isAuthRoute && isDynamicLoginRoute) {
       if (otpIsOpened) {
-        return NextResponse.next();
+        return res;
       } else {
         return NextResponse.redirect(new URL("/login", request.url));
       }
@@ -48,22 +49,22 @@ export async function middleware(request: NextRequest) {
   }
   if (pathname.startsWith("/signup")) {
     if (!isAuthUser && isAuthRoute && !isDynamicSignupRoute) {
-      return NextResponse.next();
+      return res;
     }
     if (!isAuthUser && isAuthRoute && isDynamicSignupRoute) {
       if (otpIsOpened) {
-        return NextResponse.next();
+        return res;
       } else {
         return NextResponse.redirect(new URL("/login", request.url));
       }
     }
   }
   if (isAuthUser && isProtectedRoute) {
-    return NextResponse.next();
+    return res;
   } else if (!isAuthUser && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  return NextResponse.next();
+  return res;
 }
 
 export const config = {

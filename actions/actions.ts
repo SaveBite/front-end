@@ -1,5 +1,6 @@
 "use server";
 import { encrypt } from "@/helpers/helpers";
+import exp from "constants";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -36,12 +37,6 @@ export async function handleLoginFormWithImage(
     const data = await req.json();
     if (data.status === 200 && data.message === "Successfully authenticated.") {
       const { name, email, type, is_verified: isVerified, token } = data.data;
-      //session token
-      const session = token;
-      //sessionData
-      const sessionData = { name, email, type, isVerified };
-      //encrypt session data
-      const encryptedSessionData = await encrypt(sessionData);
       //session length
       let expires: Date;
       if (typeof remember === "string") {
@@ -49,8 +44,20 @@ export async function handleLoginFormWithImage(
       } else {
         expires = new Date(Date.now() + 60 * 60 * 1000);
       }
+      //session token
+      const session = { token, expires };
+      //sessionData
+      const sessionData = { name, email, type, isVerified, expires };
+      //encrypt session
+      const encryptedSession = await encrypt(session);
+      //encrypt session data
+      const encryptedSessionData = await encrypt(sessionData);
+
       //set cookies for session token
-      cookies().set("session", session, { expires, httpOnly: true });
+      cookies().set("session", encryptedSession, {
+        expires,
+        httpOnly: true,
+      });
       //set cookies for session data
       cookies().set("sessionData", encryptedSessionData, {
         expires,
@@ -79,7 +86,7 @@ export async function handleLoginFormWithPass(
   const password = formData.get("password") as string;
   if (password.length === 0) return "password cannot be empty";
 
-  const remember = formData.get("remember") as string;
+  const remember = formData.get("remember");
 
   const options = {
     method: "POST",
@@ -95,21 +102,27 @@ export async function handleLoginFormWithPass(
     const data = await req.json();
     if (data.status === 200 && data.message === "Successfully authenticated.") {
       const { name, email, type, is_verified: isVerified, token } = data.data;
-      //session token
-      const session = token;
-      //sessionData
-      const sessionData = { name, email, type, isVerified };
-      //encrypt session data
-      const encryptedSessionData = await encrypt(sessionData);
-      //session length
+
       let expires: Date;
       if (typeof remember === "string") {
-        expires = new Date(Date.now() + 60 * 60 * 1000);
-      } else {
         expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      } else {
+        expires = new Date(Date.now() + 60 * 60 * 1000);
       }
+      //session token
+      const session = { token, expires };
+      //sessionData
+      const sessionData = { name, email, type, isVerified, expires };
+      //encrypt session
+      const encryptedSession = await encrypt(session);
+      //encrypt session data
+      const encryptedSessionData = await encrypt(sessionData);
+
       //set cookies for session token
-      cookies().set("session", session, { expires, httpOnly: true });
+      cookies().set("session", encryptedSession, {
+        expires,
+        httpOnly: true,
+      });
       //set cookies for session data
       cookies().set("sessionData", encryptedSessionData, {
         expires,

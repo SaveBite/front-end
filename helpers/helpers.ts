@@ -21,7 +21,7 @@ export async function currentUser() {
   //   const session = cookies().get("session")?.value;
   //   if (!session) return null;
   const encryptedUserData = cookies().get("sessionData")!;
-  const userData = decrypt(encryptedUserData?.value);
+  const userData = await decrypt(encryptedUserData?.value);
   return await userData;
 }
 
@@ -32,8 +32,49 @@ export async function decrypt(input: string): Promise<any> {
   return payload;
 }
 
-// export async function updateCurrentUser() {
-//   const sessionData = cookies().get("sessionData");
-//   if (sessionData) const decrypted = await decrypt(sessionData.value);
-//   console.log(sessionData);
-// }
+export async function updateCurrentUser() {
+  //check if there any session and sessionData
+  const sessionFound = cookies().get("session")!;
+  const sessionDataFound = cookies().get("sessionDaat")!;
+  if (!sessionFound && !sessionDataFound) return;
+  // get encryptedSession
+  const encryptedSession = cookies().get("session")!.value;
+  const encryptedSessionData = cookies().get("sessionData")!.value;
+  //decryptSession
+  const decryptedSession = await decrypt(encryptedSession);
+  const decryptedSessionData = await decrypt(encryptedSessionData);
+  // logging
+  // console.log(decryptedSession);
+  // console.log(decryptedSessionData);
+  //create new response
+  const res = NextResponse.next();
+  //mutate the expires
+  if (!decryptedSession && !decryptedSessionData) return;
+  console.log(decryptedSession.expires);
+  const newDate = new Date(
+    new Date(decryptedSession.expires).getTime() + 15 * 60 * 1000
+  );
+  console.log("new date is -> " + newDate);
+  decryptedSession.expires = newDate;
+  decryptedSessionData.expires = newDate;
+  // push the new changes
+  const newSessionValue = await encrypt(decryptedSession);
+  const newSessionDataValue = await encrypt(decryptedSessionData);
+
+  // console.log(newSessionValue);
+  // console.log(newSessionDataValue);
+  res.cookies.set({
+    name: "session",
+    value: newSessionValue,
+    expires: newDate,
+    httpOnly: true,
+  });
+  res.cookies.set({
+    name: "sessionData",
+    value: newSessionDataValue,
+    expires: newDate,
+    httpOnly: true,
+  });
+
+  return res;
+}
