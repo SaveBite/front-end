@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 
 const UserNotFound = () => {
+  // normal ui flag/set flag from a context to show the message if the user is not found
   const { visible, setVisible } = useNoUser()!;
   return (
     <>

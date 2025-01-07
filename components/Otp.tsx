@@ -7,10 +7,13 @@ interface Props {
   error: boolean;
 }
 const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
+  // this is a normal function on changing the otp code
   function handleOnChange(v: string) {
     if (v.length < 4) return;
     if (v.length === 4) setOTPCode(v);
   }
+  /* this is the click handler and i put the passed handler inside it because i
+   do not now if i need more logic here so let it as it is*/
   function handleOnClick() {
     handleOTP();
   }

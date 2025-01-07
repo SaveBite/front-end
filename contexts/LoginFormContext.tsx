@@ -20,6 +20,9 @@ const LoginFormContext = createContext<LoginFormContextProps | null>(null);
 
 //create Provider
 function LoginFormProvider({ children }: LoginFormProviderProps) {
+  //1-> login with image
+  //2->login with password
+  //3->lost img form
   const [selectedForm, setSelectedForm] = useState(1);
 
   return (
