@@ -1,6 +1,7 @@
 "use server";
 import { encrypt } from "@/helpers/helpers";
 import exp from "constants";
+import { METHODS } from "http";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -219,22 +220,38 @@ export async function handleSignupForm(
     if (!field.validate(value)) {
       return field.error;
     }
-    const image = formData.get("image") as File;
-    if (image instanceof File) {
-      if (image.name === "undefined") return "File is not found";
-    }
-
-    if (image instanceof File) {
-      console.log(image.name);
-    }
   }
-  // const password = formData.get("password") as string;
-  // const confirmPassword = formData.get("confirm-password") as string;
-  // if (password !== confirmPassword) {
-  //   console.log("oo");
-  //   return "Passwords do not match";
-  // }
+  const image = formData.get("image") as File;
+  if (image instanceof File) {
+    if (image.name === "undefined") return "File is not found";
+  }
 
-  revalidatePath("/");
-  redirect("/");
+  if (image instanceof File) {
+    console.log(image.name);
+  }
+  const options ={
+    mehtod : "POST",
+    body: formData,
+  }
+  // send request
+  try {
+    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign/up` , options)
+    const data = await req.json();
+    if(data.status === 200 && data.message === "User regidtered successfully."){
+      const {username , email , type , Phone_Number , drink , password ,is_verified: isVerified, token} = data.data;
+      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      const session = { token, expires };
+      const sessionData = {username , email , type , Phone_Number , drink , password ,is_verified: isVerified, token};
+      const encryptedSession = await encrypt(session);
+      const encryptedSessionData = await encrypt(sessionData);
+      cookies().set("session", encryptedSession, { expires, httpOnly: true });
+      cookies().set("sessionData", encryptedSessionData, { expires, httpOnly: true });
+      revalidatePath("/");
+      redirect("/dashboard");
+    } else {
+      throw new Error(data.message || "Signup failed");
+    }}catch (error: any) {
+      console.error("Signup error:", error.message);
+      return error.message;
+    }
 }
