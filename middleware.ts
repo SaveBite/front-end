@@ -4,7 +4,7 @@ import { updateCurrentUser } from "./helpers/helpers";
 export async function middleware(request: NextRequest) {
   const res = await updateCurrentUser();
   // const res = NextResponse.next();
-  //get pathname
+  //get pathname//
   const pathname = request.nextUrl.pathname;
 
   //if there any authenticated user ?
