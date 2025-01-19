@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Noto_Sans } from "next/font/google";
-import { NoUserProvider } from "@/contexts/NoUserContext";
-import { LoginFormProvider } from "@/contexts/LoginFormContext";
 import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
 import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 
@@ -25,18 +23,14 @@ export default function RootLayout({
   return (
     <VerifyOTPProvider2>
       <VerifyOTPProvider>
-        <LoginFormProvider>
-          <NoUserProvider>
-            <html lang="en" className={notoSans.className}>
-              <body
-                className={`antialiased min-h-screen`}
-                suppressHydrationWarning={true}
-              >
-                {children}
-              </body>
-            </html>
-          </NoUserProvider>
-        </LoginFormProvider>
+        <html lang="en" className={notoSans.className}>
+          <body
+            className={`antialiased min-h-screen`}
+            suppressHydrationWarning={true}
+          >
+            {children}
+          </body>
+        </html>
       </VerifyOTPProvider>
     </VerifyOTPProvider2>
   );

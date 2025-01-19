@@ -16,7 +16,13 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = ["/dashboard", "/settings-board"];
 
   //auth routes
-  const authRoutes = ["/signup", "/login"];
+  const authRoutes = [
+    "/signup",
+    "/login",
+    "/login/with-img",
+    "/login/with-password",
+    "/login/recover-img",
+  ];
 
   // is auth Route ?
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
@@ -25,9 +31,10 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
-  //is otp route in login ?
-  const isDynamicLoginRoute =
-    pathname.startsWith("/login/") && pathname !== "/login/";
+  //the user is trying to get /login but not /login/with-img for exmaple it must return false
+  const loginWaySelected =
+    pathname.startsWith("/login") && pathname !== "/login";
+
   //is otp route in login ?
   const isDynamicSignupRoute =
     pathname.startsWith("/signup/") && pathname !== "/signup/";
@@ -35,18 +42,25 @@ export async function middleware(request: NextRequest) {
   if (isAuthUser && isAuthRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // if the logit way is not specified go to /login/with-img
   if (pathname.startsWith("/login")) {
-    if (!isAuthUser && isAuthRoute && !isDynamicLoginRoute) {
-      return res;
+    if (!isAuthUser && isAuthRoute && !loginWaySelected) {
+      return NextResponse.redirect(new URL("/login/with-img", request.url));
     }
-    if (!isAuthUser && isAuthRoute && isDynamicLoginRoute) {
-      if (otpIsOpened) {
-        return res;
-      } else {
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
+
+    if (!isAuthUser && isAuthRoute && loginWaySelected) {
+      return res;
+
+      // if (otpIsOpened) {
+      //   return res;
+      // } else {
+      //   return NextResponse.redirect(new URL("/login", request.url));
+      // }
     }
   }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (pathname.startsWith("/signup")) {
     if (!isAuthUser && isAuthRoute && !isDynamicSignupRoute) {
       return res;

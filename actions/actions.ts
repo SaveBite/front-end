@@ -1,6 +1,5 @@
 "use server";
 import { encrypt } from "@/helpers/helpers";
-import exp from "constants";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -12,15 +11,15 @@ export async function handleLoginFormWithImage(
   formData: FormData
 ) {
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return "email cannot be empty or wrong";
 
-  const inputImg = formData.get("inputImg") as File;
+  const inputImg = formData.get("image") as File;
+
   if (inputImg instanceof File) {
     if (inputImg.name === "undefined") return "file is not found";
   }
-
-  if (inputImg instanceof File) {
-    console.log(inputImg.name);
+  if (!(inputImg instanceof File)) {
+    return "file is not found";
   }
   const remember = formData.get("remember") as string;
   const options = {
@@ -64,7 +63,7 @@ export async function handleLoginFormWithImage(
         httpOnly: true,
       });
     } else {
-      throw new Error("email cannot empty or wrong");
+      throw new Error("something went wrong");
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -81,7 +80,7 @@ export async function handleLoginFormWithPass(
 ) {
   //fetch data
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return "email cannot be empty or wrong";
 
   const password = formData.get("password") as string;
   if (password.length === 0) return "password cannot be empty";
@@ -129,7 +128,7 @@ export async function handleLoginFormWithPass(
         httpOnly: true,
       });
     } else {
-      throw new Error("email cannot empty or wrong");
+      throw new Error("email cannot be empty or wrong");
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -144,7 +143,7 @@ export async function handleLostImg(
   formData: FormData
 ) {
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return "email cannot be empty or wrong";
 
   const question = formData.get("question") as string;
 
