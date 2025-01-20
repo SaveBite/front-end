@@ -42,7 +42,7 @@ const LoginFormWithPass = () => {
               id="email"
               error={
                 errorMessage === "email cannot be empty or wrong"
-                  ? errorMessage
+                  ? "email cannot be empty or wrong"
                   : ""
               }
             />
@@ -90,7 +90,7 @@ const LoginFormWithPass = () => {
           </Link>
         </p>
       </div>
-      <div>
+      <div className="absolute bottom-[10px] right-[10px]">
         <UserNotFound flag={errorMessage} />
       </div>
     </>

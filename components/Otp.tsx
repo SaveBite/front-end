@@ -7,20 +7,10 @@ interface Props {
   error: boolean;
 }
 const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
-  // this is a normal function on changing the otp code
-  function handleOnChange(v: string) {
-    if (v.length < 4) return;
-    if (v.length === 4) setOTPCode(v);
-  }
-  /* this is the click handler and i put the passed handler inside it because i
-   do not now if i need more logic here so let it as it is*/
-  function handleOnClick() {
-    handleOTP();
-  }
   return (
     <div>
       <div className="w-fit mx-auto">
-        <InputOTP maxLength={6} onChange={(e) => handleOnChange(e)}>
+        <InputOTP maxLength={6} onChange={(e) => setOTPCode(e)}>
           <InputOTPGroup>
             <InputOTPSlot
               index={0}
@@ -58,7 +48,7 @@ const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
         </InputOTP>
       </div>
       <div className="pt-[40px]">
-        <ReuseableButton onclick={handleOnClick}>Verify</ReuseableButton>
+        <ReuseableButton onclick={handleOTP}>Verify</ReuseableButton>
 
         <div className="flex flex-col gap-[8px] text-center mt-[80px]">
           <p>Did&apos;nt get the code ? </p>

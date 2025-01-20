@@ -1,25 +1,29 @@
 "use client";
-// import { useLoginForm } from "@/contexts/LoginFormContext";
-import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
-interface Props {
-  email: string;
-}
-const VerifiedSuccess = ({ email }: Props) => {
-  // const { setSelectedForm } = useLoginForm()!;
+function Page() {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const router = useRouter();
-  const { setOTPVerified } = useVerifyOTP()!;
-  function handleOnCLick() {
-    // setSelectedForm(1);
-    router.push("/login");
-    setTimeout(() => setOTPVerified(false), 1000);
+  const params = useSearchParams();
+
+  const email = params.get("email");
+
+  // protect the page from random access -> .../verify?email=anything
+  if (!emailRegex.test(email!)) {
+    redirect("/login");
   }
+
+  function handleOnClick() {
+    router.push("/");
+  }
+
   return (
-    <div className="absolute -top-72 w-full">
-      <div className="w-fit mx-auto">
+    <div className="flex-1 relative">
+      <div className="w-fit lg:w-[500px] absolute top-[40%] -translate-y-1/2 left-1/2 -translate-x-1/2">
+        <div className="sm:hidden w-fit mx-auto mb-[20px]">
+          <Image src="/SaveBite.svg" width={330} height={120} alt="saveBite" />
+        </div>
         <Image
           src="/verified.svg"
           alt="verified"
@@ -31,7 +35,7 @@ const VerifiedSuccess = ({ email }: Props) => {
           Check your email
         </p>
 
-        <div className="mt-[20px] w-[300px] lg:w-[400px] text-center text-[19px] font-[500]">
+        <div className="mx-auto mt-[20px] w-[300px] lg:w-[400px] text-center text-[19px] font-[500]">
           <span className="text-black-400">
             We have sent an email to{" "}
             <span className="text-black-900">{email}</span> with your image, So
@@ -40,7 +44,7 @@ const VerifiedSuccess = ({ email }: Props) => {
           <span className="block"></span>
           <button
             className="mt-[10px] text-primary-500 relative after:content-[''] after:w-full after:h-[1px] after:bg-primary-500 after:absolute after:left-0 after:bottom-[3px]"
-            onClick={handleOnCLick}
+            onClick={handleOnClick}
           >
             back to login
           </button>
@@ -48,6 +52,6 @@ const VerifiedSuccess = ({ email }: Props) => {
       </div>
     </div>
   );
-};
+}
 
-export default VerifiedSuccess;
+export default Page;

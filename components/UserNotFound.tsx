@@ -5,14 +5,21 @@ interface props {
   flag: string;
 }
 const UserNotFound = ({ flag }: props) => {
+  console.log(flag);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    if (flag === "email caanot be empty or wrong") {
+    if (flag?.includes("user is not found")) {
       setVisible(true);
     } else {
       setVisible(false);
     }
   }, [flag]);
+
+  // Optional: Hide the message after dismissing
+  const handleDismiss = () => {
+    setVisible(false);
+  };
+
   return (
     <>
       {visible && (
@@ -30,11 +37,7 @@ const UserNotFound = ({ flag }: props) => {
                 </p>
                 <span>the user cannot be found</span>
               </div>
-              <button
-                onClick={() => {
-                  setVisible(false);
-                }}
-              >
+              <button onClick={handleDismiss}>
                 <Image src="/x.svg" alt="not found" width={12} height={12} />
               </button>
             </div>
