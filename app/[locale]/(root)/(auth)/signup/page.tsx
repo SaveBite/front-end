@@ -3,7 +3,7 @@ import SignupForm from "@/components/SignupForm";
 import Link from "next/link";
 import React from "react";
 
-function page() {
+function Page() {
   return (
     <>
       <NavBar />
@@ -23,4 +23,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

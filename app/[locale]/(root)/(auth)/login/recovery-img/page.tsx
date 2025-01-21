@@ -1,6 +1,6 @@
 import LostImgForm from "@/components/LostImgForm";
 
-function page() {
+function Page() {
   return (
     <div className="flex-1 relative">
       <LostImgForm />
@@ -8,4 +8,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
