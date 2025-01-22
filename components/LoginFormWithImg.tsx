@@ -10,8 +10,10 @@ import ReuseableButton from "./ReuseableButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import UserNotFound from "./UserNotFound";
+import { useTranslations } from "next-intl";
 
 const LoginFormWithImg = () => {
+  const t = useTranslations("Login-with-img");
   const [errorMessage, dispatch] = useFormState(
     handleLoginFormWithImage,
     undefined
@@ -31,12 +33,12 @@ const LoginFormWithImg = () => {
     <>
       <div className="w-fit lg:w-[500px] absolute top-[50%] -translate-y-1/2 left-1/2 -translate-x-1/2">
         <span className="text-black-900 h4bold md:h3bold lg:h2bold">
-          Login to SaveBite
+          {t("loginTOSaveBite")}
         </span>
         <form action={dispatch}>
           <div className="pt-[20px]">
             <LoginInpLabel required={true} htmlFor="email">
-              Email
+              {t("email")}
             </LoginInpLabel>
             <Input
               id="email"
@@ -47,7 +49,7 @@ const LoginFormWithImg = () => {
               }
             />
             <LoginInpLabel required={true} htmlFor="img">
-              Upload your image
+              {t("uploadYourImage")}
             </LoginInpLabel>
 
             <UploadInput
@@ -62,13 +64,13 @@ const LoginFormWithImg = () => {
               onClick={recoverYourImage}
               className="font-[400] title2 relative after:content-[''] after:w-full after:h-[1px] after:bg-black-500 after:absolute after:left-0 after:bottom-[3px] "
             >
-              lost your image?
+              {t("lostYourImage?")}
             </button>
           </div>
           <div className="mt-[32px]">
             <ReuseableButton>
               <div className="flex gap-4">
-                <p>Login</p>
+                <p>{t("login")}</p>
                 <Image
                   className="fill-rose-500 text-blue"
                   src="/white_arrow.svg"
@@ -82,14 +84,14 @@ const LoginFormWithImg = () => {
               type="secondary"
               onclick={switchToLoginWithPassword}
             >
-              Login With email and password
+              {t("loginWithEmailAndPassword")}
             </ReuseableButton>
           </div>
         </form>
         <p className="text-center mt-[32px] ">
-          Do not have an account?
+          {t("doNotHaveAnAccount?")}
           <Link href="/signup" className="text-primary-500 ml-[2px]">
-            Sign up
+            {t("signUp")}
           </Link>
         </p>
       </div>

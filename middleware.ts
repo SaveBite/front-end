@@ -1,22 +1,19 @@
 import { NextResponse, NextRequest } from "next/server";
 import { updateCurrentUser } from "./helpers/helpers";
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
-
-export default createMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
   const res = await updateCurrentUser();
-
   //get pathname//
   const pathname = request.nextUrl.pathname;
 
-  //is the use authenticated
+  //if there any authenticated user ?
   const isAuthUser = request.cookies.get("session");
-  //is it allowed to go to otp ?
+  //if otp session is opened
   const otpIsOpened = request.cookies.get("intermidate-session");
+
   //protectedRoutes
   const protectedRoutes = ["/dashboard", "/settings-board"];
+
   //auth routes
   const authRoutes = [
     "/signup",
@@ -27,33 +24,51 @@ export async function middleware(request: NextRequest) {
   ];
 
   // is auth Route ?
-  const isAuthRoute = authRoutes.some((route) => pathname.includes(route));
+  const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
   // is protected Route ?
   const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.includes(route)
+    pathname.startsWith(route)
   );
   //the user is trying to get /login but not /login/with-img for exmaple it must return false
-  const loginWaySelected = pathname.includes(`/login`) && pathname !== `/login`;
+  const loginWaySelected =
+    pathname.startsWith("/login") && pathname !== "/login";
 
+  //if authenticated user go to authentication route
   if (isAuthUser && isAuthRoute) {
-    return NextResponse.redirect(new URL(`/`, request.url));
+    //create proper response with language
+    const response = NextResponse.redirect(new URL("/dashboard", request.url));
+
+    return response;
   }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // if the logit way is not specified go to /login/with-img
-  if (pathname.startsWith(`/login`)) {
+  if (pathname.startsWith("/login")) {
     if (!isAuthUser && isAuthRoute && !loginWaySelected) {
-      return NextResponse.redirect(new URL(`/login/with-img`, request.url));
+      //create proper response with language
+      const response = NextResponse.redirect(
+        new URL("/login/with-img", request.url)
+      );
+
+      return response;
     }
+
     if (!isAuthUser && isAuthRoute && loginWaySelected) {
-      return res;
+      //create proper response with language
+      const response = res;
+
+      return response;
     }
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // signup access
+  // if (otpIsOpened) {
+  //   return res;
+  // } else {
+  //   return NextResponse.redirect(new URL("/login", request.url));
+  // }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   //is otp route in login ?
   const isDynamicSignupRoute =
     pathname.startsWith("/signup/") && pathname !== "/signup/";
@@ -79,6 +94,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ["/", "/(ar|en)/:path*"],
+  matcher: "/:path*",
 };

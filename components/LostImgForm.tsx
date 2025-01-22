@@ -17,10 +17,8 @@ const LostImgForm = () => {
 
   useEffect(() => {
     async function fetchLoginAnswers() {
-      console.log(await getLoginAnswers());
       const data: Array<{ id: number; content: string }> =
         await getLoginAnswers();
-      console.log(data);
 
       if (data && data.length > 0) {
         setAnswersArr(data);

@@ -1,5 +1,17 @@
 {
-  "Index": {
-    "title": "Login to SaveBite"
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Login-with-img": {
+    "loginTOSaveBite": "Login To SaveBite",
+    "email": "email",
+    "uploadYourImage": "upload your image",
+    "rememberMe": "renenber me",
+    "lostYourImage?": "lost your image",
+    "login": "login",
+    "loginWithEmailAndPassword": "login with email and password",
+    "doNotHaveAnAccount?": "do not have an account ?",
+    "signUp": "signup"
   }
 }

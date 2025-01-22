@@ -1,5 +1,17 @@
 {
-  "Index": {
-    "title": "التسجيل إلي سايڤبايت"
+  "HomePage": {
+    "title": "اهلا بالعالم",
+    "about": "اذهب الي صفحة عنا "
+  },
+  "Login-with-img": {
+    "loginTOSaveBite": "سجل في سايفبايت",
+    "email": "إيميل",
+    "uploadYourImage": "إرفع صورتك",
+    "remember": "تذكرني",
+    "lostYourImage?": "فقدت صورتك ؟",
+    "login": "التسجيل",
+    "loginWithEmailAndPassword": "تسجيل الدخول بإيميل و كلمة سر",
+    "doNotHaveAnAccount?": "لا تمتلك حسابا؟",
+    "signUp": "إنشاء حساب "
   }
 }

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 const Page = () => {
-  const t = useTranslations("Index");
+  const t = useTranslations("HomePage");
   return (
     <div>
       <div>{t("title")}</div>

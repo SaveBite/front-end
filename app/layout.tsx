@@ -3,10 +3,10 @@ import "./globals.css";
 import { Noto_Sans } from "next/font/google";
 import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
 import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
+import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import { getMessages } from "next-intl/server";
+import { cookies } from "next/headers";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
@@ -21,29 +21,30 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
 }>) {
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
+  const locale = await getLocale();
 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
+
   return (
     <VerifyOTPProvider2>
       <VerifyOTPProvider>
-        <html lang={locale} className={notoSans.className}>
+        <html
+          dir={locale === "ar" ? "rtl" : "ltr"}
+          lang={locale}
+          className={notoSans.className}
+        >
           <body
             className={`antialiased min-h-screen`}
             suppressHydrationWarning={true}
           >
             <NextIntlClientProvider messages={messages}>
               {children}
+              <LanguageSwitcher />
             </NextIntlClientProvider>
           </body>
         </html>
