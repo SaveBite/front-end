@@ -2,10 +2,12 @@
 import Otp from "@/components/Otp";
 import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import { encodeEmail } from "@/helpers/utils";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 function Page() {
+  const t = useTranslations("verify-img");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const router = useRouter();
   const params = useSearchParams();
@@ -38,10 +40,10 @@ function Page() {
           <Image src="/SaveBite.svg" width={330} height={120} alt="saveBite" />
         </div>
         <p className="text-black-900 text-[40px] font-[600]  text-center pb-[40px]">
-          Verification!
+          {t("verification")}
         </p>
         <p className="text-black-300 font-[400] title1 text-center pb-[40px] mb-auto">
-          Enter the code sent to {encodeEmail(email!)}
+          {t("theEnteredCodeWillBeSentTo")} {encodeEmail(email!)}
         </p>
         {/* so for the otp code we need three picecs of states the setter of the value , the handler , and the error flag 
             and we pass the three of them through the component tree */}

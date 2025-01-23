@@ -8,8 +8,10 @@ import CustomSelect from "./CustomSelect";
 import ReuseableButton from "./ReuseableButton";
 import { useEffect, useState } from "react";
 import { getLoginAnswers } from "@/helpers/loginAnswers";
+import { useTranslations } from "next-intl";
 
 const LostImgForm = () => {
+  const t = useTranslations("recovery-img");
   const [errorMessage, dispatch] = useFormState(handleLostImg, undefined);
   const [answersArr, setAnswersArr] = useState<
     { id: number; content: string }[] | never
@@ -32,16 +34,14 @@ const LostImgForm = () => {
     <div className="w-fit lg:w-[500px] absolute top-[50%] -translate-y-1/2 left-1/2 -translate-x-1/2">
       <div className="flex flex-col">
         <span className="text-black-900 h4bold md:h3bold lg:h2bold">
-          Lost your Img
+          {t("lostYourImage")}
         </span>
-        <span className="text-black-300 title1">
-          A verification code will be sent to the your mail, Please check it.
-        </span>
+        <span className="text-black-300 title1">{t("sentMessage")}</span>
       </div>
       <form action={dispatch}>
         <div className="pt-[20px]">
           <LoginInpLabel required={true} htmlFor="email">
-            Email
+            {t("email")}
           </LoginInpLabel>
           <Input
             id="email"
@@ -52,7 +52,7 @@ const LostImgForm = () => {
             }
           />
           <LoginInpLabel required={true} htmlFor="question">
-            Please answer this Question
+            {t("pleaseAnswerTheQuestion")}
           </LoginInpLabel>
           <CustomSelect
             name="question"
@@ -69,7 +69,7 @@ const LostImgForm = () => {
         <div className="mt-[32px]">
           <ReuseableButton>
             <div className="flex gap-4">
-              <p>Send</p>
+              {t("send")}
               <Image
                 className="fill-rose-500 text-blue"
                 src="/white_arrow.svg"

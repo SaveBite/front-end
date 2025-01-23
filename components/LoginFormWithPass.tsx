@@ -10,6 +10,7 @@ import ReuseableButton from "./ReuseableButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import UserNotFound from "./UserNotFound";
+import { useTranslations } from "use-intl";
 
 const LoginFormWithPass = () => {
   const [errorMessage, dispatch] = useFormState(
@@ -17,6 +18,7 @@ const LoginFormWithPass = () => {
     undefined
   );
   const router = useRouter();
+  const t = useTranslations("Login-with-password");
 
   function recoverYourImage(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -31,12 +33,12 @@ const LoginFormWithPass = () => {
     <>
       <div className="w-fit lg:w-[500px] absolute top-[50%] -translate-y-1/2 left-1/2 -translate-x-1/2">
         <span className="text-black-900 h4bold md:h3bold lg:h2bold">
-          Login to SaveBite
+          {t("loginToSaveBite")}
         </span>
         <form action={dispatch}>
           <div className="pt-[20px]">
             <LoginInpLabel required={true} htmlFor="email">
-              Email
+              {t("email")}
             </LoginInpLabel>
             <Input
               id="email"
@@ -47,7 +49,7 @@ const LoginFormWithPass = () => {
               }
             />
             <LoginInpLabel required={true} htmlFor="password">
-              Password
+              {t("password")}
             </LoginInpLabel>
             <Password
               id="password"
@@ -62,13 +64,13 @@ const LoginFormWithPass = () => {
               onClick={recoverYourImage}
               className="font-[400] title2 relative after:content-[''] after:w-full after:h-[1px] after:bg-black-500 after:absolute after:left-0 after:bottom-[3px] "
             >
-              lost your image?
+              {t("lostYourImage?")}
             </button>
           </div>
           <div className="mt-[32px]">
             <ReuseableButton>
               <div className="flex gap-4">
-                <p>Login</p>
+                <p>{t("login")}</p>
                 <Image
                   className="fill-rose-500 text-blue"
                   src="/white_arrow.svg"
@@ -79,14 +81,14 @@ const LoginFormWithPass = () => {
               </div>
             </ReuseableButton>
             <ReuseableButton type="secondary" onclick={switchToLoginWithImage}>
-              Login With email and image
+              {t("loginWithEmailAndImage")}
             </ReuseableButton>
           </div>
         </form>
         <p className="text-center mt-[32px] ">
-          Do not have an account?
+          {t("doNotHaveAnAccount?")}
           <Link href="/signup" className="text-primary-500 ml-[2px]">
-            Sign up
+            {t("signUp")}
           </Link>
         </p>
       </div>

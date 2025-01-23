@@ -1,12 +1,14 @@
 "use client";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import ReuseableButton from "./ReuseableButton";
+import { useTranslations } from "next-intl";
 interface Props {
   handleOTP: () => void;
   setOTPCode: React.Dispatch<React.SetStateAction<string>>;
   error: boolean;
 }
 const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
+  const t = useTranslations("verify-img");
   return (
     <div>
       <div className="w-fit mx-auto">
@@ -51,12 +53,12 @@ const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
         <ReuseableButton onclick={handleOTP}>Verify</ReuseableButton>
 
         <div className="flex flex-col gap-[8px] text-center mt-[80px]">
-          <p>Did&apos;nt get the code ? </p>
+          <p>{t("didNotGetTheCode")}</p>
           <button
             className="text-error-500"
             onClick={() => console.log("hello world")}
           >
-            click to resend
+            {t("clickToResend")}
           </button>
         </div>
       </div>

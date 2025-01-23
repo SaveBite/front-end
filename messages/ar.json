@@ -4,7 +4,7 @@
     "about": "اذهب الي صفحة عنا "
   },
   "Login-with-img": {
-    "loginTOSaveBite": "سجل في سايفبايت",
+    "loginToSaveBite": "سجل في سايفبايت",
     "email": "إيميل",
     "uploadYourImage": "إرفع صورتك",
     "remember": "تذكرني",
@@ -13,5 +13,40 @@
     "loginWithEmailAndPassword": "تسجيل الدخول بإيميل و كلمة سر",
     "doNotHaveAnAccount?": "لا تمتلك حسابا؟",
     "signUp": "إنشاء حساب "
+  },
+  "Login-with-password": {
+    "loginToSaveBite": "سجل في سايفبايت",
+    "email": "إيميل",
+    "password": "كلمة السر",
+    "remember": "تذكرني",
+    "lostYourImage?": "فقدت صورتك ؟",
+    "login": "التسجيل",
+    "loginWithEmailAndImage": "تسجيل الدخول بإيميل و صورة",
+    "doNotHaveAnAccount?": "لا تمتلك حسابا؟",
+    "signUp": "إنشاء حساب "
+  },
+  "recovery-img": {
+    "lostYourImage": "هل فقدت صورتك ؟",
+    "sentMessage": "إن رسالة التفعيل سترسل إلي إيميل رجاءا تحقق منه",
+    "email": "إيميل",
+    "pleaseAnswerTheQuestion": "رجاءا أجب علي الأسئلة",
+    "send": "إرسال"
+  },
+  "verify-img": {
+    "verification": "التحقق !",
+    "theEnteredCodeWillBeSentTo": "الكود المدخل سوف يتم إرساله إلي",
+    "verify": "تحقق",
+    "didNotGetTheCode": "ألم تحصل علي كودك ؟",
+    "clickToResend": "أعد إرسال الكود"
+  },
+  "img-verified": {
+    "checkYourEmail": "تحقق من بريدك الإلكتروني",
+    "WeHaveSentAnEmailTo": " لقد أرسلنا إيميلا إلي",
+    "checkTheEmail": "مع الصورة الخاصة بك لذا رجاءا تحقق منه الان ",
+    "backToLogin": "عد إلي تسجيل الدخول"
+  },
+  "Not-found": {
+    "weAreSorryYouFaceThatProblem": "نحن متأسفون لأنك تواجه هذه المشكلة 😥😥",
+    "takeMeHome": "خذني إلي الصفحة الرئيسية"
   }
 }
