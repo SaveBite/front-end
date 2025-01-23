@@ -7,77 +7,97 @@ import Input from "./Input";
 import { useFormState } from "react-dom";
 import { handleLoginFormWithImage } from "@/actions/actions";
 import ReuseableButton from "./ReuseableButton";
-import { useNoUser } from "@/contexts/NoUserContext";
-import { useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import UserNotFound from "./UserNotFound";
+import { useTranslations } from "next-intl";
 
-interface Props {
-  switchToLost: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const LoginFormWithImg = ({ switchToLost }: Props) => {
-  const { setVisible } = useNoUser()!;
+const LoginFormWithImg = () => {
+  const t = useTranslations("Login-with-img");
   const [errorMessage, dispatch] = useFormState(
     handleLoginFormWithImage,
     undefined
   );
+  const router = useRouter();
 
-  useEffect(() => {
-    if (errorMessage === "email cannot empty or wrong") setVisible(true);
-    else setVisible(false);
-  }, [errorMessage, setVisible]);
-
-  function handleOnClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function recoverYourImage(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    switchToLost(3);
+    router.push("/login/recovery-img");
+  }
+  function switchToLoginWithPassword(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    router.push("/login/with-password");
   }
 
   return (
     <>
-      <form action={dispatch}>
-        <div className="pt-[20px]">
-          <LoginInpLabel required={true} htmlFor="email">
-            Email
-          </LoginInpLabel>
-          <Input
-            id="email"
-            error={
-              errorMessage === "email cannot empty or wrong" ? errorMessage : ""
-            }
-          />
-          <LoginInpLabel required={true} htmlFor="img">
-            Upload your image
-          </LoginInpLabel>
+      <div className="w-fit lg:w-[500px] absolute top-[50%] -translate-y-1/2 left-1/2 -translate-x-1/2">
+        <span className="text-black-900 h4bold md:h3bold lg:h2bold">
+          {t("loginToSaveBite")}
+        </span>
+        <form action={dispatch}>
+          <div className="pt-[20px]">
+            <LoginInpLabel required={true} htmlFor="email">
+              {t("email")}
+            </LoginInpLabel>
+            <Input
+              id="email"
+              error={
+                errorMessage === "email cannot be empty or wrong"
+                  ? "email cannot be empty or wrong"
+                  : ""
+              }
+            />
+            <LoginInpLabel required={true} htmlFor="img">
+              {t("uploadYourImage")}
+            </LoginInpLabel>
 
-          <UploadInput
-            id="img"
-            name="image"
-            error={errorMessage === "file is not found" ? errorMessage : ""}
-          />
-        </div>
-        <div className="flex justify-between items-center mt-[20px] max-w-[500px]">
-          <CustomCheckbox id="remember" />
-          <button
-            onClick={handleOnClick}
-            className="font-[400] title2 relative after:content-[''] after:w-full after:h-[1px] after:bg-black-500 after:absolute after:left-0 after:bottom-[3px] "
-          >
-            lost your image?
-          </button>
-        </div>
-        <div className="mt-[32px]">
-          <ReuseableButton>
-            <div className="flex gap-4">
-              <p>Login</p>
-              <Image
-                className="fill-rose-500 text-blue"
-                src="/white_arrow.svg"
-                alt="rightArrow"
-                width={30}
-                height={30}
-              />
-            </div>
-          </ReuseableButton>
-        </div>
-      </form>
+            <UploadInput
+              id="img"
+              name="image"
+              error={errorMessage === "file is not found" ? errorMessage : ""}
+            />
+          </div>
+          <div className="flex justify-between items-center mt-[20px] max-w-[500px]">
+            <CustomCheckbox id="remember" />
+            <button
+              onClick={recoverYourImage}
+              className="font-[400] title2 relative after:content-[''] after:w-full after:h-[1px] after:bg-black-500 after:absolute after:left-0 after:bottom-[3px] "
+            >
+              {t("lostYourImage?")}
+            </button>
+          </div>
+          <div className="mt-[32px]">
+            <ReuseableButton>
+              <div className="flex gap-4">
+                <p>{t("login")}</p>
+                <Image
+                  className="fill-rose-500 text-blue"
+                  src="/white_arrow.svg"
+                  alt="rightArrow"
+                  width={30}
+                  height={30}
+                />
+              </div>
+            </ReuseableButton>
+            <ReuseableButton
+              type="secondary"
+              onclick={switchToLoginWithPassword}
+            >
+              {t("loginWithEmailAndPassword")}
+            </ReuseableButton>
+          </div>
+        </form>
+        <p className="text-center mt-[32px] ">
+          {t("doNotHaveAnAccount?")}
+          <Link href="/signup" className="text-primary-500 ml-[2px]">
+            {t("signUp")}
+          </Link>
+        </p>
+      </div>
+      <div className="absolute bottom-[10px] right-[10px]">
+        <UserNotFound flag={errorMessage} />
+      </div>
     </>
   );
 };

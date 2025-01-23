@@ -43,11 +43,9 @@ export async function updateCurrentUser() {
   //decryptSession
   const decryptedSession = await decrypt(encryptedSession);
   const decryptedSessionData = await decrypt(encryptedSessionData);
-  // logging
-  // console.log(decryptedSession);
-  // console.log(decryptedSessionData);
-  //create new response
+
   const res = NextResponse.next();
+
   //mutate the expires
   if (!decryptedSession && !decryptedSessionData) return;
   console.log(decryptedSession.expires);
@@ -61,8 +59,6 @@ export async function updateCurrentUser() {
   const newSessionValue = await encrypt(decryptedSession);
   const newSessionDataValue = await encrypt(decryptedSessionData);
 
-  // console.log(newSessionValue);
-  // console.log(newSessionDataValue);
   res.cookies.set({
     name: "session",
     value: newSessionValue,
@@ -75,6 +71,5 @@ export async function updateCurrentUser() {
     expires: newDate,
     httpOnly: true,
   });
-
   return res;
 }

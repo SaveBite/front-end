@@ -1,0 +1,52 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "Login-with-img": {
+    "loginTOSaveBite": "Login To SaveBite",
+    "email": "Email",
+    "uploadYourImage": "Upload Your Image",
+    "remember": "Remember Me",
+    "lostYourImage?": "Lost Your Image",
+    "login": "Login",
+    "loginWithEmailAndPassword": "Login With Email And Password",
+    "doNotHaveAnAccount?": "Do Not Have An Account ?",
+    "signUp": "Signup"
+  },
+  "Login-with-password": {
+    "loginTOSaveBite": "Login To SaveBite",
+    "email": "Email",
+    "password": "Password",
+    "remember": "Remember Me",
+    "lostYourImage?": "Lost Your Image",
+    "login": "Login",
+    "loginWithEmailAndImage": "Login With Email And Image",
+    "doNotHaveAnAccount?": "Do Not Have An Account ?",
+    "signUp": "Signup"
+  },
+  "recovery-img": {
+    "lostYourImage": "Lost Your Image",
+    "sentMessage": "A verification code will be sent to the your mail, Please check it.",
+    "email": "email",
+    "pleaseAnswerTheQuestion": "Please Answer This Question",
+    "send": "Send"
+  },
+  "verify-img": {
+    "verification": "Verification!",
+    "theEnteredCodeWillBeSentTo": "The Entered Code Will Be Sent To ",
+    "verify": "Verify",
+    "didNotGetTheCode": "Did'nt get the code ?",
+    "clickToResend": "Click To Resend"
+  },
+  "img-verified": {
+    "checkYourEmail": "Check Your Email",
+    "WeHaveSentAnEmailTo": "We Have Sent An Email To",
+    "checkTheEmail": "With Your Image, So Please Check It Now.",
+    "backToLogin": "Back To Login"
+  },
+  "Not-found": {
+    "weAreSorryYouFaceThatProblem": "We Are Sorry You Face That Problem 😥😥",
+    "takeMeHome": "Take Me Home"
+  }
+}

@@ -1,27 +1,33 @@
 "use server";
 import { encrypt } from "@/helpers/helpers";
-import exp from "constants";
-import { METHODS } from "http";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+//important !!
+
+/* trick: the idea behind this counter is to send a different error message everytime for example wrong1 then 
+the counter increase to be wrong2 in the next error and so on 
+now we capture the error using (includes method ) instead of trying to using (===) for exact error message
+*/
+let errorCounter = 0;
+
 export async function handleLoginFormWithImage(
   _currentState: unknown,
   formData: FormData
 ) {
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return `email cannot be empty or wrong`;
 
-  const inputImg = formData.get("inputImg") as File;
+  const inputImg = formData.get("image") as File;
+
   if (inputImg instanceof File) {
     if (inputImg.name === "undefined") return "file is not found";
   }
-
-  if (inputImg instanceof File) {
-    console.log(inputImg.name);
+  if (!(inputImg instanceof File)) {
+    return "file is not found";
   }
   const remember = formData.get("remember") as string;
   const options = {
@@ -65,7 +71,7 @@ export async function handleLoginFormWithImage(
         httpOnly: true,
       });
     } else {
-      throw new Error("email cannot empty or wrong");
+      throw new Error(`user is not found${++errorCounter}`);
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -76,13 +82,14 @@ export async function handleLoginFormWithImage(
 
   redirect("/dashboard");
 }
+
 export async function handleLoginFormWithPass(
   _currentState: unknown,
   formData: FormData
 ) {
   //fetch data
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return `email cannot be empty or wrong`;
 
   const password = formData.get("password") as string;
   if (password.length === 0) return "password cannot be empty";
@@ -130,7 +137,7 @@ export async function handleLoginFormWithPass(
         httpOnly: true,
       });
     } else {
-      throw new Error("email cannot empty or wrong");
+      throw new Error(`user is not found${++errorCounter}`);
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -145,7 +152,7 @@ export async function handleLostImg(
   formData: FormData
 ) {
   const email = formData.get("email") as string;
-  if (!emailRegex.test(email)) return "email cannot empty or wrong";
+  if (!emailRegex.test(email)) return "email cannot be empty or wrong";
 
   const question = formData.get("question") as string;
 
@@ -158,7 +165,7 @@ export async function handleLostImg(
     cookies().set("intermidate-session", "anas", { expires, httpOnly: true });
   revalidatePath("/");
   if (cookies().get("intermidate-session")) {
-    redirect(`/login/${email}`);
+    redirect(`/login/recovery-img/verify?email=${encodeURIComponent(email)}`);
   }
 }
 export async function handleSignupForm(

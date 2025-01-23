@@ -13,7 +13,7 @@ export default function authLayout({
 }>) {
   return (
     <div className={` min-h-screen`}>
-      <div className="flex min-h-screen h-screen relative ">
+      <div className="flex rtl:flex-row min-h-screen h-screen relative ">
         <div className="h-full w-1/2 bg-extra-gray  relative overflow-hidden hidden sm:flex ">
           <div className="z-10">
             <div className=" bg-[url('/bg-image.svg')] h-[100%] bg-[length:110%] w-[10%] absolute left-[0%] top-[-10%] bg-repet"></div>

@@ -2,8 +2,11 @@
 // import React, { useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import LoginInpLabel from "./LoginInplabel";
+import { useTranslations } from "next-intl";
 
 const CustomCheckbox = ({ id }: { id: string }) => {
+  const t = useTranslations("Login-with-img");
+
   //   const [checked, setChecked] = useState(false);
   return (
     <div className="flex items-center gap-2">
@@ -15,7 +18,7 @@ const CustomCheckbox = ({ id }: { id: string }) => {
         // onCheckedChange={(checked) => setChecked(checked as boolean)}
       />
       <LoginInpLabel htmlFor={id} required={false} inline={true} color="black">
-        Remember me
+        {t(id)}
       </LoginInpLabel>
     </div>
   );
