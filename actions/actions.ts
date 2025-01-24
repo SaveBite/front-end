@@ -171,6 +171,7 @@ export async function handleLostImg(
 export async function handleSignupForm(
   _currentState: unknown,
   formData: FormData
+ 
 ) {
   const drink = formData.get("favorite-drink") as string;
   const type = formData.get("account-type") as string;
@@ -236,29 +237,57 @@ export async function handleSignupForm(
   if (image instanceof File) {
     console.log(image.name);
   }
-  const options ={
-    mehtod : "POST",
+  const options = {
+    mehtod: "POST",
     body: formData,
-  }
+  };
   // send request
   try {
-    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign/up` , options)
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign/up`,
+      options
+    );
     const data = await req.json();
-    if(data.status === 200 && data.message === "User regidtered successfully."){
-      const {username , email , type , Phone_Number , drink , password ,is_verified: isVerified, token} = data.data;
+    if (
+      data.status === 200 &&
+      data.message === "User regidtered successfully."
+    ) {
+      const {
+        username,
+        email,
+        type,
+        Phone_Number,
+        drink,
+        password,
+        is_verified: isVerified,
+        token,
+      } = data.data;
       const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
       const session = { token, expires };
-      const sessionData = {username , email , type , Phone_Number , drink , password ,is_verified: isVerified, token};
+      const sessionData = {
+        username,
+        email,
+        type,
+        Phone_Number,
+        drink,
+        password,
+        is_verified: isVerified,
+        token,
+      };
       const encryptedSession = await encrypt(session);
       const encryptedSessionData = await encrypt(sessionData);
       cookies().set("session", encryptedSession, { expires, httpOnly: true });
-      cookies().set("sessionData", encryptedSessionData, { expires, httpOnly: true });
+      cookies().set("sessionData", encryptedSessionData, {
+        expires,
+        httpOnly: true,
+      });
       revalidatePath("/");
       redirect("/dashboard");
     } else {
       throw new Error(data.message || "Signup failed");
-    }}catch (error: any) {
-      console.error("Signup error:", error.message);
-      return error.message;
     }
+  } catch (error: any) {
+    console.error("Signup error:", error.message);
+    return error.message;
+  }
 }

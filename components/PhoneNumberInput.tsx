@@ -7,18 +7,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { useTranslations } from "next-intl";
 const PhoneNumberInput = ({error}:{error?:string}) => {
-  const [selectedCountry, setSelectedCountry] = useState("Egypt");
+  const t = useTranslations("Sign-up-form");
+  const [selectedCountry, setSelectedCountry] = useState(t("egypt"));
   const [phoneNumber, setPhoneNumber] = useState("+20");
 
   const countries = [
-    { name: "Egypt", code: "+20" },
-    { name: "United States", code: "+1" },
-    { name: "United Kingdom", code: "+44" },
-    { name: "India", code: "+91" },
-    { name: "Australia", code: "+61" },
-    { name: "France", code: "+33" },
+    { name: t("egypt"), code: "+20" },
+    { name: t("unitedStates"), code: "+1" },
+    { name: t("unitedKingdom"), code: "+44" },
+    { name: t("india"), code: "+91" },
+    { name: t("australia"), code: "+61" },
+    { name: t("france"), code: "+33" },
   ];
 
   const handleCountryChange = (value: string) => {
@@ -28,7 +29,6 @@ const PhoneNumberInput = ({error}:{error?:string}) => {
       setPhoneNumber(selected.code);
     }
   };
-
   return (
     <div>
     <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">

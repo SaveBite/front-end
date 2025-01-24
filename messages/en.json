@@ -48,5 +48,35 @@
   "Not-found": {
     "weAreSorryYouFaceThatProblem": "We Are Sorry You Face That Problem 😥😥",
     "takeMeHome": "Take Me Home"
+  },
+  "Sign-up": {
+    "createAccount": "Create a Savebite account",
+    "havingAccount": "Already have an account?",
+    "login": "Login",
+    "signup": "Signup"
+  },
+  "Sign-up-form": {
+    "userName": "User name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "img": "Upload an image ( you will use this image to login in the next time)",
+    "question": "Please answer this Question",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "accountType": "Account Type",
+    "agree": "Agree With",
+    "terms": "Terms and Condditions",
+    "create": "Create Account",
+    "user": "user",
+    "restaurant": "restaurant",
+    "superMarket": "super-market",
+    "select": "Please Select",
+    "egypt": "Egypt",
+    "unitedStates": "United States",
+    "unitedKingdom": "United Kingdom",
+    "india": "India",
+    "australia": "Australia",
+    "france": "France",
+    "drinkQuestion" : "What's your favorite drink ?"
   }
 }

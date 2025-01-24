@@ -48,5 +48,33 @@
   "Not-found": {
     "weAreSorryYouFaceThatProblem": "نحن متأسفون لأنك تواجه هذه المشكلة 😥😥",
     "takeMeHome": "خذني إلي الصفحة الرئيسية"
+  },
+  "Sign-up": {
+    "createAccount": "إنشاء حساب في سايفبايت",
+    "havingAccount": "لديك حساب بالفعل ؟",
+    "login": "تسجل الدخول",
+    "signup": "إنشاء حساب"
+  },
+  "Sign-up-form": {
+    "userName": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "phoneNumber": "رقم الموبايل",
+    "img": "إرفع صورة ( سوف تستخدم هذه الصورة في تسجيل الدخول المرة القادمة )",
+    "question": "من فضلك أجب على السؤال",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "accountType": "نوع الحساب",
+    "agree": "أوافق على",
+    "terms": "الشروط والأحكام",
+    "create": "إنشاء حساب",
+    "user": "مستخدم",
+    "restaurant": "مطعم",
+    "superMarket": "سوبرماركت",
+    "select": "الرجاء الاختيار",
+    "egypt": "مصر",
+    "unitedStates": "الولايات المتحدة",
+    "unitedKingdom": "المملكة المتحدة",
+    "india": "الهند",
+    "australia": "أستراليا", "france" : "فرنسا","drinkQuestion": "ماهو مشروبك المفضل؟"
   }
 }

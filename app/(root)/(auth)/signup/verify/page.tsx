@@ -7,17 +7,17 @@ import { useTranslations } from "next-intl";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
-
+import Cookie from "js-cookie"
 function Page() {
   const t = useTranslations("verify-img");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const router = useRouter();
   const params = useSearchParams();
   const email = params.get("email");
-
+  console.log(email)
   // protect the page from random access -> .../verify?email=anything
   if (!emailRegex.test(email!)) {
-    redirect("/login");
+    redirect("/signup/signup");
   }
 
   const { otpCode, setOTPCode, error, setError } = useVerifyOTP2()!;

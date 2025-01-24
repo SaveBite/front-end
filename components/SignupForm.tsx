@@ -11,8 +11,11 @@ import { useFormState } from "react-dom";
 import { handleSignupForm } from "@/actions/actions";
 import { useEffect, useState } from "react";
 import { getLoginAnswers } from "@/helpers/loginAnswers";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
+const t = useTranslations("Sign-up-form");
   const [answersArr, setAnswersArr] = useState<
     { id: number; content: string }[] | never
   >([]);
@@ -33,7 +36,12 @@ const SignupForm = () => {
 
     fetchLoginAnswers();
   }, []);
+  const router = useRouter();
 
+function switchToVerifyPage(e: React.MouseEvent<HTMLButtonElement>){
+  e.preventDefault();
+  router.replace("/signup/verify");
+}
   return (
     <form
       action={dispatch}
@@ -41,7 +49,7 @@ const SignupForm = () => {
     >
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="username">
-          User name
+          {t("userName")}
         </LoginInpLabel>
         <Input
           id="username"
@@ -50,7 +58,7 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="email">
-          Email
+          {t("email")}
         </LoginInpLabel>
         <Input
           id="email"
@@ -59,7 +67,7 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="Phone-Number">
-          Phone number
+          {t("phoneNumber")}
         </LoginInpLabel>
         <PhoneNumberInput
           error={
@@ -69,7 +77,7 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="image">
-          Upload an image ( you will use this image to login in the next time)
+          {t("img")}
         </LoginInpLabel>
         <UploadInput
           id="image"
@@ -79,18 +87,18 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="favorite-drink">
-          Please answer this Question
+          {t("question")}
         </LoginInpLabel>
         <CustomSelect
           name="favorite-drink"
-          placeholder="What's your favorite drink ?"
+          placeholder={t("drinkQuestion")}
           arr={answersArr}
           error={errorMessage === "Question is required" ? errorMessage : ""}
         />
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="password">
-          Password
+          {t("password")}
         </LoginInpLabel>
         <Password
           id="password"
@@ -99,7 +107,7 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="confirm-password">
-          Confirm Password
+          {t("confirmPassword")}
         </LoginInpLabel>
         <Password
           id="confirm-password"
@@ -110,15 +118,15 @@ const SignupForm = () => {
       </div>
       <div className="mb-[16px]">
         <LoginInpLabel required={true} htmlFor="type">
-          Account Type
+          {t("accountType")}
         </LoginInpLabel>
         <CustomSelect
           name="account-type"
-          placeholder="Please Select:"
+          placeholder={t("select")}
           arr={[
-            { id: "user", content: "user" },
-            { id: "restaurant", content: "restaurant" },
-            { id: "super_market", content: "super_market" },
+            { id: "user", content: t("user") },
+            { id: "restaurant", content: t("restaurant") },
+            { id: "super_market", content: t("superMarket") },
           ]}
           error={
             errorMessage === "Account type is required" ? errorMessage : ""
@@ -134,12 +142,12 @@ const SignupForm = () => {
             inline={true}
             color="black"
           >
-            Agree with
+            {t('agree')}
           </LoginInpLabel>
-          <span className="text-green-500"> Terms and Conditions</span>
+          <span className="text-green-500"> {t("terms")}</span>
         </div>
       </div>
-      <ReuseableButton>Create Account</ReuseableButton>
+      <ReuseableButton type="secondary" onclick={switchToVerifyPage}>{t("create")}</ReuseableButton>
     </form>
   );
 };
