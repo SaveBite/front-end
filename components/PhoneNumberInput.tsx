@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
-const PhoneNumberInput = ({error}:{error?:string}) => {
+const PhoneNumberInput = ({ error }: { error?: string }) => {
   const t = useTranslations("Sign-up-form");
   const [selectedCountry, setSelectedCountry] = useState(t("egypt"));
   const [phoneNumber, setPhoneNumber] = useState("+20");
@@ -31,45 +31,44 @@ const PhoneNumberInput = ({error}:{error?:string}) => {
   };
   return (
     <div>
-    <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
-      <div className="relative w-full sm:w-auto">
-        <Select onValueChange={handleCountryChange} value={selectedCountry}>
-          <SelectTrigger
-            className={`px-[12px] h-[78px] border-[1px] 
+      <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
+        <div className="relative w-full sm:w-auto">
+          <Select onValueChange={handleCountryChange} value={selectedCountry}>
+            <SelectTrigger
+              className={`px-[12px] h-[78px] border-[1px] 
             ${error ? "border-error-500" : "border-black-200"}
           rounded-sm  min-w-[200px] w-[100%] outline-none caret-primary-500 focus:ring-0 focus:ring-offset-0`}
-          >
-            <SelectValue placeholder="Egypt" />
-          </SelectTrigger>
-          <SelectContent>
-            {countries.map((country) => (
-              <SelectItem
-                key={country.code}
-                className="hover:bg-[#2E70FE]"
-                value={country.name}
-              >
-                {country.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            >
+              <SelectValue placeholder="Egypt" />
+            </SelectTrigger>
+            <SelectContent>
+              {countries.map((country) => (
+                <SelectItem
+                  key={country.code}
+                  className="hover:bg-[#2E70FE]"
+                  value={country.name}
+                >
+                  {country.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <input
+          type="text"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          id="Phone-Number"
+          name="Phone-Number"
+          className={`px-[12px] py-[26px] border-[1px] ${
+            error ? "border-error-500" : "border-black-200"
+          } rounded-sm min-w-[200px] w-[100%] outline-none caret-primary-500`}
+        />
       </div>
-      <input
-        type="text"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-        id="Phone-Number"
-        name="Phone-Number"
-        className={`px-[12px] py-[26px] border-[1px] ${
-          error ? "border-error-500" : "border-black-200"
-        } rounded-sm min-w-[200px] w-[100%] outline-none caret-primary-500`}
-      />
-      
-    </div>
       {error && (
         <span className="text-error-400 font-[400] title2">{error}</span>
       )}
-      </div>
+    </div>
   );
 };
 

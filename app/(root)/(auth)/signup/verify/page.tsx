@@ -1,35 +1,62 @@
 "use client";
 import Otp from "@/components/Otp";
-import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import { useVerifyOTP2 } from "@/contexts/VerifyOTPContext2";
 import { encodeEmail } from "@/helpers/utils";
 import { useTranslations } from "next-intl";
-import { cookies } from "next/headers";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
-import Cookie from "js-cookie"
 function Page() {
   const t = useTranslations("verify-img");
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const router = useRouter();
   const params = useSearchParams();
   const email = params.get("email");
-  console.log(email)
   // protect the page from random access -> .../verify?email=anything
   if (!emailRegex.test(email!)) {
     redirect("/signup/signup");
   }
-
   const { otpCode, setOTPCode, error, setError } = useVerifyOTP2()!;
 
   // otp handler
-  function handleOTP() {
+  async function handleOTP() {
     if (otpCode.length === 4) {
-      console.log(otpCode);
-      setError(false);
-      router.push(
-        `/login/recovery-img/img-verified?email=${encodeURIComponent(email!)}`
-      );
+      const body = {
+        otp: otpCode,
+        otp_token: Cookies.get("otp-token")!,
+      };
+      console.log(body);
+
+      try {
+        const request = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/otp/verify`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("auth-token")}`,
+            },
+            body: JSON.stringify(body),
+          }
+        );
+        const data = await request.json();
+        if (
+          data.status === 200 &&
+          data.message ===
+            "messages.Your account has been verified successfully"
+        ) {
+          console.log(data);
+          setError(false);
+          Cookies.remove("auth-token");
+          Cookies.remove("intermediate-session");
+          Cookies.remove("otp-token");
+          router.push(`/signup/img-verified?email=${email}`);
+        } else {
+          setError(true);
+        }
+      } catch (err: any) {
+        console.log(err.message);
+      }
     } else {
       setError(true);
     }

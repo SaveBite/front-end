@@ -63,12 +63,12 @@ export async function handleLoginFormWithImage(
       //set cookies for session token
       cookies().set("session", encryptedSession, {
         expires,
-        httpOnly: true,
+        httpOnly: false,
       });
       //set cookies for session data
       cookies().set("sessionData", encryptedSessionData, {
         expires,
-        httpOnly: true,
+        httpOnly: false,
       });
     } else {
       throw new Error(`user is not found${++errorCounter}`);
@@ -129,12 +129,12 @@ export async function handleLoginFormWithPass(
       //set cookies for session token
       cookies().set("session", encryptedSession, {
         expires,
-        httpOnly: true,
+        httpOnly: false,
       });
       //set cookies for session data
       cookies().set("sessionData", encryptedSessionData, {
         expires,
-        httpOnly: true,
+        httpOnly: false,
       });
     } else {
       throw new Error(`user is not found${++errorCounter}`);
@@ -158,26 +158,17 @@ export async function handleLostImg(
 
   if (question === "") return "you must answer the question";
 
-  console.log(email);
-  console.log(question);
   const expires = new Date(Date.now() + 5 * 60 * 1000);
-  if (email && question)
-    cookies().set("intermidate-session", "anas", { expires, httpOnly: true });
-  revalidatePath("/");
-  if (cookies().get("intermidate-session")) {
+  if (email && question) {
+    cookies().set("intermediate-session", "anas", { expires, httpOnly: false });
     redirect(`/login/recovery-img/verify?email=${encodeURIComponent(email)}`);
   }
 }
 export async function handleSignupForm(
   _currentState: unknown,
   formData: FormData
- 
 ) {
-  const drink = formData.get("favorite-drink") as string;
-  const type = formData.get("account-type") as string;
-  console.log(drink);
-  console.log(type);
-
+  let flag;
   const fields = [
     {
       name: "username",
@@ -191,7 +182,7 @@ export async function handleSignupForm(
     },
     {
       name: "Phone-Number",
-      validate: (value: string) => /^\+\d{1,4}\d{7,}$/.test(value),
+      validate: (value: string) => /^\d{11}$/.test(value),
       error: "Phone number is required",
     },
     {
@@ -237,10 +228,25 @@ export async function handleSignupForm(
   if (image instanceof File) {
     console.log(image.name);
   }
+  const sentFormData = new FormData();
+  sentFormData.append("user_name", formData.get("username") as string);
+  sentFormData.append("email", formData.get("email") as string);
+  sentFormData.append("password", formData.get("password") as string);
+  sentFormData.append(
+    "password_confirmation",
+    formData.get("confirm-password") as string
+  );
+  sentFormData.append("image", formData.get("image")!);
+  sentFormData.append("answer", formData.get("favorite-drink") as string);
+  sentFormData.append("type", formData.get("account-type") as string);
+  sentFormData.append("phone", formData.get("Phone-Number") as string);
+
   const options = {
-    mehtod: "POST",
-    body: formData,
+    method: "POST",
+    body: sentFormData,
   };
+  console.log("hello");
+  console.log(formData);
   // send request
   try {
     const req = await fetch(
@@ -248,46 +254,39 @@ export async function handleSignupForm(
       options
     );
     const data = await req.json();
-    if (
-      data.status === 200 &&
-      data.message === "User regidtered successfully."
-    ) {
-      const {
-        username,
-        email,
-        type,
-        Phone_Number,
-        drink,
-        password,
-        is_verified: isVerified,
-        token,
-      } = data.data;
-      const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-      const session = { token, expires };
-      const sessionData = {
-        username,
-        email,
-        type,
-        Phone_Number,
-        drink,
-        password,
-        is_verified: isVerified,
-        token,
-      };
-      const encryptedSession = await encrypt(session);
-      const encryptedSessionData = await encrypt(sessionData);
-      cookies().set("session", encryptedSession, { expires, httpOnly: true });
-      cookies().set("sessionData", encryptedSessionData, {
+
+    console.log(data);
+    console.log(data.message);
+    if (data.status === 200 && data.message === "Created successfully.") {
+      flag = 1;
+      const encryptedData = await encrypt(data);
+      const expires = new Date(Date.now() + 60 * 60 * 1000);
+
+      cookies().set("intermediate-session", encryptedData, {
         expires,
-        httpOnly: true,
+        httpOnly: false,
       });
-      revalidatePath("/");
-      redirect("/dashboard");
+      cookies().set("otp-token", data.data.otp_token, {
+        expires,
+        httpOnly: false,
+      });
+      cookies().set("auth-token", data.data.token, {
+        expires,
+        httpOnly: false,
+      });
     } else {
-      throw new Error(data.message || "Signup failed");
+      errorCounter++;
+      return `user is already found${errorCounter}`;
     }
   } catch (error: any) {
     console.error("Signup error:", error.message);
     return error.message;
+  }
+  if (flag === 1) {
+    redirect(`/signup/verify?email=${formData.get("email")}`);
+  }
+  if (flag === 0) {
+    errorCounter++;
+    return `user is already found${errorCounter}`;
   }
 }

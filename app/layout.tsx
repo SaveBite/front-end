@@ -5,7 +5,6 @@ import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
 import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { cookies } from "next/headers";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const notoSans = Noto_Sans({

@@ -11,9 +11,7 @@ function Page() {
     <>
       <NavBar />
       <div className="mx-auto text-center font-medium">
-        <p className="pt-[40px] pb-[16px] text-[28px]">
-          {t("createAccount")}
-        </p>
+        <p className="pt-[40px] pb-[16px] text-[28px]">{t("createAccount")}</p>
         <p className="text-[19px]">
           {t("havingAccount")}
           <Link href={"/login"} className="pl-[8px] text-primary-500">
@@ -21,7 +19,7 @@ function Page() {
           </Link>
         </p>
       </div>
-      <SignupForm />;
+      <SignupForm />
     </>
   );
 }

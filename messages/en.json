@@ -4,7 +4,7 @@
     "about": "Go to the about page"
   },
   "Login-with-img": {
-    "loginTOSaveBite": "Login To SaveBite",
+    "loginToSaveBite": "Login To SaveBite",
     "email": "Email",
     "uploadYourImage": "Upload Your Image",
     "remember": "Remember Me",
@@ -15,7 +15,7 @@
     "signUp": "Signup"
   },
   "Login-with-password": {
-    "loginTOSaveBite": "Login To SaveBite",
+    "loginToSaveBite": "Login To SaveBite",
     "email": "Email",
     "password": "Password",
     "remember": "Remember Me",
@@ -77,6 +77,6 @@
     "india": "India",
     "australia": "Australia",
     "france": "France",
-    "drinkQuestion" : "What's your favorite drink ?"
+    "drinkQuestion": "What's your favorite drink ?"
   }
 }
