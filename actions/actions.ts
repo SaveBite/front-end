@@ -225,9 +225,6 @@ export async function handleSignupForm(
     if (image.name === "undefined") return "File is not found";
   }
 
-  if (image instanceof File) {
-    console.log(image.name);
-  }
   const sentFormData = new FormData();
   sentFormData.append("user_name", formData.get("username") as string);
   sentFormData.append("email", formData.get("email") as string);
@@ -245,8 +242,6 @@ export async function handleSignupForm(
     method: "POST",
     body: sentFormData,
   };
-  console.log("hello");
-  console.log(formData);
   // send request
   try {
     const req = await fetch(
@@ -255,8 +250,6 @@ export async function handleSignupForm(
     );
     const data = await req.json();
 
-    console.log(data);
-    console.log(data.message);
     if (data.status === 200 && data.message === "Created successfully.") {
       flag = 1;
       const encryptedData = await encrypt(data);
