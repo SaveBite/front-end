@@ -8,13 +8,15 @@ import {
   SelectValue,
 } from "./ui/select";
 import { languageSwitch } from "@/actions/language-switch";
+import { useTranslations } from "next-intl";
 
 function LanguageSwitcher() {
+  const t = useTranslations("Layout");
   return (
-    <div className="z-[30] absolute top-[10px] ltr:right-[10px] rtl:left-[10px] cursor-pointer">
+    <div className="z-[30] fixed bottom-[40px] ltr:left-[10px] rtl:right-[10px] cursor-pointer">
       <Select onValueChange={languageSwitch}>
         <SelectTrigger className="w-[80px]">
-          <SelectValue placeholder="lang" />
+          <SelectValue placeholder={t(`lang`)} />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="ar">

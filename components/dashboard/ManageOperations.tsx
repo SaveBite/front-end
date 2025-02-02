@@ -3,14 +3,16 @@ import { Input } from "@/components/ui/input";
 import ListSelect from "./ListSelect";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 function ManageOperations() {
+  const t = useTranslations("Dashboard");
   return (
     <div className="w-[90%] m-auto py-[30px] flex justify-between">
       <div className="flex gap-2">
         <Input
           className="w-[500px] rounded-lg"
-          placeholder="Search Product Name"
+          placeholder={t("searchProductName")}
           onChange={(e) => console.log(e.target.value)}
         />
         <ListSelect />
@@ -23,7 +25,7 @@ function ManageOperations() {
             width={20}
             height={20}
           />
-          <span>Copy</span>
+          <span>{t("copy")}</span>
         </Button>
         <Button className="flex gap-2 text-black-400 bg-white border-[1px] border-extra-gray-border hover:bg-white">
           <Image
@@ -32,7 +34,7 @@ function ManageOperations() {
             width={20}
             height={20}
           />
-          <span>Print</span>
+          <span>{t("print")}</span>
         </Button>
         <Button className="flex gap-2 text-primary-500 bg-white border-[1px] border-primary-500 hover:bg-white">
           <Image
@@ -41,7 +43,7 @@ function ManageOperations() {
             width={20}
             height={20}
           />
-          <span>Add item</span>
+          <span>{t("addItem")}</span>
         </Button>
       </div>
     </div>

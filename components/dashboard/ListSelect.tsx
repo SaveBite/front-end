@@ -6,8 +6,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "next-intl";
 
 function ListSelect() {
+  const t = useTranslations("Dashboard");
   return (
     <Select defaultValue="all" onValueChange={(e) => console.log(e)}>
       <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0">
@@ -15,28 +17,28 @@ function ListSelect() {
       </SelectTrigger>
       <SelectContent>
         <SelectItem className="focus:bg-blue-500 focus:text-white" value="all">
-          All
+          {t("all")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
           value="Positive"
         >
-          Positive stock
+          {t("positiveStock")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
           value="negative"
         >
-          Negative stock
+          {t("negativeStock")}
         </SelectItem>
         <SelectItem className="focus:bg-blue-500 focus:text-white" value="bar">
-          Below Bar
+          {t("belowBar")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
           value="minimum"
         >
-          Below Minimum
+          {t("belowMinimum")}
         </SelectItem>
       </SelectContent>
     </Select>

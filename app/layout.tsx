@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Noto_Sans } from "next/font/google";
+import { Cairo, Noto_Sans } from "next/font/google";
 import { VerifyOTPProvider } from "@/contexts/VerifyOTPContext";
 import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 import { getLocale, getMessages } from "next-intl/server";
@@ -11,6 +11,11 @@ const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
   weight: ["400", "600", "700"], // Specify weights
   style: ["normal", "italic"], // Specify styles
+});
+const cairo = Cairo({
+  subsets: ["latin"], // Add subsets as needed
+  weight: ["400", "600", "700"], // Specify weights
+  style: ["normal"], // Specify styles
 });
 
 export const metadata: Metadata = {
@@ -35,7 +40,7 @@ export default async function RootLayout({
         <html
           dir={locale === "ar" ? "rtl" : "ltr"}
           lang={locale}
-          className={notoSans.className}
+          className={locale === "en" ? notoSans.className : cairo.className}
         >
           <body
             className={`antialiased min-h-screen`}

@@ -13,35 +13,35 @@ function FilterList({ products, setProducts }: Props) {
   return (
     <div className="flex gap-1 w-[100%] mx-auto">
       <Filter
-        name="Product Name"
+        name="productName"
         filter={() => setProducts(stringSort(products, "productName")!)}
       />
       <Filter
-        name="Category"
+        name="category"
         filter={() => setProducts(stringSort(products, "category")!)}
       />
       <Filter
-        name="Price"
+        name="price"
         filter={() => setProducts(numberSort(products, "price")!)}
       />
       <Filter
-        name="Quantity"
+        name="quantity"
         filter={() => setProducts(numberSort(products, "quantity")!)}
       />
       <Filter
-        name="Reorder Level"
+        name="reorderLevel"
         filter={() => setProducts(numberSort(products, "reorderLevel")!)}
       />
       <Filter
-        name="Reorder Quantity"
+        name="reorderQuantity"
         filter={() => setProducts(numberSort(products, "reorderQuantity")!)}
       />
       <Filter
-        name="Units Sold"
+        name="unitsSold"
         filter={() => setProducts(numberSort(products, "unitsSold")!)}
       />
       <Filter
-        name="Sales value"
+        name="salesValue"
         filter={() => setProducts(numberSort(products, "salesValue")!)}
       />
     </div>

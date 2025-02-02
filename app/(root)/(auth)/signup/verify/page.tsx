@@ -25,27 +25,24 @@ function Page() {
         otp: otpCode,
         otp_token: Cookies.get("otp-token")!,
       };
-      console.log(body);
+      // console.log(body);
 
       try {
-        const request = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/otp/verify`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${Cookies.get("auth-token")}`,
-            },
-            body: JSON.stringify(body),
-          }
-        );
+        const request = await fetch(`/api/signup-verify`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("auth-token")}`,
+          },
+          body: JSON.stringify(body),
+        });
         const data = await request.json();
         if (
           data.status === 200 &&
           data.message ===
             "messages.Your account has been verified successfully"
         ) {
-          console.log(data);
+          // console.log(data);
           setError(false);
           Cookies.remove("auth-token");
           Cookies.remove("intermediate-session");

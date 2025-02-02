@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface Props {
@@ -7,10 +8,11 @@ interface Props {
 }
 
 function Card({ title, data, icon }: Props) {
+  const t = useTranslations("Dashboard");
   return (
     <div className="w-[20%] h-[120px] relative p-[10px] bg-white shadow-sm rounded-md">
       <div className="flex flex-col gap-2">
-        <span className="title1">{title}</span>
+        <span className="title1">{t(title)}</span>
         <span className="title1bold">{data}</span>
       </div>
       <Image
@@ -18,7 +20,7 @@ function Card({ title, data, icon }: Props) {
         alt="icon"
         width={50}
         height={50}
-        className="absolute bottom-[10px] right-[20px]"
+        className="absolute bottom-[10px] ltr:right-[20px] rtl:left-[20px]"
       />
     </div>
   );

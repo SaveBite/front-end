@@ -78,5 +78,46 @@
     "australia": "Australia",
     "france": "France",
     "drinkQuestion": "What's your favorite drink ?"
+  },
+  "Layout": {
+    "dashboard": "Dashboard",
+    "stock": "Stock",
+    "analytics": "Analytics",
+    "tracking": "Tracking",
+    "chatbite": "Chatbite",
+    "community": "Community",
+    "account": "Account",
+    "support": "Support",
+    "logout": "Logout",
+    "lang": "Lang",
+    "searchAnything":"Search Anything"
+  },
+  "Dashboard": {
+    "stockInHand": "Stock In Hand",
+    "positiveStock": "Positive Stock",
+    "negativeStock": "Negative Stock",
+    "belowBar": "Below Bar",
+    "belowMinimum": "Below Minimum",
+    "message":"Easily import your product data to streamline your workflow. Make sure the file includes accurate details for each product, such as name, category, unit price, stock levels, reorder points, and sales figures. This feature allows you to quickly upload comprehensive data for efficient tracking of stock and performance. Ensure all fields are properly formatted to maintain accuracy and consistency.",
+
+    "products":"Products",
+    "import":"Import",
+
+    "searchProductName":"Search Product Name",
+
+    "addItem":"Add Item",
+    "print":"Print",
+    "copy":"Copy",
+
+    "all":"All",
+
+    "productName":"Product Name",
+    "category":"Category",
+    "price":"Price",
+    "quantity":"Quantity",
+    "reorderLevel":"Reorder Level",
+    "reorderQuantity":"Reorder Quantity",
+    "unitsSold":"Units Sold",
+    "salesValue":"Sales Value"
   }
 }
