@@ -6,7 +6,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <LayoutHeader />
-      <div className="flex">
+      <div className="flex min-h-screen">
         <LayoutNavigationList />
         {children}
       </div>
