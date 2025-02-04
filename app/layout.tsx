@@ -6,6 +6,7 @@ import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { StockProvider } from "@/contexts/Stock";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
@@ -35,24 +36,26 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <VerifyOTPProvider2>
-      <VerifyOTPProvider>
-        <html
-          dir={locale === "ar" ? "rtl" : "ltr"}
-          lang={locale}
-          className={locale === "en" ? notoSans.className : cairo.className}
-        >
-          <body
-            className={`antialiased min-h-screen`}
-            suppressHydrationWarning={true}
+    <StockProvider>
+      <VerifyOTPProvider2>
+        <VerifyOTPProvider>
+          <html
+            dir={locale === "ar" ? "rtl" : "ltr"}
+            lang={locale}
+            className={locale === "en" ? notoSans.className : cairo.className}
           >
-            <NextIntlClientProvider messages={messages}>
-              {children}
-              <LanguageSwitcher />
-            </NextIntlClientProvider>
-          </body>
-        </html>
-      </VerifyOTPProvider>
-    </VerifyOTPProvider2>
+            <body
+              className={`antialiased min-h-screen`}
+              suppressHydrationWarning={true}
+            >
+              <NextIntlClientProvider messages={messages}>
+                {children}
+                <LanguageSwitcher />
+              </NextIntlClientProvider>
+            </body>
+          </html>
+        </VerifyOTPProvider>
+      </VerifyOTPProvider2>
+    </StockProvider>
   );
 }

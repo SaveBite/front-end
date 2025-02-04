@@ -20,8 +20,20 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+function tooltipColoring(tooltipItem: any) {
+  console.log(tooltipItem.tooltip.labelColors[0].borderColor);
+  return tooltipItem.tooltip.labelColors[0].borderColor;
+}
+function customXlabelColor(context: any) {
+  if (context.index <= 5) {
+    return "gray";
+  } else {
+    return "#5EDA42";
+  }
+}
 const options = {
-  responsive: true,
+  responsive: true, // Prevent automatic resizing
+  maintainAspectRatio: true, // Allow custom width/height
   scales: {
     x: {
       ticks: {
@@ -44,24 +56,8 @@ const options = {
     legend: {
       position: "top" as const,
     },
-
-    title: {
-      display: true,
-      text: "My stock",
-    },
   },
 };
-function tooltipColoring(tooltipItem: any) {
-  console.log(tooltipItem.tooltip.labelColors[0].borderColor);
-  return tooltipItem.tooltip.labelColors[0].borderColor;
-}
-function customXlabelColor(context: any) {
-  if (context.index <= 5) {
-    return "gray";
-  } else {
-    return "green";
-  }
-}
 // dummy data
 const labels = [
   "Week1",
@@ -77,7 +73,7 @@ const labels = [
 ];
 const datasets1 = [15, 36, 22, 15, 23, 45, 22, 33, 34, 56, 43, 67, 23, 51];
 const datasets2 = [65, 33, 23, 17, 40, 22, 44, 23, 23, 45, 34, 83, 25, 14];
-const datasets3 = [11, 54, 24, 43, 24, 54, 35, 23, 14, 46, 25, 16, 52, 46];
+const datasets3 = [11, 33, 44, 54, 63, 70, 81, 70, 60, 40, 20, 20, 20, 10];
 const datasets4 = [63, 25, 26, 31, 12, 25, 32, 55, 25, 35, 74, 32, 53, 42];
 
 export const data = {
@@ -112,9 +108,11 @@ export const data = {
 
 function LinearChart() {
   return (
-    <div className="mx-auto w-fit">
-      <Line data={data} options={options} width={1000} height={350} />
-    </div>
+    <Line
+      data={data}
+      options={options}
+      className="mx-auto w-[100%] max-h-[300px]"
+    />
   );
 }
 

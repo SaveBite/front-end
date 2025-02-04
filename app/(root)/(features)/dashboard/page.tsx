@@ -7,7 +7,7 @@ import ItemsTable from "@/components/dashboard/ItemsTable";
 
 const page = () => {
   return (
-    <div className="bg-extra-gray min-h-screen">
+    <div>
       <Header />
       <Info />
       <CardList />

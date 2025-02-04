@@ -8,7 +8,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <LayoutHeader />
       <div className="flex min-h-screen">
         <LayoutNavigationList />
-        {children}
+        <div className="bg-[#f6f6f6] flex-1">{children}</div>
       </div>
     </div>
   );

@@ -59,6 +59,8 @@ const config: Config = {
           blue: "#2E70FE",
           gray: "#F6F6F6",
           "gray-border": "#e6e6e6",
+          "text-gray": "#b3b3b3",
+          "box-gray": "#F9F9F9",
         },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

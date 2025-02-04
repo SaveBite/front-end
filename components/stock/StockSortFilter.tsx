@@ -6,7 +6,7 @@ interface Props {
   filter: () => void;
 }
 
-function Filter({ name, filter }: Props) {
+function StockSortFilter({ name, filter }: Props) {
   const t = useTranslations("Dashboard");
   return (
     <div
@@ -24,4 +24,4 @@ function Filter({ name, filter }: Props) {
   );
 }
 
-export default Filter;
+export default StockSortFilter;
