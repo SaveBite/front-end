@@ -29,6 +29,10 @@ export function stringSort(
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+function removeCommas(number: string): number {
+  return parseFloat(number.replace(/,/g, ""));
+}
+
 export function numberSort(
   products: Item[],
   property: AllowedProperitiesForNumber
@@ -39,12 +43,16 @@ export function numberSort(
 
   if (flag) {
     newProducts = productsCopy.sort(
-      (a: Item, b: Item) => b[property] - a[property]
+      (a: Item, b: Item) =>
+        removeCommas(b[property].toString()) -
+        removeCommas(a[property].toString())
     );
     flag = 0;
   } else if (!flag) {
     newProducts = productsCopy.sort(
-      (a: Item, b: Item) => a[property] - b[property]
+      (a: Item, b: Item) =>
+        removeCommas(a[property].toString()) -
+        removeCommas(b[property].toString())
     );
     flag = 1;
   }

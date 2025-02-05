@@ -31,8 +31,8 @@ function ListSelect() {
         >
           {t("negativeStock")}
         </SelectItem>
-        <SelectItem className="focus:bg-blue-500 focus:text-white" value="bar">
-          {t("belowBar")}
+        <SelectItem className="focus:bg-blue-500 focus:text-white" value="Par">
+          {t("belowPar")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"

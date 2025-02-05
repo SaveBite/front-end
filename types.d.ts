@@ -17,3 +17,11 @@ export interface Item {
   unitsSold: number;
   salesValue: number;
 }
+
+export interface statistics {
+  stockInHand: string;
+  belowMinimum: number;
+  belowPar: number;
+  negativeStock: number;
+  positiveStock: number;
+}

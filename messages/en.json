@@ -96,7 +96,7 @@
     "stockInHand": "Stock In Hand",
     "positiveStock": "Positive Stock",
     "negativeStock": "Negative Stock",
-    "belowBar": "Below Bar",
+    "belowPar": "Below par",
     "belowMinimum": "Below Minimum",
     "message":"Easily import your product data to streamline your workflow. Make sure the file includes accurate details for each product, such as name, category, unit price, stock levels, reorder points, and sales figures. This feature allows you to quickly upload comprehensive data for efficient tracking of stock and performance. Ensure all fields are properly formatted to maintain accuracy and consistency.",
 
@@ -107,7 +107,7 @@
 
     "addItem":"Add Item",
     "print":"Print",
-    "copy":"Copy",
+    "download":"Download",
 
     "all":"All",
 

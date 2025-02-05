@@ -119,6 +119,7 @@ export async function handleLoginFormWithPass(
       }
       //session token
       const session = { token, expires };
+      console.log(session);
       //sessionData
       const sessionData = { name, email, type, isVerified, expires };
       //encrypt session

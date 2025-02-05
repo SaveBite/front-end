@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   //if there any authenticated user ?
   const isAuthUser = request.cookies.get("session");
   //if otp session is opened
-  const openOtpFlag = request.cookies.get("intermidate-session");
+  const openOtpFlag = request.cookies.get("intermediate-session");
 
   //protectedRoutes
   const protectedRoutes = ["/dashboard"];

@@ -11,7 +11,7 @@ interface Props {
 
 function FilterList({ products, setProducts }: Props) {
   return (
-    <div className="flex gap-1 w-[100%] mx-auto">
+    <div className="flex flex-wrap gap-1 w-[100%] mx-auto">
       <Filter
         name="productName"
         filter={() => setProducts(stringSort(products, "productName")!)}
