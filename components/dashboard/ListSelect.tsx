@@ -6,37 +6,71 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useStock } from "@/contexts/Stock";
+import {
+  fetchDataWithQueries,
+  handleDataNames,
+} from "@/helpers/dataUploadAndFetching";
 import { useTranslations } from "next-intl";
+import { useCallback, useEffect } from "react";
 
 function ListSelect() {
   const t = useTranslations("Dashboard");
+  const { originalProducts, setProducts, setStatus, search, status } =
+    useStock()!;
+  // caching the function and do not change if it returns the same results
+  const handleStatusChange = useCallback(async () => {
+    if (!originalProducts || originalProducts.length === 0) return;
+
+    const filteredData = await fetchDataWithQueries(search, status);
+    const { products: handledProducts } = handleDataNames(filteredData);
+    setProducts(handledProducts);
+  }, [originalProducts, search, status, setProducts]);
+
+  useEffect(() => {
+    if (!originalProducts || originalProducts.length === 0) return;
+
+    handleStatusChange();
+  }, [originalProducts, handleStatusChange]);
   return (
-    <Select defaultValue="all" onValueChange={(e) => console.log(e)}>
-      <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0">
+    <Select
+      value="All"
+      onValueChange={(e) => {
+        setStatus(e);
+        handleStatusChange();
+      }}
+    >
+      <SelectTrigger
+        className="w-[180px] focus:ring-0 focus:ring-offset-0"
+        defaultValue={"All"}
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem className="focus:bg-blue-500 focus:text-white" value="all">
+        <SelectItem className="focus:bg-blue-500 focus:text-white" value="All">
           {t("all")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
-          value="Positive"
+          value="PositiveStock"
         >
           {t("positiveStock")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
-          value="negative"
+          value="NegativeStock"
         >
           {t("negativeStock")}
         </SelectItem>
-        <SelectItem className="focus:bg-blue-500 focus:text-white" value="Par">
+        <SelectItem
+          className="focus:bg-blue-500 focus:text-white"
+          value="BelowPar"
+        >
           {t("belowPar")}
         </SelectItem>
         <SelectItem
           className="focus:bg-blue-500 focus:text-white"
-          value="minimum"
+          value="BelowMinimum"
         >
           {t("belowMinimum")}
         </SelectItem>

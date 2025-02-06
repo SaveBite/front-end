@@ -10,7 +10,7 @@ const Calender = () => {
         width={20}
         height={20}
       />
-      <span className="title2medium text-black-400">25 July - 25 August</span>
+      <span className="title2medium text-black-400">7 Feb - 14 Feb</span>
     </div>
   );
 };

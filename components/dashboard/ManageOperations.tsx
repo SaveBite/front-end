@@ -4,27 +4,32 @@ import ListSelect from "./ListSelect";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { jwtVerify } from "jose";
-import Cookies from "js-cookie";
 import { useStock } from "@/contexts/Stock";
 import {
   fetchDataWithQueries,
   handleDataNames,
 } from "@/helpers/dataUploadAndFetching";
-
-const usedKey = new TextEncoder().encode(process.env.NEXT_PUBLIC_ENCRYPT_KEY);
+import { useCallback, useEffect } from "react";
 
 function ManageOperations() {
   const t = useTranslations("Dashboard");
   const { originalProducts, search, status, setSearch, setProducts } =
     useStock()!;
+  //
+  const handleSearchText = useCallback(async () => {
+    if (!originalProducts || originalProducts.length === 0) return;
 
-  async function handleSearchText() {
-    if (!originalProducts) return;
     const filteredData = await fetchDataWithQueries(search, status);
     const { products: handledProducts } = handleDataNames(filteredData);
     setProducts(handledProducts);
-  }
+  }, [originalProducts, search, status, setProducts]); // Add necessary dependencies
+
+  useEffect(() => {
+    if (!originalProducts || originalProducts.length === 0) return;
+
+    handleSearchText();
+  }, [handleSearchText, originalProducts]);
+
   return (
     <div className="w-[90%] m-auto py-[30px] flex justify-between">
       <div className="flex gap-2">
@@ -32,7 +37,9 @@ function ManageOperations() {
           className="lg:w-[400px] md:w-[300px] sm:w-[200px] rounded-lg"
           placeholder={t("searchProductName")}
           onChange={(e) => {
+            //store the value of searching in a state
             setSearch(e.target.value);
+            //fetch data , change the format , get the products from this data then store it in a state
             handleSearchText();
           }}
         />

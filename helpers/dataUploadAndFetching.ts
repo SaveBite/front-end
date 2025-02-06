@@ -90,6 +90,7 @@ export async function fetchDataWithQueries(
   search: string | null,
   status: string | null
 ) {
+  console.log("i am running right now ");
   try {
     // get and decrypt the session cookie
     const { payload: session } = await jwtVerify(
@@ -106,7 +107,9 @@ export async function fetchDataWithQueries(
 
     //request for fetching the data
     const dataRequest = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/products?search=${search}&status='All`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/products?search=${search}&status=${
+        status === "All" ? "" : status
+      }`,
       {
         method: "GET",
         headers: {

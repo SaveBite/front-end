@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import FilterCell from "./FilterCell";
 
 interface Props {
   name: string;
@@ -9,13 +10,16 @@ interface Props {
 }
 const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
   const [drop, setDrop] = useState(false);
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
   function handleDropDown() {
     setDrop(!drop);
   }
   return (
     <div className="mb-[30px]">
       <div
-        className="px-[12px] py-[10px] flex justify-between items-center h-[50px] cursor-pointer bg-extra-box-gray"
+        className="px-[20px] py-[10px] flex justify-between items-center h-[50px] cursor-pointer bg-extra-box-gray"
         onClick={handleDropDown}
       >
         <p className="title1medium">{name}</p>
@@ -27,15 +31,13 @@ const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
         />
       </div>
       <div
-        className={`bg-extra-box-gray px-[12px] py-[10px] transition-all overflow-hidden duration-500 ease-in-out ${
-          drop ? "max-h-[100%] opacity-100" : "max-h-0 opacity-0"
+        className={`bg-extra-box-gray px-[12px] py-[10px] transition-all overflow-auto  duration-500 ease-in-out flex flex-col ${
+          drop ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0"
         } `}
       >
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
+        {list.map((item) => (
+          <FilterCell key={item} item={item} onCheck={itemCheckAction} />
+        ))}
       </div>
     </div>
   );
