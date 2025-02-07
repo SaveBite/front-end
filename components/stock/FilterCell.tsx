@@ -7,7 +7,7 @@ const FilterCell = ({
   onCheck,
 }: {
   item: string;
-  onCheck: () => void;
+  onCheck: (status: boolean, item: string) => void;
 }) => {
   return (
     <div key={item} className="py-2 ">
@@ -15,7 +15,7 @@ const FilterCell = ({
         <Label htmlFor="email" className="flex gap-4 items-center">
           <Checkbox
             className="w-[20px] h-[20px] border-black-300 data-[state=checked]:border-0"
-            onCheckedChange={() => console.log("helo")}
+            onCheckedChange={(e: boolean) => onCheck(e, item)}
           />
           <span className="title2 text-black-600">{item}</span>
         </Label>

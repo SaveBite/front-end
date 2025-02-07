@@ -6,7 +6,7 @@ import FilterCell from "./FilterCell";
 interface Props {
   name: string;
   list: string[];
-  itemCheckAction: () => void;
+  itemCheckAction: (status: boolean, item: string) => void;
 }
 const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
   const [drop, setDrop] = useState(false);
@@ -17,7 +17,7 @@ const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
     setDrop(!drop);
   }
   return (
-    <div className="mb-[30px]">
+    <div>
       <div
         className="px-[20px] py-[10px] flex justify-between items-center h-[50px] cursor-pointer bg-extra-box-gray"
         onClick={handleDropDown}

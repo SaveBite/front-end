@@ -34,16 +34,13 @@ function ListSelect() {
   }, [originalProducts, handleStatusChange]);
   return (
     <Select
-      value="All"
       onValueChange={(e) => {
         setStatus(e);
         handleStatusChange();
       }}
+      defaultValue="All"
     >
-      <SelectTrigger
-        className="w-[180px] focus:ring-0 focus:ring-offset-0"
-        defaultValue={"All"}
-      >
+      <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
