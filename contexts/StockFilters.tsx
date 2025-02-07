@@ -13,12 +13,15 @@ interface StockFiltersProps {
   setCategoriesList: Dispatch<SetStateAction<string[]>>;
   productsList: Array<string>;
   setProductsList: Dispatch<SetStateAction<string[]>>;
+  chartProductsList: Array<string>;
+  setChartProductsList: Dispatch<SetStateAction<string[]>>;
 }
 const StockFiltersContext = createContext<StockFiltersProps | null>(null);
 
 function StockFiltersProvider({ children }: { children: React.ReactNode }) {
   const [categoriesList, setCategoriesList] = useState<Array<string>>([]);
   const [productsList, setProductsList] = useState<Array<string>>([]);
+  const [chartProductsList, setChartProductsList] = useState<Array<string>>([]);
   return (
     <StockFiltersContext.Provider
       value={{
@@ -26,6 +29,8 @@ function StockFiltersProvider({ children }: { children: React.ReactNode }) {
         setCategoriesList,
         productsList,
         setProductsList,
+        chartProductsList,
+        setChartProductsList,
       }}
     >
       {children}

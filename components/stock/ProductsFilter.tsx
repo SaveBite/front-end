@@ -9,8 +9,13 @@ import { useStockFilters } from "@/contexts/StockFilters";
 
 const ProductsFilter = () => {
   const { showFilters, setShowFilters, originalProducts } = useStock()!;
-  const { categoriesList, setCategoriesList, setProductsList } =
-    useStockFilters()!;
+  const {
+    categoriesList,
+    productsList,
+    setCategoriesList,
+    setProductsList,
+    setChartProductsList,
+  } = useStockFilters()!;
   const [itemsFilter, setItemsFilter] = useState<string | undefined>();
   function handleShowFilters() {
     setShowFilters(true);
@@ -31,6 +36,10 @@ const ProductsFilter = () => {
     } else if (status === false) {
       setProductsList((arr: string[]) => arr.filter((e: string) => e !== item));
     }
+  }
+  function handleApplyFilters() {
+    setShowFilters(false);
+    setChartProductsList(productsList);
   }
   return (
     <>
@@ -108,6 +117,15 @@ const ProductsFilter = () => {
           )}
           itemCheckAction={productItemChecked}
         />
+        <Button
+          className={`absolute left-1/2 -translate-x-1/2 bottom-[40px] w-[200px] h-[72px] shadow-lg ${
+            productsList.length === 0 ? "bg-black-300" : "bg-primary-500"
+          }`}
+          onClick={handleApplyFilters}
+          disabled={productsList.length === 0}
+        >
+          Apply filters
+        </Button>
       </div>
     </>
   );

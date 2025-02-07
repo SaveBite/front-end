@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useStockFilters } from "@/contexts/StockFilters";
 
 ChartJS.register(
   CategoryScale,
@@ -71,42 +72,43 @@ const labels = [
   "Week9",
   "Week10",
 ];
-const datasets1 = [15, 36, 22, 15, 23, 45, 22, 33, 34, 56, 43, 67, 23, 51];
-const datasets2 = [65, 33, 23, 17, 40, 22, 44, 23, 23, 45, 34, 83, 25, 14];
-const datasets3 = [11, 33, 44, 54, 63, 70, 81, 70, 60, 40, 20, 20, 20, 10];
-const datasets4 = [63, 25, 26, 31, 12, 25, 32, 55, 25, 35, 74, 32, 53, 42];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Milk",
-      data: datasets1.map((i) => i),
-      borderColor: "#CCDF92",
-      backgroundColor: "#CCDF92",
-    },
-    {
-      label: "Cheese",
-      data: datasets2.map((i) => i),
-      borderColor: "#FF9D23",
-      backgroundColor: "#FF9D23",
-    },
-    {
-      label: "yougret",
-      data: datasets3.map((i) => i),
-      borderColor: "#E195AB",
-      backgroundColor: "#E195AB",
-    },
-    {
-      label: "beanuts",
-      data: datasets4.map((i) => i),
-      borderColor: "#DE3163",
-      backgroundColor: "#DE3163",
-    },
-  ],
-};
-
+const datasets = [
+  [12, 45, 78, 34, 56, 89, 23, 67, 90, 11, 42, 37, 88, 59],
+  [98, 23, 45, 67, 12, 34, 89, 54, 76, 32, 21, 65, 87, 49],
+  [43, 67, 23, 89, 12, 76, 45, 98, 32, 56, 78, 90, 21, 34],
+  [63, 25, 26, 31, 12, 25, 32, 55, 25, 35, 74, 32, 53, 42],
+  [21, 34, 56, 78, 90, 23, 45, 67, 12, 89, 32, 76, 54, 43],
+  [32, 56, 78, 90, 21, 12, 45, 67, 89, 34, 23, 76, 98, 43],
+  [54, 32, 12, 89, 23, 76, 90, 45, 67, 34, 56, 21, 98, 43],
+  [78, 21, 12, 34, 89, 67, 90, 45, 23, 56, 32, 76, 98, 43],
+  [23, 76, 54, 89, 12, 90, 45, 32, 56, 21, 34, 67, 98, 43],
+  [90, 21, 12, 34, 67, 98, 45, 23, 56, 32, 76, 54, 89, 43],
+];
+const colors = [
+  "#CCDF92", // Soft green
+  "#FF9D23", // Warm orange
+  "#E195AB", // Gentle pink
+  "#DE3163", // Vibrant red
+  "#6AB3A3", // Muted teal
+  "#4B89DC", // Calm blue
+  "#F4D35E", // Bright yellow
+  "#9C6ADE", // Elegant purple
+  "#52C3A7", // Fresh mint
+  "#EF476F", // Bold coral
+];
 function LinearChart() {
+  const { chartProductsList } = useStockFilters()!;
+  const data = {
+    labels,
+    datasets: chartProductsList.map((item, i) => {
+      return {
+        label: item,
+        data: datasets[i].map((i) => i),
+        borderColor: i > 10 ? colors[10] : colors[i],
+        backgroundColor: i > 10 ? colors[10] : colors[i],
+      };
+    }),
+  };
   return (
     <Line
       data={data}
