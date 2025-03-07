@@ -22,7 +22,7 @@ const UserFoundBefore = ({ flag }: props) => {
   return (
     <>
       {visible && (
-        <div className="w-fit">
+        <div className="w-fit fixed bottom-2 left-2">
           <div className="animate-bounce border-solid border-l-[8px] border-l-error-50 shadow-md px-[8px] py-[10px]">
             <div className="flex justify-between  w-[300px]">
               <div className="flex gap-2 w-fit  ">

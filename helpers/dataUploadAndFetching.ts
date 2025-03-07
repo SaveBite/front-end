@@ -31,7 +31,7 @@ export async function uploadAndFetchData(e: any) {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer${authToken}`,
+            Authorization: `Bearer ${authToken}`,
           },
           body: formData,
         }

@@ -96,7 +96,11 @@ const SignupForm = () => {
           </LoginInpLabel>
           <Password
             id="password"
-            error={errorMessage === "Password is required" ? errorMessage : ""}
+            error={
+              errorMessage === "Password must be 8 charchters at least"
+                ? errorMessage
+                : ""
+            }
           />
         </div>
         <div className="mb-[16px]">

@@ -1,29 +1,60 @@
 "use client";
-import { Item } from "@/types";
-import Filter from "./StockSortFilter";
-import { Dispatch, SetStateAction } from "react";
-import { numberSort, stringSort } from "@/helpers/dashboardItemsFilters";
+import StockSortFilter from "./StockSortFilter";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface Props {
-  products: Item[];
-  setProducts: Dispatch<SetStateAction<Item[] | null>>;
-}
+function SortList() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
 
-function SortList({ products, setProducts }: Props) {
   return (
     <div className="flex gap-1 w-[100%] mx-auto">
-      <Filter
+      <StockSortFilter
         name="productName"
-        filter={() => setProducts(stringSort(products, "productName")!)}
+        filter={() => {
+          newSearchParams.set("query", "productName");
+          if (searchParams.get("order") === "desc") {
+            newSearchParams.set("order", "asc");
+          } else {
+            newSearchParams.set("order", "desc");
+          }
+
+          router.push(`${pathname}?${newSearchParams.toString()}`, {
+            scroll: false,
+          });
+        }}
       />
-      <Filter
+      <StockSortFilter
         name="category"
-        filter={() => setProducts(stringSort(products, "category")!)}
+        filter={() => {
+          newSearchParams.set("query", "category");
+          if (searchParams.get("order") === "desc") {
+            newSearchParams.set("order", "asc");
+          } else {
+            newSearchParams.set("order", "desc");
+          }
+
+          router.push(`${pathname}?${newSearchParams.toString()}`, {
+            scroll: false,
+          });
+        }}
       />
 
-      <Filter
+      <StockSortFilter
         name="reorderQuantity"
-        filter={() => setProducts(numberSort(products, "reorderQuantity")!)}
+        filter={() => {
+          newSearchParams.set("query", "reorderQuantity");
+          if (searchParams.get("order") === "desc") {
+            newSearchParams.set("order", "asc");
+          } else {
+            newSearchParams.set("order", "desc");
+          }
+
+          router.push(`${pathname}?${newSearchParams.toString()}`, {
+            scroll: false,
+          });
+        }}
       />
     </div>
   );

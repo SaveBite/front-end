@@ -1,50 +1,53 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useStock } from "@/contexts/Stock";
 import { Input } from "../ui/input";
 import DrobDownList from "./DrobDownList";
-import { useStockFilters } from "@/contexts/StockFilters";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const ProductsFilter = () => {
+const ProductsFilter = ({ predictData }: { predictData: any }) => {
   const { showFilters, setShowFilters, originalProducts } = useStock()!;
-  const {
-    categoriesList,
-    productsList,
-    setCategoriesList,
-    setProductsList,
-    setChartProductsList,
-  } = useStockFilters()!;
-  const [itemsFilter, setItemsFilter] = useState<string | undefined>();
-  function handleShowFilters() {
-    setShowFilters(true);
-  }
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
+  const chartQuery = searchParams.get("chartQuery");
+  const chartCategoryList = searchParams.getAll("chartCategoryList");
 
-  function categoryItemChecked(status: boolean, item: string) {
-    if (status === true) {
-      setCategoriesList((arr: string[]) => [...arr, item]);
-    } else if (status === false) {
-      setCategoriesList((arr: string[]) =>
-        arr.filter((e: string) => e !== item)
-      );
-    }
-  }
-  function productItemChecked(status: boolean, item: string) {
-    if (status === true) {
-      setProductsList((arr: string[]) => [...arr, item]);
-    } else if (status === false) {
-      setProductsList((arr: string[]) => arr.filter((e: string) => e !== item));
-    }
-  }
-  function handleApplyFilters() {
-    setShowFilters(false);
-    setChartProductsList(productsList);
-  }
+  //categories array
+  const categoriesArray: any[] = Array.from(
+    new Set(predictData.map((item: any) => item.Category))
+  ).filter((element: any) =>
+    chartQuery
+      ? element.toLowerCase().startsWith(chartQuery.toLowerCase())
+      : element
+  );
+  //products Array
+  const productsArray: any[] = Array.from(
+    new Set(
+      predictData
+        .filter((item: any) => {
+          if (chartCategoryList.length !== 0)
+            return chartCategoryList.includes(item.Category);
+          else return item;
+        })
+        .filter((item: any) => {
+          if (chartQuery)
+            return item.ProductName.toLowerCase().startsWith(
+              chartQuery.toLowerCase()
+            );
+          else return item;
+        })
+        .map((item: any) => item.ProductName)
+    )
+  );
+
   return (
     <>
       <Button
-        onClick={handleShowFilters}
+        onClick={() => setShowFilters(true)!}
         className="bg-white border-solid border-[2px] border-extra-gray rounded-lg px-[10px] hover:bg-white"
       >
         <Image
@@ -84,48 +87,48 @@ const ProductsFilter = () => {
           />
           <Input
             className="focus:border-primary-500  mx-auto transition-all py-[30px] px-[50px] rounded-lg mb-[30px]"
-            value={itemsFilter}
-            onChange={(e) => setItemsFilter((s) => e.target.value)}
+            onChange={(e) => {
+              newSearchParams.set("chartQuery", e.target.value);
+              router.push(`${pathname}?${newSearchParams.toString()}`, {
+                scroll: false,
+              });
+            }}
           />
         </div>
         <DrobDownList
           name="Category"
-          list={Array.from(
-            new Set(originalProducts?.map((item) => item.category))
-          )}
-          itemCheckAction={categoryItemChecked}
+          list={categoriesArray}
+          itemCheckAction={(e, item) => {
+            if (e === true) {
+              newSearchParams.append("chartCategoryList", item);
+              router.push(`${pathname}?${newSearchParams.toString()}`, {
+                scroll: false,
+              });
+            } else {
+              newSearchParams.delete("chartCategoryList", item);
+              router.push(`${pathname}?${newSearchParams.toString()}`, {
+                scroll: false,
+              });
+            }
+          }}
         />
         <DrobDownList
           name="Products"
-          list={Array.from(
-            new Set(
-              originalProducts
-                ?.filter((item) => {
-                  if (categoriesList.length > 0)
-                    return categoriesList.includes(item.category);
-                  return item;
-                })
-                ?.map((item) => item.productName)
-                .filter((e) => {
-                  if (itemsFilter) {
-                    return e.toUpperCase().includes(itemsFilter?.toUpperCase());
-                  } else {
-                    return e;
-                  }
-                })
-            )
-          )}
-          itemCheckAction={productItemChecked}
+          list={productsArray}
+          itemCheckAction={(e, item) => {
+            if (e === true) {
+              newSearchParams.append("chartProductList", item);
+              router.push(`${pathname}?${newSearchParams.toString()}`, {
+                scroll: false,
+              });
+            } else {
+              newSearchParams.delete("chartProductList", item);
+              router.push(`${pathname}?${newSearchParams.toString()}`, {
+                scroll: false,
+              });
+            }
+          }}
         />
-        <Button
-          className={`absolute left-1/2 -translate-x-1/2 bottom-[40px] w-[200px] h-[72px] shadow-lg ${
-            productsList.length === 0 ? "bg-black-300" : "bg-primary-500"
-          }`}
-          onClick={handleApplyFilters}
-          disabled={productsList.length === 0}
-        >
-          Apply filters
-        </Button>
       </div>
     </>
   );

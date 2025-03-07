@@ -10,9 +10,7 @@ interface Props {
 }
 const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
   const [drop, setDrop] = useState(false);
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+  useEffect(() => {}, [list]);
   function handleDropDown() {
     setDrop(!drop);
   }
@@ -32,7 +30,7 @@ const DrobDownList = ({ name, list, itemCheckAction }: Props) => {
       </div>
       <div
         className={`bg-extra-box-gray px-[12px] py-[10px] transition-all overflow-auto  duration-500 ease-in-out flex flex-col ${
-          drop ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0"
+          drop ? "max-h-fit opacity-100" : "max-h-0 opacity-0"
         } `}
       >
         {list.map((item) => (

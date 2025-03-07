@@ -1,16 +1,29 @@
+"use client";
 import React from "react";
 import { Input } from "../ui/input";
 import Calender from "./Calender";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const StockOperations = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
   return (
     <div className="w-[90%] flex justify-between items-center mx-auto my-[30px] ">
       <div className="flex justify-between items-center gap-2">
         <Input
           className="w-[350px]"
           placeholder="Search Product Name or Category"
+          onChange={(e) => {
+            newSearchParams.set("search", e.target.value);
+
+            router.push(`${pathname}?${newSearchParams.toString()}`, {
+              scroll: false,
+            });
+          }}
         />
         <Calender />
       </div>

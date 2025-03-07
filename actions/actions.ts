@@ -1,7 +1,7 @@
 "use server";
-import { encrypt } from "@/helpers/helpers";
+import { decrypt, encrypt } from "@/helpers/helpers";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -194,14 +194,14 @@ export async function handleSignupForm(
     },
     {
       name: "password",
-      validate: (value: string) => value.trim().length > 0,
-      error: "Password is required",
+      validate: (value: string) => value.trim().length >= 8,
+      error: "Password must be 8 charchters at least",
     },
     {
       name: "confirm-password",
       validate: (value: string) => {
         if (
-          value.trim().length > 0 &&
+          value.trim().length >= 8 &&
           value === (formData.get("password") as string)
         )
           return true;
@@ -238,7 +238,7 @@ export async function handleSignupForm(
   sentFormData.append("answer", formData.get("favorite-drink") as string);
   sentFormData.append("type", formData.get("account-type") as string);
   sentFormData.append("phone", formData.get("Phone-Number") as string);
-
+  console.log(sentFormData);
   const options = {
     method: "POST",
     body: sentFormData,
@@ -250,6 +250,8 @@ export async function handleSignupForm(
       options
     );
     const data = await req.json();
+    console.log(data);
+    console.log(data.status, data.message);
 
     if (data.status === 200 && data.message === "Created successfully.") {
       flag = 1;
@@ -283,4 +285,20 @@ export async function handleSignupForm(
     errorCounter++;
     return `user is already found${errorCounter}`;
   }
+}
+/***************************************************************************************************************************/
+
+export async function getPredict() {
+  //get session
+  const encryptedSession = cookies().get("session")?.value;
+  if (!encryptedSession) return;
+  const session = await decrypt(encryptedSession);
+
+  const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/stock`, {
+    headers: {
+      Authorization: `Bearer ${session.token}`,
+    },
+  });
+  const res = await req.json();
+  return res;
 }
