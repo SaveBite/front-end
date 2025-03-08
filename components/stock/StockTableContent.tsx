@@ -15,8 +15,8 @@ function StockTableContent({ predictData }: Props) {
   console.log(searchQuery);
   return (
     <div className="flex flex-col gap-1 w-[100%] mx-auto">
-      {predictData
-        ?.sort((a: any, b: any) => {
+      {predictData?.data
+        .sort((a: any, b: any) => {
           if (query == "productName" && order == "desc") {
             return b.ProductName.localeCompare(a.ProductName);
           } else if (query == "productName" && order == "asc") {

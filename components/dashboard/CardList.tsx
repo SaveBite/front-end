@@ -1,34 +1,42 @@
-"use client";
-import { useStock } from "@/contexts/Stock";
 import Card from "./Card";
-
-function CardList() {
-  const { statistics } = useStock()!;
+interface StatisticsType {
+  belowMinimum: number;
+  belowPar: number;
+  negativeStock: number;
+  positiveStock: number;
+  stockInHand: string;
+}
+function CardList({ statistics }: { statistics: Partial<StatisticsType> }) {
   const { stockInHand, positiveStock, negativeStock, belowPar, belowMinimum } =
-    statistics!;
+    statistics;
+  console.log(statistics);
   return (
     <>
       {statistics?.stockInHand && (
         <div className={`flex gap-4 w-[90%] m-auto py-[30px] `}>
           <Card
             title="stockInHand"
-            data={stockInHand}
+            data={stockInHand ?? ""}
             icon="/dashboard/cashIcon.svg"
           />
           <Card
             title="positiveStock"
-            data={positiveStock}
+            data={positiveStock ?? 0}
             icon="/dashboard/positive.svg"
           />
           <Card
             title="negativeStock"
-            data={negativeStock}
+            data={negativeStock ?? 0}
             icon="/dashboard/negative.svg"
           />
-          <Card title="belowPar" data={belowPar} icon="/dashboard/par.svg" />
+          <Card
+            title="belowPar"
+            data={belowPar ?? 0}
+            icon="/dashboard/par.svg"
+          />
           <Card
             title="belowMinimum"
-            data={belowMinimum}
+            data={belowMinimum ?? 0}
             icon="/dashboard/minimum.svg"
           />
         </div>

@@ -1,10 +1,7 @@
-"use client";
 import SortList from "./SortList";
 import StockTableContent from "./StockTableContent";
-import { useStock } from "@/contexts/Stock";
 
 function StockItemsTable({ predictData }: { predictData: any }) {
-  const { products, setProducts } = useStock()!;
   return (
     <div className="flex flex-col gap-1 w-[90%] mx-auto">
       <SortList />

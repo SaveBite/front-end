@@ -75,10 +75,10 @@ const colors = [
   "#52C3A7", // Fresh mint
   "#EF476F", // Bold coral
 ];
-function LinearChart({ predictData }: { predictData: any[] }) {
+function LinearChart({ predictData }: { predictData: any }) {
   const searchParams = useSearchParams();
   const selectedProducts = searchParams.getAll("chartProductList");
-  const displayedProducts = predictData.filter((item) =>
+  const displayedProducts = predictData.data.filter((item: any) =>
     selectedProducts.includes(item.ProductName)
   );
   console.log(displayedProducts);
@@ -86,7 +86,7 @@ function LinearChart({ predictData }: { predictData: any[] }) {
   const { chartProductsList } = useStockFilters()!;
   const data = {
     labels,
-    datasets: displayedProducts.map((item, i) => {
+    datasets: displayedProducts.map((item: any, i: number) => {
       return {
         label: item.ProductName,
         data: item.ReorderQuantities.map((i: number) => i),

@@ -1,49 +1,35 @@
 "use client";
-import { Item } from "@/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Filter from "./Filter";
-import { Dispatch, SetStateAction } from "react";
-import { numberSort, stringSort } from "@/helpers/dashboardItemsFilters";
 
-interface Props {
-  products: Item[];
-  setProducts: Dispatch<SetStateAction<Item[] | null>>;
-}
+function FilterList() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
 
-function FilterList({ products, setProducts }: Props) {
+  function handleFilter(filter: string) {
+    newSearchParams.set("dashboardFilter", filter);
+    if (newSearchParams.get("dashboardOrder") === "desc") {
+      newSearchParams.set("dashboardOrder", "asc");
+    } else {
+      newSearchParams.set("dashboardOrder", "desc");
+    }
+    router.push(`${pathname}?${newSearchParams}`, { scroll: false });
+  }
   return (
     <div className="flex flex-wrap gap-1 w-[100%] mx-auto">
-      <Filter
-        name="productName"
-        filter={() => setProducts(stringSort(products, "productName")!)}
-      />
-      <Filter
-        name="category"
-        filter={() => setProducts(stringSort(products, "category")!)}
-      />
-      <Filter
-        name="price"
-        filter={() => setProducts(numberSort(products, "price")!)}
-      />
-      <Filter
-        name="quantity"
-        filter={() => setProducts(numberSort(products, "quantity")!)}
-      />
-      <Filter
-        name="reorderLevel"
-        filter={() => setProducts(numberSort(products, "reorderLevel")!)}
-      />
+      <Filter name="productName" filter={() => handleFilter("productName")} />
+      <Filter name="category" filter={() => handleFilter("category")} />
+      <Filter name="price" filter={() => handleFilter("price")} />
+      <Filter name="quantity" filter={() => handleFilter("quantity")} />
+      <Filter name="reorderLevel" filter={() => handleFilter("reorderLevel")} />
       <Filter
         name="reorderQuantity"
-        filter={() => setProducts(numberSort(products, "reorderQuantity")!)}
+        filter={() => handleFilter("reorderQuantity")}
       />
-      <Filter
-        name="unitsSold"
-        filter={() => setProducts(numberSort(products, "unitsSold")!)}
-      />
-      <Filter
-        name="salesValue"
-        filter={() => setProducts(numberSort(products, "salesValue")!)}
-      />
+      <Filter name="unitsSold" filter={() => handleFilter("unitsSold")} />
+      <Filter name="salesValue" filter={() => handleFilter("salesValue")} />
     </div>
   );
 }

@@ -10,7 +10,7 @@ function TableContent({ data }: Props) {
   return (
     <div className="flex flex-col gap-1 w-[100%] mx-auto h-[400px] overflow-auto hide-scrollbar">
       {data.length > 0 ? (
-        data.map((item) => <ItemCell item={item} key={Math.random()} />)
+        data.map((item, i) => <ItemCell item={item} key={i} />)
       ) : (
         <EmptyItemCell />
       )}

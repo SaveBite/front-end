@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { useStock } from "@/contexts/Stock";
 import { Input } from "../ui/input";
 import DrobDownList from "./DrobDownList";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const ProductsFilter = ({ predictData }: { predictData: any }) => {
-  const { showFilters, setShowFilters, originalProducts } = useStock()!;
+  const [showFilters, setShowFilters] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -18,7 +17,7 @@ const ProductsFilter = ({ predictData }: { predictData: any }) => {
 
   //categories array
   const categoriesArray: any[] = Array.from(
-    new Set(predictData.map((item: any) => item.Category))
+    new Set(predictData.data.map((item: any) => item.Category))
   ).filter((element: any) =>
     chartQuery
       ? element.toLowerCase().startsWith(chartQuery.toLowerCase())
@@ -27,7 +26,7 @@ const ProductsFilter = ({ predictData }: { predictData: any }) => {
   //products Array
   const productsArray: any[] = Array.from(
     new Set(
-      predictData
+      predictData.data
         .filter((item: any) => {
           if (chartCategoryList.length !== 0)
             return chartCategoryList.includes(item.Category);

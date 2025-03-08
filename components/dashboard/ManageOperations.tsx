@@ -4,31 +4,19 @@ import ListSelect from "./ListSelect";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useStock } from "@/contexts/Stock";
-import {
-  fetchDataWithQueries,
-  handleDataNames,
-} from "@/helpers/dataUploadAndFetching";
-import { useCallback, useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function ManageOperations() {
   const t = useTranslations("Dashboard");
-  const { originalProducts, search, status, setSearch, setProducts } =
-    useStock()!;
-  //
-  const handleSearchText = useCallback(async () => {
-    if (!originalProducts || originalProducts.length === 0) return;
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    const filteredData = await fetchDataWithQueries(search, status);
-    const { products: handledProducts } = handleDataNames(filteredData);
-    setProducts(handledProducts);
-  }, [originalProducts, search, status, setProducts]); // Add necessary dependencies
-
-  useEffect(() => {
-    if (!originalProducts || originalProducts.length === 0) return;
-
-    handleSearchText();
-  }, [handleSearchText, originalProducts]);
+  function handleDashboardSearchQuery(e: any) {
+    newSearchParams.set("dashboardSearchQuery", e.target.value);
+    router.push(`${pathname}?${newSearchParams}`);
+  }
 
   return (
     <div className="w-[90%] m-auto py-[30px] flex justify-between">
@@ -36,12 +24,7 @@ function ManageOperations() {
         <Input
           className="lg:w-[400px] md:w-[300px] sm:w-[200px] rounded-lg"
           placeholder={t("searchProductName")}
-          onChange={(e) => {
-            //store the value of searching in a state
-            setSearch(e.target.value);
-            //fetch data , change the format , get the products from this data then store it in a state
-            handleSearchText();
-          }}
+          onChange={(e) => handleDashboardSearchQuery(e)}
         />
         <ListSelect />
       </div>

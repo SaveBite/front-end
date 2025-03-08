@@ -6,39 +6,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useStock } from "@/contexts/Stock";
-import {
-  fetchDataWithQueries,
-  handleDataNames,
-} from "@/helpers/dataUploadAndFetching";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function ListSelect() {
   const t = useTranslations("Dashboard");
-  const { originalProducts, setProducts, setStatus, search, status } =
-    useStock()!;
-  // caching the function and do not change if it returns the same results
-  const handleStatusChange = useCallback(async () => {
-    if (!originalProducts || originalProducts.length === 0) return;
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    const filteredData = await fetchDataWithQueries(search, status);
-    const { products: handledProducts } = handleDataNames(filteredData);
-    setProducts(handledProducts);
-  }, [originalProducts, search, status, setProducts]);
-
-  useEffect(() => {
-    if (!originalProducts || originalProducts.length === 0) return;
-
-    handleStatusChange();
-  }, [originalProducts, handleStatusChange]);
   return (
     <Select
       onValueChange={(e) => {
-        setStatus(e);
-        handleStatusChange();
+        newSearchParams.set("dashboardStock", e);
+        router.push(`${pathname}?${newSearchParams}`, { scroll: false });
       }}
-      defaultValue="All"
+      defaultValue={searchParams.get("dashboardStock") ?? "All"}
     >
       <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0">
         <SelectValue />

@@ -1,6 +1,7 @@
 "use server";
+import { handleDataNames } from "@/helpers/dataUploadAndFetching";
 import { decrypt, encrypt } from "@/helpers/helpers";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -302,3 +303,91 @@ export async function getPredict() {
   const res = await req.json();
   return res;
 }
+
+/***************************************************************************************************************************/
+//upload products
+export async function uploadProducts(formData: FormData) {
+  console.log("hi");
+  console.log(formData);
+  //get the file
+  const file = formData.get("csv_file") as File;
+
+  //check if the file is csv
+  console.log(file.type);
+  if (file.type === "text/csv") {
+    // get and decrypt the session cookie
+    const session = cookies().get("session");
+    const encryptedSession = session?.value;
+    const authToken =
+      encryptedSession && (await decrypt(encryptedSession)).token;
+    // error if no token is found
+    if (!authToken) throw new Error("there is no token");
+
+    console.log(authToken);
+
+    // try to upload the file
+    try {
+      const uploadRequest = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/products/upload`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: formData,
+        }
+      );
+      const uploadRes = await uploadRequest.json();
+      if (
+        uploadRes.status === 200 &&
+        uploadRes.message === "File Uploaded Successfully"
+      ) {
+        console.log("upload sucess");
+        revalidatePath("/");
+      } else {
+        throw new Error("file not uploaded");
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+}
+/**************************************************************************************/
+//fetch products
+export async function fetchProducts(status: string) {
+  try {
+    //get session
+    const session = cookies().get("session");
+    //get the value of the session but it is encrypted
+    const encryptedSession = session?.value;
+    //get the auth token
+    const authToken =
+      encryptedSession && (await decrypt(encryptedSession)).token;
+    // error if no token is found
+    if (!authToken) throw new Error("there is no token");
+    //request the data cuz you are authenticated user
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/products?${
+        status !== "All" ? `status=${status}` : ""
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    //the final result
+    const res = await req.json();
+    if (res.status === 200 && res.message === "Success") {
+      const { statistics, products } = handleDataNames(res.data);
+      if (products && statistics) {
+        return { statistics, products };
+      }
+    }
+    return { statistics: {}, products: [] };
+  } catch (error) {
+    console.log(error);
+  }
+}
+/***************************************************************************************************/
