@@ -20,7 +20,7 @@ export async function encrypt(payload: any) {
 export async function currentUser() {
   //   const session = cookies().get("session")?.value;
   //   if (!session) return null;
-  const encryptedUserData = cookies().get("sessionData")!;
+  const encryptedUserData = (await cookies()).get("sessionData")!;
   const userData = await decrypt(encryptedUserData?.value);
   return await userData;
 }
@@ -34,12 +34,12 @@ export async function decrypt(input: string): Promise<any> {
 
 export async function updateCurrentUser() {
   //check if there any session and sessionData
-  const sessionFound = cookies().get("session")!;
-  const sessionDataFound = cookies().get("sessionDaat")!;
+  const sessionFound = (await cookies()).get("session")!;
+  const sessionDataFound = (await cookies()).get("sessionDaat")!;
   if (!sessionFound && !sessionDataFound) return;
   // get encryptedSession
-  const encryptedSession = cookies().get("session")!.value;
-  const encryptedSessionData = cookies().get("sessionData")!.value;
+  const encryptedSession = (await cookies()).get("session")!.value;
+  const encryptedSessionData = (await cookies()).get("sessionData")!.value;
   //decryptSession
   const decryptedSession = await decrypt(encryptedSession);
   const decryptedSessionData = await decrypt(encryptedSessionData);

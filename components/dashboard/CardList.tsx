@@ -9,7 +9,6 @@ interface StatisticsType {
 function CardList({ statistics }: { statistics: Partial<StatisticsType> }) {
   const { stockInHand, positiveStock, negativeStock, belowPar, belowMinimum } =
     statistics;
-  console.log(statistics);
   return (
     <>
       {statistics?.stockInHand && (

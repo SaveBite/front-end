@@ -12,15 +12,14 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
     dashboardOrder,
     dashboardSearchQuery,
     dashboardStock,
-  } = searchParams;
+  } = await searchParams;
   const { statistics, products } = (await fetchProducts(
     dashboardStock ?? "All"
   )) || {
     statistics: {},
     products: [],
   };
-  console.log(dashboardFilter);
-  console.log(products);
+
   const filteredProducts = [...products]
     .sort((a: any, b: any) => {
       if (dashboardFilter === "productName" || dashboardFilter === "category") {
@@ -32,6 +31,18 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
           return b[dashboardFilter]
             .toLowerCase()
             .localeCompare(a[dashboardFilter].toLowerCase());
+        }
+      } else if (dashboardFilter === "date") {
+        if (dashboardOrder === "desc") {
+          return (
+            new Date(a[dashboardFilter]).getTime() -
+            new Date(b[dashboardFilter]).getTime()
+          );
+        } else {
+          return (
+            new Date(b[dashboardFilter]).getTime() -
+            new Date(a[dashboardFilter]).getTime()
+          );
         }
       } else {
         if (dashboardOrder === "desc") {

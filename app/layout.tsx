@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { StockProvider } from "@/contexts/Stock";
 import { StockFiltersProvider } from "@/contexts/StockFilters";
+import { Toaster } from "@/components/ui/sonner";
 
 const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
@@ -54,6 +55,7 @@ export default async function RootLayout({
                   {children}
                   <LanguageSwitcher />
                 </NextIntlClientProvider>
+                <Toaster richColors />
               </body>
             </html>
           </VerifyOTPProvider>

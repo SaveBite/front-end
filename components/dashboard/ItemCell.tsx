@@ -1,5 +1,6 @@
 interface Props {
   item: {
+    date: string;
     productName: string;
     category: string;
     price: number;
@@ -13,6 +14,7 @@ interface Props {
 
 function ItemCell({ item }: Props) {
   const {
+    date,
     productName,
     category,
     price,
@@ -24,6 +26,7 @@ function ItemCell({ item }: Props) {
   } = item;
   return (
     <div className="w-full flex items-center bg-white">
+      <span className="flex-1 py-[8px] px-[20px]">{date}</span>
       <span className="flex-1 py-[8px] px-[20px]">{productName}</span>
       <span className="flex-1 py-[8px] px-[20px]">{category}</span>
       <span className="flex-1 py-[8px] px-[20px]">{price}</span>

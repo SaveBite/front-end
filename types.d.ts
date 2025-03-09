@@ -8,6 +8,7 @@ export type AllowedProperitiesForNumber =
   | "salesValue";
 
 export interface Item {
+  date: string;
   productName: string;
   category: string;
   price: number;

@@ -19,6 +19,7 @@ function FilterList() {
   }
   return (
     <div className="flex flex-wrap gap-1 w-[100%] mx-auto">
+      <Filter name="date" filter={() => handleFilter("date")} />
       <Filter name="productName" filter={() => handleFilter("productName")} />
       <Filter name="category" filter={() => handleFilter("category")} />
       <Filter name="price" filter={() => handleFilter("price")} />

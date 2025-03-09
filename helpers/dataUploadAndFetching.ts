@@ -73,6 +73,7 @@ export function handleDataNames(data: any) {
   };
   const products = data.Products.map((item: any) => {
     return {
+      date: item.Date,
       productName: item.ProductName,
       category: item.Category,
       price: item.UnitPrice,

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import React, { useActionState, useState } from "react";
+import { toast } from "sonner";
+import React, { useActionState, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import { addProduct } from "@/actions/actions";
@@ -10,15 +11,28 @@ const AddItemModal = () => {
   const [showModal, setShowModal] = useState(false);
   const [state, formActionss, isPending] = useActionState(addProduct, {
     status: "",
-    key: "",
+    key: 0,
+    data: null,
   });
+
+  useEffect(() => {
+    console.log(state);
+    if (state?.status === "SUCCESS") {
+      setShowModal(false);
+      toast.success("the item has been added successfully.");
+    } else {
+      if (!state?.data) return;
+      const errorMessages = (state?.data as string[]).join(" , ");
+      toast.error(errorMessages);
+    }
+  }, [state]);
 
   function handleModal() {
     setShowModal(!showModal);
   }
   function handleOpenedModal(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     if ((e.target as HTMLElement).classList.contains("overlay")) {
-      setShowModal(!showModal);
+      setShowModal(false);
     }
   }
 
@@ -46,7 +60,7 @@ const AddItemModal = () => {
                 <input
                   required
                   type="date"
-                  name="date"
+                  name="Date"
                   id="date"
                   className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                 />
@@ -58,7 +72,7 @@ const AddItemModal = () => {
                 <input
                   required
                   type="text"
-                  name="productName"
+                  name="ProductName"
                   id="productName"
                   className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                 />
@@ -70,19 +84,19 @@ const AddItemModal = () => {
                   </label>
                   <input
                     type="text"
-                    name="category"
+                    name="Category"
                     id="category"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
                 </div>
                 <div className="flex-1">
                   <label htmlFor="price" className="text-black-600">
-                    Price
+                    Unit Price
                   </label>
                   <input
                     required
                     type="number"
-                    name="price"
+                    name="UnitPrice"
                     id="price"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
@@ -91,12 +105,13 @@ const AddItemModal = () => {
               <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <label htmlFor="quantity" className="text-black-600">
-                    Quantity
+                    Stock Quantity
                   </label>
                   <input
                     required
+                    step="any"
                     type="number"
-                    name="quantity"
+                    name="StockQuantity"
                     id="quantity"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
@@ -108,7 +123,7 @@ const AddItemModal = () => {
                   <input
                     required
                     type="number"
-                    name="reorderLevel"
+                    name="ReorderLevel"
                     id="reorderLevel"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
@@ -122,7 +137,7 @@ const AddItemModal = () => {
                   <input
                     required
                     type="number"
-                    name="reorderQuantity"
+                    name="ReorderQuantity"
                     id="reorderQuantity"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
@@ -134,7 +149,7 @@ const AddItemModal = () => {
                   <input
                     required
                     type="number"
-                    name="unitsSold"
+                    name="UnitsSold"
                     id="unitsSold"
                     className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                   />
@@ -147,13 +162,14 @@ const AddItemModal = () => {
                 <input
                   required
                   type="number"
-                  name="salesValue"
+                  name="SalesValue"
                   id="salesValue"
                   className="w-full h-[50px] border-solid border-[1px] border-[#cccccc] p-2 text-black"
                 />
               </div>
               <div className="mt-6">
                 <Button
+                  disabled={isPending}
                   type="submit"
                   className="w-full h-[72px] transition-all h5bold"
                 >

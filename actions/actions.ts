@@ -62,12 +62,12 @@ export async function handleLoginFormWithImage(
       const encryptedSessionData = await encrypt(sessionData);
 
       //set cookies for session token
-      cookies().set("session", encryptedSession, {
+      (await cookies()).set("session", encryptedSession, {
         expires,
         httpOnly: false,
       });
       //set cookies for session data
-      cookies().set("sessionData", encryptedSessionData, {
+      (await cookies()).set("sessionData", encryptedSessionData, {
         expires,
         httpOnly: false,
       });
@@ -129,12 +129,12 @@ export async function handleLoginFormWithPass(
       const encryptedSessionData = await encrypt(sessionData);
 
       //set cookies for session token
-      cookies().set("session", encryptedSession, {
+      (await cookies()).set("session", encryptedSession, {
         expires,
         httpOnly: false,
       });
       //set cookies for session data
-      cookies().set("sessionData", encryptedSessionData, {
+      (await cookies()).set("sessionData", encryptedSessionData, {
         expires,
         httpOnly: false,
       });
@@ -162,7 +162,10 @@ export async function handleLostImg(
 
   const expires = new Date(Date.now() + 5 * 60 * 1000);
   if (email && question) {
-    cookies().set("intermediate-session", "anas", { expires, httpOnly: false });
+    (await cookies()).set("intermediate-session", "anas", {
+      expires,
+      httpOnly: false,
+    });
     redirect(`/login/recovery-img/verify?email=${encodeURIComponent(email)}`);
   }
 }
@@ -259,15 +262,15 @@ export async function handleSignupForm(
       const encryptedData = await encrypt(data);
       const expires = new Date(Date.now() + 60 * 60 * 1000);
 
-      cookies().set("intermediate-session", encryptedData, {
+      (await cookies()).set("intermediate-session", encryptedData, {
         expires,
         httpOnly: false,
       });
-      cookies().set("otp-token", data.data.otp_token, {
+      (await cookies()).set("otp-token", data.data.otp_token, {
         expires,
         httpOnly: false,
       });
-      cookies().set("auth-token", data.data.token, {
+      (await cookies()).set("auth-token", data.data.token, {
         expires,
         httpOnly: false,
       });
@@ -291,7 +294,7 @@ export async function handleSignupForm(
 
 export async function getPredict() {
   //get session
-  const encryptedSession = cookies().get("session")?.value;
+  const encryptedSession = (await cookies()).get("session")?.value;
   if (!encryptedSession) return;
   const session = await decrypt(encryptedSession);
 
@@ -316,7 +319,7 @@ export async function uploadProducts(formData: FormData) {
   console.log(file.type);
   if (file.type === "text/csv") {
     // get and decrypt the session cookie
-    const session = cookies().get("session");
+    const session = (await cookies()).get("session");
     const encryptedSession = session?.value;
     const authToken =
       encryptedSession && (await decrypt(encryptedSession)).token;
@@ -357,7 +360,7 @@ export async function uploadProducts(formData: FormData) {
 export async function fetchProducts(status: string) {
   try {
     //get session
-    const session = cookies().get("session");
+    const session = (await cookies()).get("session");
     //get the value of the session but it is encrypted
     const encryptedSession = session?.value;
     //get the auth token
@@ -393,6 +396,38 @@ export async function fetchProducts(status: string) {
 /***********************/
 //add product
 export async function addProduct(prevState: any, formData: FormData) {
-  console.log("amigos");
-  return { status: "hola", key: "amigos" };
+  //get date and get the month from it , append it to the formData
+  const date = formData.get("Date") as string;
+  const month = date.split("-").slice(0, 2).join("-");
+  formData.append("Month", month);
+  //authorization
+  //get session
+  const session = (await cookies()).get("session");
+  //get the value of the session but it is encrypted
+  const encryptedSession = session?.value;
+  //get the auth token
+  const authToken = encryptedSession && (await decrypt(encryptedSession)).token;
+  // error if no token is found
+  if (!authToken) throw new Error("there is no token");
+  console.log(formData);
+
+  try {
+    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products/`, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    const res = await req.json();
+    console.log(res);
+    if ((res.status === 200, res.message === "Success")) {
+      revalidatePath("/");
+      return { status: "SUCCESS", data: res.data, key: prevState.key + 1 };
+    } else {
+      return { status: "ERROR", data: res.data, key: prevState.key + 1 };
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
