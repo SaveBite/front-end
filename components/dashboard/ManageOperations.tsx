@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import AddItemModal from "./AddItemModal";
 
 function ManageOperations() {
   const t = useTranslations("Dashboard");
@@ -50,15 +51,7 @@ function ManageOperations() {
           />
           <span>{t("print")}</span>
         </Button>
-        <Button className="flex gap-2 text-primary-500 bg-white border-[1px] border-primary-500 hover:bg-white">
-          <Image
-            src="/dashboard/add.svg"
-            alt="add.svg"
-            width={20}
-            height={20}
-          />
-          <span>{t("addItem")}</span>
-        </Button>
+        <AddItemModal />
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useStockFilters } from "@/contexts/StockFilters";
 import { useSearchParams } from "next/navigation";
 
 ChartJS.register(
@@ -81,9 +80,7 @@ function LinearChart({ predictData }: { predictData: any }) {
   const displayedProducts = predictData.data.filter((item: any) =>
     selectedProducts.includes(item.ProductName)
   );
-  console.log(displayedProducts);
 
-  const { chartProductsList } = useStockFilters()!;
   const data = {
     labels,
     datasets: displayedProducts.map((item: any, i: number) => {

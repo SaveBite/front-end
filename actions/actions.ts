@@ -1,8 +1,8 @@
 "use server";
 import { handleDataNames } from "@/helpers/dataUploadAndFetching";
 import { decrypt, encrypt } from "@/helpers/helpers";
-import { revalidatePath, revalidateTag } from "next/cache";
-import { cookies, headers } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -352,7 +352,7 @@ export async function uploadProducts(formData: FormData) {
     }
   }
 }
-/**************************************************************************************/
+/***********************/
 //fetch products
 export async function fetchProducts(status: string) {
   try {
@@ -390,4 +390,9 @@ export async function fetchProducts(status: string) {
     console.log(error);
   }
 }
-/***************************************************************************************************/
+/***********************/
+//add product
+export async function addProduct(prevState: any, formData: FormData) {
+  console.log("amigos");
+  return { status: "hola", key: "amigos" };
+}

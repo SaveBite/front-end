@@ -48,7 +48,6 @@ const Page = async ({ searchParams }: { searchParams: any }) => {
             .includes(dashboardSearchQuery.toLowerCase())
         : item
     );
-  console.log(filteredProducts);
 
   return (
     <div>
