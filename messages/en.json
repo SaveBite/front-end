@@ -119,6 +119,24 @@
     "reorderLevel":"Reorder Level",
     "reorderQuantity":"Reorder Quantity",
     "unitsSold":"Units Sold",
-    "salesValue":"Sales Value"
-  }
+    "salesValue":"Sales Value",
+    "unitPrice":"Units price",
+    "stockQuantity":"Stock Quantity"
+
+
+    
+    
+  },
+  
+    "Stock": {
+      "filter":"Filter" ,
+      "stock": "Stock",
+      "reorderQuantity": "Reorder Quantity",
+      "export": "Export",
+      "copy": "Copy",
+      "print": "Print",
+      "fourWeeks": "Four Weeks"
+    }
+  
+  
 }

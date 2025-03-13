@@ -17,7 +17,10 @@ const Page = async () => {
         <ChartOperations predictData={predictData} />
         <LinearChart predictData={predictData} />
       </div>
-      <StockOperations />
+      <StockOperations
+        startDate={predictData.start_date}
+        endDate={predictData.end_date}
+      />
       <StockItemsTable predictData={predictData} />
     </div>
   );

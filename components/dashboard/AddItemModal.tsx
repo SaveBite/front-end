@@ -51,11 +51,11 @@ const AddItemModal = () => {
           onClick={(e) => handleOpenedModal(e)}
         >
           <div className="w-[70%] h-[80%] rounded-lg bg-white flex flex-col gap-4 p-6">
-            <h2 className="h4bold">Add item</h2>
+            <h2 className="h4bold">{t("addItem")}</h2>
             <form action={formActionss} className="flex flex-col gap-4">
               <div>
                 <label htmlFor="date" className="text-black-600">
-                  Date
+                  {t("date")}
                 </label>
                 <input
                   required
@@ -67,7 +67,7 @@ const AddItemModal = () => {
               </div>
               <div>
                 <label htmlFor="productName" className="text-black-600">
-                  Product Name
+                  {t("productName")}
                 </label>
                 <input
                   required
@@ -80,7 +80,7 @@ const AddItemModal = () => {
               <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <label htmlFor="category" className="text-black-600">
-                    Category
+                    {t("category")}
                   </label>
                   <input
                     type="text"
@@ -91,7 +91,7 @@ const AddItemModal = () => {
                 </div>
                 <div className="flex-1">
                   <label htmlFor="price" className="text-black-600">
-                    Unit Price
+                    {t("unitPrice")}
                   </label>
                   <input
                     required
@@ -105,7 +105,7 @@ const AddItemModal = () => {
               <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <label htmlFor="quantity" className="text-black-600">
-                    Stock Quantity
+                    {t("stockQuantity")}
                   </label>
                   <input
                     required
@@ -118,7 +118,7 @@ const AddItemModal = () => {
                 </div>
                 <div className="flex-1">
                   <label htmlFor="reorderLevel" className="text-black-600">
-                    ReorderLevel
+                    {t("reorderLevel")}
                   </label>
                   <input
                     required
@@ -132,7 +132,7 @@ const AddItemModal = () => {
               <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <label htmlFor="reorderQuantity" className="text-black-600">
-                    Reorder Quantity
+                    {t("reorderQuantity")}
                   </label>
                   <input
                     required
@@ -144,7 +144,7 @@ const AddItemModal = () => {
                 </div>
                 <div className="flex-1">
                   <label htmlFor="unitsSold" className="text-black-600">
-                    UnitsSold
+                    {t("unitsSold")}
                   </label>
                   <input
                     required
@@ -157,7 +157,7 @@ const AddItemModal = () => {
               </div>
               <div>
                 <label htmlFor="salesValue" className="text-black-600">
-                  Sales Value
+                  {t("salesValue")}
                 </label>
                 <input
                   required
@@ -173,7 +173,7 @@ const AddItemModal = () => {
                   type="submit"
                   className="w-full h-[72px] transition-all h5bold"
                 >
-                  Add Item
+                  {t("addItem")}
                 </Button>
               </div>
             </form>

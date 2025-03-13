@@ -121,6 +121,18 @@
     "reorderLevel":"مستوي إعادة الطلب",
     "reorderQuantity":"كمية إعادة الطلب",
     "unitsSold":"الوحدات المباعة",
-    "salesValue":"قيمة المبيعات"
+    "salesValue":"قيمة المبيعات",
+    "unitPrice":"سعر الواحدة",
+    "stockQuantity":"الكمية في المستودع"
+  },
+  "Stock":{
+    "filter":"تصفية",
+    "stock":"المخزون" ,
+    "reorderQuantity":"كمية إعادة الطلب",
+    "export":"تصدير",
+    "copy":"نسخ",
+    "print":"'طباعة" ,
+    "fourWeeks":"أربعة اسابيع"
   }
+
 }
