@@ -431,3 +431,64 @@ export async function addProduct(prevState: any, formData: FormData) {
     console.log(error);
   }
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//analytics
+
+// get analytics
+
+export async function getAnalyticsData() {
+  try {
+    //get session
+    const session = (await cookies()).get("session");
+    //get the value of the session but it is encrypted
+    const encryptedSession = session?.value;
+    //get the auth token
+    const authToken =
+      encryptedSession && (await decrypt(encryptedSession)).token;
+    // error if no token is found
+    if (!authToken) throw new Error("there is no token");
+    //request the data cuz you are authenticated user
+    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    //the final result
+    const res = await req.json();
+    if (res.status === 200 && res.message === "Success") return res.data;
+    else throw new Error("fetching data failed ! ");
+  } catch (error: any) {
+    console.log(error.message);
+    return {};
+  }
+}
+
+export async function getAnalyticsPeridection() {
+  try {
+    //get session
+    const session = (await cookies()).get("session");
+    //get the value of the session but it is encrypted
+    const encryptedSession = session?.value;
+    //get the auth token
+    const authToken =
+      encryptedSession && (await decrypt(encryptedSession)).token;
+    // error if no token is found
+    if (!authToken) throw new Error("there is no token");
+    //request the data cuz you are authenticated user
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/analytics/sales-predictions`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    //the final result
+    const res = await req.json();
+    if (res.status === 200 && res.message === "Success") return res.data;
+    else throw new Error("fetching data failed ! ");
+  } catch (error: any) {
+    console.log(error.message);
+    return {};
+  }
+}

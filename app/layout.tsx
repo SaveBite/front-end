@@ -6,8 +6,6 @@ import { VerifyOTPProvider2 } from "@/contexts/VerifyOTPContext2";
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { StockProvider } from "@/contexts/Stock";
-import { StockFiltersProvider } from "@/contexts/StockFilters";
 import { Toaster } from "@/components/ui/sonner";
 
 const notoSans = Noto_Sans({
@@ -38,29 +36,25 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <StockFiltersProvider>
-      <StockProvider>
-        <VerifyOTPProvider2>
-          <VerifyOTPProvider>
-            <html
-              dir={locale === "ar" ? "rtl" : "ltr"}
-              lang={locale}
-              className={locale === "en" ? notoSans.className : cairo.className}
-            >
-              <body
-                className={`antialiased min-h-screen`}
-                suppressHydrationWarning={true}
-              >
-                <NextIntlClientProvider messages={messages}>
-                  {children}
-                  <LanguageSwitcher />
-                </NextIntlClientProvider>
-                <Toaster richColors />
-              </body>
-            </html>
-          </VerifyOTPProvider>
-        </VerifyOTPProvider2>
-      </StockProvider>
-    </StockFiltersProvider>
+    <VerifyOTPProvider2>
+      <VerifyOTPProvider>
+        <html
+          dir={locale === "ar" ? "rtl" : "ltr"}
+          lang={locale}
+          className={locale === "en" ? notoSans.className : cairo.className}
+        >
+          <body
+            className={`antialiased min-h-screen`}
+            suppressHydrationWarning={true}
+          >
+            <NextIntlClientProvider messages={messages}>
+              {children}
+              <LanguageSwitcher />
+            </NextIntlClientProvider>
+            <Toaster richColors />
+          </body>
+        </html>
+      </VerifyOTPProvider>
+    </VerifyOTPProvider2>
   );
 }
