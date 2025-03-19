@@ -133,6 +133,24 @@
     "copy":"نسخ",
     "print":"'طباعة" ,
     "fourWeeks":"أربعة اسابيع"
-  }
+  },
+
+  "Analytics": {
+  "analytics": "التحليلات",
+  "stockTurnoverRate": "معدل دوران المخزون",
+  "reorderAccuracyRate": "معدل دقة إعادة الطلب",
+  "categoryOverstocking": "فرط تخزين الفئات",
+  "spoilageRate": "معدل التلف",
+  "wasteToSalesRatio": "نسبة الهدر إلى المبيعات",
+  "revenue": "الإيرادات",
+  "sinceLastMonth": "منذ الشهر الماضي",
+  "Measures how quickly inventory is sold and replenished": "يقيس مدى سرعة بيع المخزون وتجديده.",
+  "Evaluates how well restocking aligns with demand": "يقيّم مدى توافق إعادة التخزين مع الطلب.",
+  "Identifies waste-heavy product categories": "يحدد الفئات التي تحتوي على نسبة هدر عالية.",
+  "Estimates waste due to overstocking": "يقدّر الهدر الناتج عن التخزين الزائد.",
+  "Measures how much waste is generated per dollar of sales": "يقيس مقدار الهدر الناتج لكل دولار من المبيعات."
+}
+
+
 
 }

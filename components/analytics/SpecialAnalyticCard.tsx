@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React, { useState } from "react";
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   rateChangeObject: Record<string, number>;
   attributeImage: string;
   color: string;
+  msg: string;
 }
 export const SpecialAnalyticCard = ({
   attributeName,
@@ -14,7 +16,9 @@ export const SpecialAnalyticCard = ({
   rateChangeObject,
   attributeImage,
   color,
+  msg,
 }: Props) => {
+  const t = useTranslations("Analytics");
   const itemsArray: string[] = [];
   for (const key in rateObject) {
     itemsArray.push(key);
@@ -26,13 +30,17 @@ export const SpecialAnalyticCard = ({
   }
 
   return (
-    <div className="h-[120px] bg-white rounded-lg shadow-sm py-[14px] px-[16px] relative ">
-      <div className={`relative h-[80%] px-6 flex flex-col gap-1 `}>
+    <div className=" h-[120px] bg-white rounded-lg shadow-sm py-[14px] px-[16px] relative ">
+      <div className={`relative h-[80%] px-6 flex flex-col gap-1 group`}>
+        <div className=" opacity-0 transition-all flex items-center group-hover:opacity-100  w-[275px] h-[80px] shadow-sm bg-black-500/50 absolute top-[40%] -translate-y-1/2 ltr:left-[30%] rtl:right-[30%] z-50 rounded-lg p-[5px] text-white  text-[11px]">
+          <div className=" opacity-0 transition-all  group-hover:opacity-100 w-0 h-0 border-solid border-[12px] ltr:border-l-transparent ltr:border-r-black-500/50 rtl:border-l-black-500/50 rtl:border-r-transparent border-t-transparent border-b-transparent absolute top-1/2 ltr:-left-[24px] rtl:-right-[24px] -translate-y-1/2"></div>
+          {t(msg)}
+        </div>
         <div
-          className="absolute left-0 top-0 w-[8px] h-[85%]"
+          className="absolute ltr:left-0 rtl:right-0 top-0 w-[8px] h-[85%]"
           style={{ backgroundColor: color }}
         ></div>
-        <span className="title1">{attributeName}</span>
+        <span className="title1">{t(attributeName)}</span>
         <span className="h5bold">{parseFloat(rateObject[item])}</span>
       </div>
       <span className="h-[20%] flex items-center gap-[4px]">
@@ -62,19 +70,19 @@ export const SpecialAnalyticCard = ({
         >
           {rateChangeObject[item] * 100}%
         </span>
-        <span className="body text-black-300">since last month</span>
+        <span className="body text-black-300">{t("sinceLastMonth")}</span>
       </span>
       <Image
         src={`/analytics/${attributeImage}`}
         alt="icon"
-        className="absolute right-4 bottom-4"
+        className="absolute ltr:right-4 rtl:left-4 bottom-4"
         width={50}
         height={50}
       />
-      <div className="absolute top-2 right-2">
+      <div className="absolute top-2 ltr:right-2 rtl:left-2">
         <select
           onChange={(e) => handleOnChange(e.target.value)}
-          className="w-[200px] text-[15px] text-gray-500"
+          className="w-[170px] text-[15px] text-gray-500 z-50"
         >
           {itemsArray.map((element, index) => (
             <option key={index} value={element}>

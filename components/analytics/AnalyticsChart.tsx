@@ -15,6 +15,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import { useTranslations } from "next-intl";
 
 ChartJS.register(
   CategoryScale,
@@ -72,6 +73,7 @@ function AnalyticsChart({
 }: {
   analyticsDataObject: Record<string, any>;
 }) {
+  const t = useTranslations("Analytics");
   const {
     start_date = "",
     end_date = "",
@@ -82,7 +84,7 @@ function AnalyticsChart({
     labels: labels,
     datasets: [
       {
-        label: "Analytics",
+        label: t("analytics"),
         data: analyticsData.map(
           (item: itemProp, index: number) => item.sales_predictions
         ),

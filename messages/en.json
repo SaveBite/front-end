@@ -136,6 +136,25 @@
       "copy": "Copy",
       "print": "Print",
       "fourWeeks": "Four Weeks"
+    },
+
+
+    "Analytics":{
+      "analytics":"Analytics",
+      "stockTurnoverRate" : "Stock Turnover Rate" ,
+      "reorderAccuracyRate":"Reorder Accuracy Rate",
+      "categoryOverstocking":"Category Overstocking",
+      "spoilageRate":"SpoilageRate",
+      "wasteToSalesRatio":"Waste To Sales Ratio",
+      "revenue":"Revenue",
+      "sinceLastMonth":"Since Last Month",
+      "Measures how quickly inventory is sold and replenished":"Measures how quickly inventory is sold and replenished",
+      "Evaluates how well restocking aligns with demand":"Evaluates how well restocking aligns with demand",
+      "Identifies waste-heavy product categories":"Identifies waste-heavy product categories",
+      "Estimates waste due to overstocking":"Estimates waste due to overstocking",
+      "Measures how much waste is generated per dollar of sales":"Measures how much waste is generated per dollar of sales"
+
+
     }
   
   
