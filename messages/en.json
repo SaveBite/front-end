@@ -155,7 +155,11 @@
       "Measures how much waste is generated per dollar of sales":"Measures how much waste is generated per dollar of sales"
 
 
+    },
+
+    "Chatbite":{
+      "chatbite":"Chatbite",
+      "favourite":"Favourite"
     }
-  
   
 }

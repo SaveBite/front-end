@@ -50,7 +50,7 @@ export async function updateCurrentUser() {
   if (!decryptedSession && !decryptedSessionData) return;
   console.log(decryptedSession.expires);
   const newDate = new Date(
-    new Date(decryptedSession.expires).getTime() + 15 * 60 * 1000
+    new Date(decryptedSession.expires).getTime() + 60 * 60 * 1000
   );
   console.log("new date is -> " + newDate);
   decryptedSession.expires = newDate;

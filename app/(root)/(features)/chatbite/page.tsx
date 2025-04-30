@@ -1,5 +1,7 @@
 import { getfavourites, storedMessages } from "@/actions/chatbotQueries";
 import ChatBot from "@/components/chatbite/ChatBot";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import React from "react";
 
 const Page = async () => {
@@ -8,9 +10,6 @@ const Page = async () => {
 
   return (
     <div className=" mx-auto py-[20px] w-[90%]">
-      <div className="mx-auto">
-        <span className="h3medium">Chatbite</span>
-      </div>
       <ChatBot
         favourites={favouriteMessagesRes.data ?? []}
         messages={storedMessagesRes.data ?? []}

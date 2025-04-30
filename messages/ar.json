@@ -149,7 +149,13 @@
   "Identifies waste-heavy product categories": "يحدد الفئات التي تحتوي على نسبة هدر عالية.",
   "Estimates waste due to overstocking": "يقدّر الهدر الناتج عن التخزين الزائد.",
   "Measures how much waste is generated per dollar of sales": "يقيس مقدار الهدر الناتج لكل دولار من المبيعات."
-}
+},
+
+"Chatbite":{
+      "chatbite":"شاتبايت",
+      "favourite":"المفضلة"
+    }
+  
 
 
 
