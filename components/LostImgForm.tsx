@@ -59,7 +59,7 @@ const LostImgForm = () => {
             placeholder="what is your favourite drink ?"
             arr={answersArr}
             error={
-              errorMessage === "you must answer the question"
+              errorMessage === "you must answer the question correctly"
                 ? errorMessage
                 : ""
             }

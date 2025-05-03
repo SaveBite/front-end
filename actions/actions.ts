@@ -162,13 +162,60 @@ export async function handleLostImg(
 
   const expires = new Date(Date.now() + 5 * 60 * 1000);
   if (email && question) {
-    (await cookies()).set("intermediate-session", "anas", {
-      expires,
-      httpOnly: false,
+    console.log(email);
+    console.log(question);
+    const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-image`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        answer: question,
+      }),
     });
-    redirect(`/login/recovery-img/verify?email=${encodeURIComponent(email)}`);
+    const res = await req.json();
+    if (res.status === 200) {
+      (await cookies()).set("intermediate-session", res.data?.otp_token, {
+        expires,
+        httpOnly: false,
+      });
+      redirect(`/login/recovery-img/verify?email=${encodeURIComponent(email)}`);
+    } else {
+      return "you must answer the question correctly";
+    }
   }
 }
+
+export const handleVerifyCode = async (otpCode: string, email: string) => {
+  const intermediateSessionOTP = (await cookies()).get(
+    "intermediate-session"
+  )?.value;
+  if (!intermediateSessionOTP && !email) return "Invalid Request";
+  const req = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/lost-image-check-code`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        otp_token: intermediateSessionOTP,
+        otp: otpCode,
+        email,
+      }),
+    }
+  );
+  const res = await req.json();
+  console.log(res);
+  if (res.status === 200) {
+    redirect(
+      `/login/recovery-img/img-verified?email=${encodeURIComponent(email!)}`
+    );
+  } else {
+    return "The OTP is wrong , please try again";
+  }
+};
 export async function handleSignupForm(
   _currentState: unknown,
   formData: FormData

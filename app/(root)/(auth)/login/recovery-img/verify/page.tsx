@@ -1,4 +1,5 @@
 "use client";
+import { handleVerifyCode } from "@/actions/actions";
 import Otp from "@/components/Otp";
 import { useVerifyOTP } from "@/contexts/VerifyOTPContext";
 import { encodeEmail } from "@/helpers/utils";
@@ -21,13 +22,11 @@ function Page() {
   const { otpCode, setOTPCode, error, setError } = useVerifyOTP()!;
 
   // otp handler
-  function handleOTP() {
+  async function handleOTP() {
     if (otpCode.length === 4) {
-      console.log(otpCode);
       setError(false);
-      router.push(
-        `/login/recovery-img/img-verified?email=${encodeURIComponent(email!)}`
-      );
+      const response = await handleVerifyCode(otpCode, email ?? "");
+      if (typeof response === "string") setError(true);
     } else {
       setError(true);
     }

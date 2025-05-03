@@ -15,7 +15,7 @@ const NavigateLink = ({ name }: Props) => {
       <div
         className={`py-[20px] px-[6px] transition-all duration-300 hover:bg-primary-500/40 text-black-400 hover:text-primary-500 ${
           active === name
-            ? "bg-primary-500/40 text-primary-500 border-l-2 border-solid border-left-[3px] border-primary-500"
+            ? "bg-primary-200/40 text-primary-500 border-l-2 border-solid border-left-[3px] border-primary-500"
             : ""
         }`}
       >

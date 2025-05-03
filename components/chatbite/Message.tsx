@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { MessagesType } from "./ChatBot";
 import { Heart } from "lucide-react";
 import { toggleFavourite } from "@/actions/chatbotQueries";
+import ChatMessage from "./ChatMessage";
 
 const Message = ({ msg }: { msg: MessagesType }) => {
   const { id, message, created_at, favourite, me } = msg;
@@ -14,23 +15,14 @@ const Message = ({ msg }: { msg: MessagesType }) => {
     try {
       const parsed = JSON.parse(message);
 
-      readable =
-        `🍕 ${parsed.title}\n` +
-        `⏱️ Prep Time: ${parsed.prep_time}\n\n` +
-        `🧂 Ingredients:\n` +
-        parsed.ingredients.map((i: string) => `- 📝 ${i}`).join("\n") +
-        "\n\n" +
-        `👨‍🍳 Instructions:\n` +
-        parsed.instructions
-          .map((s: string, i: number) => `${i + 1}. 🔹 ${s}`)
-          .join("\n");
+      readable = parsed;
     } catch {
       readable = message;
     }
   }
   return (
     <li
-      className={`flex items-start ${
+      className={`flex items-start  ${
         me ? "flex-row-reverse" : "justify-start"
       } gap-3`}
     >
@@ -40,23 +32,27 @@ const Message = ({ msg }: { msg: MessagesType }) => {
         className="rounded-full w-[50px] h-[50px]"
       />
       <div
-        className={`p-4 ${
+        className={`p-6 rounded-[12px] ${
           me ? "bg-white" : "bg-primary-50"
         } flex items-start gap-3 shadow-md `}
       >
-        <pre className="max-w-[600px] break-words whitespace-pre-wrap">
-          {readable ? readable : message}
-        </pre>
-        {!me && (
-          <Heart
-            width={20}
-            height={20}
-            className={`${
-              favourite && "text-red-500 fill-red-500"
-            } cursor-pointer`}
-            onClick={handleOnToggle}
-          />
-        )}
+        <div className="max-w-[600px] break-words whitespace-pre-wrap relative rounded-[12px]">
+          {typeof readable !== "string" ? (
+            <ChatMessage msg={readable} />
+          ) : (
+            message
+          )}
+          {!me && (
+            <Heart
+              width={20}
+              height={20}
+              className={`${
+                favourite && "text-red-500 fill-red-500 absolute top-4 right-4"
+              } cursor-pointer`}
+              onClick={handleOnToggle}
+            />
+          )}
+        </div>
       </div>
     </li>
   );

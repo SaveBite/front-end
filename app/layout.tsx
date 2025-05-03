@@ -8,12 +8,12 @@ import { NextIntlClientProvider } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Toaster } from "@/components/ui/sonner";
 
-const notoSans = Noto_Sans({
+export const notoSans = Noto_Sans({
   subsets: ["latin"], // Add subsets as needed
   weight: ["400", "600", "700"], // Specify weights
   style: ["normal", "italic"], // Specify styles
 });
-const cairo = Cairo({
+export const cairo = Cairo({
   subsets: ["latin"], // Add subsets as needed
   weight: ["400", "600", "700"], // Specify weights
   style: ["normal"], // Specify styles
