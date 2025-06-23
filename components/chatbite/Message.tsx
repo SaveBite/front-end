@@ -47,8 +47,8 @@ const Message = ({ msg }: { msg: MessagesType }) => {
               width={20}
               height={20}
               className={`${
-                favourite && "text-red-500 fill-red-500 absolute top-4 right-4"
-              } cursor-pointer`}
+                favourite && "text-red-500 fill-red-500  "
+              } cursor-pointer absolute top-4 right-4`}
               onClick={handleOnToggle}
             />
           )}

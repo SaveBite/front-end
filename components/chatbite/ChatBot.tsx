@@ -6,6 +6,7 @@ import { getModelResponse, storeMessage } from "@/actions/chatbotQueries";
 import Message from "./Message";
 import FavouriteCard from "./FavouriteCard";
 import { useTranslations } from "next-intl";
+import ChatbiteModal from "./ChatbiteModal";
 export type QuestionType = { msg: string; image: string };
 export type MessagesType = {
   created_at: string;
@@ -14,6 +15,7 @@ export type MessagesType = {
   me: boolean;
   message: string;
 };
+export type ItemNearExpire = { name: string };
 const questions: QuestionType[] = [
   {
     msg: "What can I cook with rice, chicken, and carrots?",
@@ -31,11 +33,15 @@ const questions: QuestionType[] = [
 const ChatBot = ({
   messages,
   favourites,
+  itemsNearExpire,
 }: {
   messages: MessagesType[];
   favourites: MessagesType[];
+  itemsNearExpire: ItemNearExpire[];
 }) => {
   const [chatMessage, setChatMessage] = useState<string>("");
+  const [lowStockProductsModal, setLowStockProductsModal] =
+    useState<boolean>(false);
   const ulRef = useRef<HTMLUListElement | null>(null);
   const t = useTranslations("Chatbite");
 
@@ -69,6 +75,10 @@ const ChatBot = ({
         message: secMessage,
       } = await storeMessage(JSON.stringify(messageObject), "1");
     }
+  };
+  const handleLowStockProductModal = async (e) => {
+    e.preventDefault();
+    setLowStockProductsModal(true);
   };
   return (
     <>
@@ -133,7 +143,15 @@ const ChatBot = ({
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
               />
-              <button className="px-3" disabled={!chatMessage}>
+              <button onClick={handleLowStockProductModal}>
+                <Image
+                  src="/chatbite/list.png"
+                  alt="chatbite_list"
+                  width={30}
+                  height={30}
+                />
+              </button>
+              <button className="pl-1 pr-3" disabled={!chatMessage}>
                 {chatMessage ? (
                   <Image
                     src="/chatbite/activeButton.png"
@@ -175,6 +193,11 @@ const ChatBot = ({
           ""
         )}
       </div>
+      <ChatbiteModal
+        trigger={lowStockProductsModal}
+        setTrigger={setLowStockProductsModal}
+        itemsNearExpire={itemsNearExpire}
+      />
     </>
   );
 };

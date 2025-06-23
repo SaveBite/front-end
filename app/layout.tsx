@@ -47,11 +47,11 @@ export default async function RootLayout({
             className={`antialiased min-h-screen`}
             suppressHydrationWarning={true}
           >
+            <Toaster richColors theme="light" />
             <NextIntlClientProvider messages={messages}>
               {children}
               <LanguageSwitcher />
             </NextIntlClientProvider>
-            <Toaster richColors />
           </body>
         </html>
       </VerifyOTPProvider>

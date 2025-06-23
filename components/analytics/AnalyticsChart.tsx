@@ -65,7 +65,6 @@ const options = {
     },
   },
 };
-// dummy data
 const labels = ["Week1", "Week2", "Week3", "Week4"];
 
 function AnalyticsChart({

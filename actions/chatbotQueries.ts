@@ -160,3 +160,34 @@ export const getModelResponse = async (message: string) => {
     console.error("wrong wrong wrong");
   }
 };
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+export const getLowStockItems = async () => {
+  //get session
+  const session = (await cookies()).get("session");
+  //get the value of the session but it is encrypted
+  const encryptedSession = session?.value;
+  //get the auth token
+  const authToken = encryptedSession && (await decrypt(encryptedSession)).token;
+  // error if no token is found
+  if (!authToken) throw new Error("there is no token");
+  try {
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/tracking-products?status=near-to-expire`,
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    const res = await req.json();
+    return res.data.data;
+  } catch (error) {
+    return { error };
+  }
+};
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+export const handleLowStockItems = async (formData: FormData) => {
+  console.log(formData);
+};
