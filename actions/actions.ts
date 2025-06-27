@@ -64,15 +64,19 @@ export async function handleLoginFormWithImage(
       //set cookies for session token
       (await cookies()).set("session", encryptedSession, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
       //set cookies for session data
       (await cookies()).set("sessionData", encryptedSessionData, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
     } else {
-      throw new Error(`user is not found${++errorCounter}`);
+      throw new Error(`Invalid Credentials${++errorCounter}`);
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -120,7 +124,6 @@ export async function handleLoginFormWithPass(
       }
       //session token
       const session = { token, expires };
-      console.log(session);
       //sessionData
       const sessionData = { name, email, type, isVerified, expires };
       //encrypt session
@@ -131,15 +134,19 @@ export async function handleLoginFormWithPass(
       //set cookies for session token
       (await cookies()).set("session", encryptedSession, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
       //set cookies for session data
       (await cookies()).set("sessionData", encryptedSessionData, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
     } else {
-      throw new Error(`user is not found${++errorCounter}`);
+      throw new Error(`Invalid Credentials${++errorCounter}`);
     }
   } catch (error: any) {
     console.log(error?.message);
@@ -162,8 +169,6 @@ export async function handleLostImg(
 
   const expires = new Date(Date.now() + 5 * 60 * 1000);
   if (email && question) {
-    console.log(email);
-    console.log(question);
     const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-image`, {
       method: "POST",
       headers: {
@@ -207,7 +212,6 @@ export const handleVerifyCode = async (otpCode: string, email: string) => {
     }
   );
   const res = await req.json();
-  console.log(res);
   if (res.status === 200) {
     redirect(
       `/login/recovery-img/img-verified?email=${encodeURIComponent(email!)}`
@@ -289,7 +293,6 @@ export async function handleSignupForm(
   sentFormData.append("answer", formData.get("favorite-drink") as string);
   sentFormData.append("type", formData.get("account-type") as string);
   sentFormData.append("phone", formData.get("Phone-Number") as string);
-  console.log(sentFormData);
   const options = {
     method: "POST",
     body: sentFormData,
@@ -301,8 +304,6 @@ export async function handleSignupForm(
       options
     );
     const data = await req.json();
-    console.log(data);
-    console.log(data.status, data.message);
 
     if (data.status === 200 && data.message === "Created successfully.") {
       flag = 1;
@@ -311,15 +312,21 @@ export async function handleSignupForm(
 
       (await cookies()).set("intermediate-session", encryptedData, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
       (await cookies()).set("otp-token", data.data.otp_token, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
       (await cookies()).set("auth-token", data.data.token, {
         expires,
-        httpOnly: false,
+        httpOnly: true,
+        secure: true, // in production only
+        sameSite: "strict",
       });
     } else {
       errorCounter++;
@@ -330,7 +337,11 @@ export async function handleSignupForm(
     return error.message;
   }
   if (flag === 1) {
-    redirect(`/signup/verify?email=${formData.get("email")}`);
+    // redirect(`/signup/verify?email=${formData.get("email")}`);
+    const sanitizedEmail = encodeURIComponent(
+      (formData.get("email") as string)?.trim().toLowerCase()
+    );
+    redirect(`/signup/verify?email=${sanitizedEmail}`);
   }
   if (flag === 0) {
     errorCounter++;
@@ -357,13 +368,10 @@ export async function getPredict() {
 /***************************************************************************************************************************/
 //upload products
 export async function uploadProducts(formData: FormData) {
-  console.log("hi");
-  console.log(formData);
   //get the file
   const file = formData.get("csv_file") as File;
 
   //check if the file is csv
-  console.log(file.type);
   if (file.type === "text/csv") {
     // get and decrypt the session cookie
     const session = (await cookies()).get("session");
@@ -372,8 +380,6 @@ export async function uploadProducts(formData: FormData) {
       encryptedSession && (await decrypt(encryptedSession)).token;
     // error if no token is found
     if (!authToken) throw new Error("there is no token");
-
-    console.log(authToken);
 
     // try to upload the file
     try {
@@ -392,7 +398,6 @@ export async function uploadProducts(formData: FormData) {
         uploadRes.status === 200 &&
         uploadRes.message === "File Uploaded Successfully"
       ) {
-        console.log("upload sucess");
         revalidatePath("/");
       } else {
         throw new Error("file not uploaded");
@@ -456,7 +461,6 @@ export async function addProduct(prevState: any, formData: FormData) {
   const authToken = encryptedSession && (await decrypt(encryptedSession)).token;
   // error if no token is found
   if (!authToken) throw new Error("there is no token");
-  console.log(formData);
 
   try {
     const req = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/products/`, {
@@ -467,7 +471,6 @@ export async function addProduct(prevState: any, formData: FormData) {
       },
     });
     const res = await req.json();
-    console.log(res);
     if ((res.status === 200, res.message === "Success")) {
       revalidatePath("/");
       return { status: "SUCCESS", data: res.data, key: prevState.key + 1 };

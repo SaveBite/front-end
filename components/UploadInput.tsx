@@ -43,6 +43,7 @@ const UploadInput = ({
         <input
           ref={fileRef}
           type="file"
+          accept="image/*"
           name={name}
           id={id}
           className="outline-none hidden w-full"

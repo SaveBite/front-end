@@ -12,7 +12,10 @@ function Page() {
   const email = params.get("email");
 
   // protect the page from random access -> .../verify?email=anything
-  if (!emailRegex.test(email!)) {
+  // if (!emailRegex.test(email!)) {
+  //   redirect("/login");
+  // }
+  if (!email || !emailRegex.test(email)) {
     redirect("/login");
   }
 

@@ -19,3 +19,12 @@ export function encodeEmail(email: string) {
 
   return codedEmail;
 }
+
+export function sanitize(str: string): string {
+  return str
+    .replace(/&/g, "&amp;") // must come first!
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}

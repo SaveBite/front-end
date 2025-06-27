@@ -28,7 +28,7 @@ export const storeMessage = async (message: string, is_bot: string) => {
     });
     const res = await req.json();
     if (res.status === 200 && res.message === "Success") {
-      revalidatePath("/");
+      revalidatePath("/chatbite");
       return res.data;
     }
     return {};
@@ -85,7 +85,7 @@ export const toggleFavourite = async (id: number) => {
     );
     const res = await req.json();
     if (res.status === 200) {
-      revalidatePath("/");
+      revalidatePath("/chatbite");
       return res;
     }
     return {};
@@ -153,11 +153,10 @@ export const getModelResponse = async (message: string) => {
       .trim();
 
     const parsed = JSON.parse(cleaned);
-    console.log(parsed);
 
     return parsed;
   } catch (error: any) {
-    console.error("wrong wrong wrong");
+    console.error(error.message || "AI model request failed");
   }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,6 +187,3 @@ export const getLowStockItems = async () => {
   }
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-export const handleLowStockItems = async (formData: FormData) => {
-  console.log(formData);
-};

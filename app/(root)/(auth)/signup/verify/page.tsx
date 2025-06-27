@@ -1,7 +1,7 @@
 "use client";
 import Otp from "@/components/Otp";
 import { useVerifyOTP2 } from "@/contexts/VerifyOTPContext2";
-import { encodeEmail } from "@/helpers/utils";
+import { encodeEmail, sanitize } from "@/helpers/utils";
 import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 import Image from "next/image";
@@ -17,7 +17,6 @@ function Page() {
     redirect("/signup/signup");
   }
   const { otpCode, setOTPCode, error, setError } = useVerifyOTP2()!;
-
   // otp handler
   async function handleOTP() {
     if (otpCode.length === 4) {
@@ -25,7 +24,6 @@ function Page() {
         otp: otpCode,
         otp_token: Cookies.get("otp-token")!,
       };
-      // console.log(body);
 
       try {
         const request = await fetch(`/api/signup-verify`, {
@@ -69,7 +67,7 @@ function Page() {
           {t("verification")}
         </p>
         <p className="text-black-300 font-[400] title1 text-center pb-[40px] mb-auto">
-          {t("theEnteredCodeWillBeSentTo")} {encodeEmail(email!)}
+          {t("theEnteredCodeWillBeSentTo")} {sanitize(encodeEmail(email!))}
         </p>
         {/* so for the otp code we need three picecs of states the setter of the value , the handler , and the error flag 
             and we pass the three of them through the component tree */}

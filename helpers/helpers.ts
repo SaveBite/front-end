@@ -4,6 +4,11 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+if (!process.env.ENCRYPT_KEY || process.env.ENCRYPT_KEY.length < 32) {
+  throw new Error(
+    "Missing or insecure ENCRYPT_KEY. Must be at least 32 characters."
+  );
+}
 const usedKey = new TextEncoder().encode(process.env.ENCRYPT_KEY);
 
 export async function encrypt(payload: any) {
@@ -35,7 +40,7 @@ export async function decrypt(input: string): Promise<any> {
 export async function updateCurrentUser() {
   //check if there any session and sessionData
   const sessionFound = (await cookies()).get("session")!;
-  const sessionDataFound = (await cookies()).get("sessionDaat")!;
+  const sessionDataFound = (await cookies()).get("sessionData")!;
   if (!sessionFound && !sessionDataFound) return;
   // get encryptedSession
   const encryptedSession = (await cookies()).get("session")!.value;
@@ -64,12 +69,18 @@ export async function updateCurrentUser() {
     value: newSessionValue,
     expires: newDate,
     httpOnly: true,
+    secure: true, // only over HTTPS
+    sameSite: "strict", // prevents CSRF
+    path: "/", // cookie available on all routes
   });
   res.cookies.set({
     name: "sessionData",
     value: newSessionDataValue,
     expires: newDate,
     httpOnly: true,
+    secure: true, // only over HTTPS
+    sameSite: "strict", // prevents CSRF
+    path: "/", // cookie available on all routes
   });
   return res;
 }
