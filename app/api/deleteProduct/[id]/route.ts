@@ -21,7 +21,7 @@ export async function DELETE(
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error("❌ Failed to delete:", errText);
+      console.error("Failed to delete:", errText);
       return NextResponse.json(
         { error: "Failed to delete", message: errText },
         { status: response.status }
@@ -30,7 +30,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {
-    console.error("❌ Server error during deletion:", error);
+    console.error("Server error during deletion:", error);
     return NextResponse.json(
       { error: "Internal Server Error", message: String(error) },
       { status: 500 }

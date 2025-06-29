@@ -52,7 +52,7 @@ const Header = ({
               : "border-transparent "
           }`}
         >
-          All items
+          {t("allItem")}
           <span
             className={` text-white ml-[2px] rounded-sm px-[6px] ${
               selected === "all" ? "bg-primary-500" : "bg-gray-400"
@@ -70,7 +70,7 @@ const Header = ({
               : "border-transparent"
           }`}
         >
-          Expired
+          {t("expired")}
           <span
             className={`text-white ml-[2px] rounded-sm px-[6px] ${
               selected === "expired" ? "bg-primary-500" : "bg-gray-400"
@@ -88,7 +88,7 @@ const Header = ({
               : "border-transparent"
           }`}
         >
-          Near to expire
+          {t("nearToExpire")}
           <span
             className={`text-white ml-[2px] rounded-sm px-[6px] ${
               selected === "near" ? "bg-primary-500" : "bg-gray-400"

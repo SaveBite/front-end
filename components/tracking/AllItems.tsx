@@ -5,6 +5,7 @@ import DeleteModal from "./DeleteModal";
 import Details from "./Details";
 import type { Product } from "./Content";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const getStatusStyle = (status: string) => {
   switch (status) {
@@ -34,6 +35,8 @@ const AllItems = ({
   products: Product[];
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) => {
+    const t = useTranslations("tracking");
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [activeActionIndex, setActiveActionIndex] = useState<number | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,17 +58,14 @@ const AllItems = ({
     if (!selectedProduct) return;
   
     try {
-      // Call your backend to delete the product
       await axios.delete(`/api/deleteProduct/${selectedProduct.id}`);
   
-      // Update local state to reflect deletion
       setProducts((prev) => prev.filter((p) => p.id !== selectedProduct.id));
     } catch (error) {
       console.error("❌ Failed to delete from backend:", error);
       alert("Failed to delete item from server. Please try again.");
     }
   
-    // Close modal and reset
     setShowDeleteModal(false);
     setSelectedProduct(null);
     setActiveActionIndex(null);
@@ -81,14 +81,14 @@ const AllItems = ({
     <div className="w-[90%] mx-auto rounded-lg">
       <div className="py-3 bg-white rounded-lg flex justify-between items-center mb-4">
         {[
-          "ID No.",
-          "Product",
-          "Status",
-          "Quantity",
-          "Start Date",
-          "End Date",
-          "Details",
-          "Actions",
+          t("idNo"),
+          t("product"),
+          t("status"),
+          t("quantity"),
+          t("startDate"),
+          t("endDate"),
+          t("details"),
+          t("actions"),
         ].map((label) => (
           <div key={label} className="w-32 text-center text-gray-400 font-bold text-base">
             {label}
@@ -132,7 +132,7 @@ const AllItems = ({
                   }}
                   className="px-4 my-4 bg-gray-100 rounded text-zinc-900 font-medium"
                 >
-                  View Details
+                  {t("viewDetails")}
                 </button>
               </div>
               <div className="w-32 flex justify-center relative">
@@ -153,13 +153,13 @@ const AllItems = ({
                         setSelected("edit");
                       }}
                     >
-                      <span className="ml-2 text-gray-800">Edit</span>
+                      <span className="ml-2 text-gray-800">{t("edit")}</span>
                     </button>
                     <button
                       className="w-full flex items-center px-3 py-2 hover:bg-red-100 text-red-500"
                       onClick={() => handleDelete(product)}
                     >
-                      <span className="ml-2">Delete</span>
+                      <span className="ml-2"> {t("delete")} </span>
                     </button>
                   </div>
                 )}

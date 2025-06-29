@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import type { Product } from "./Content";
+import { useTranslations } from "next-intl";
 
 interface DeleteModalProps {
   product: Product;
@@ -13,6 +14,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   onCancel,
   onConfirm,
 }) => {
+  const t = useTranslations("tracking");
+
   return (
     <div className="fixed inset-0 z-50 bg-black-500 bg-opacity-40 top-0 right-0">
       <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-[1000]">
@@ -32,7 +35,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             </svg>
 
             <div className="text-red-500 text-2xl font-bold font-['Noto_Sans'] leading-7">
-              Delete
+              {t("delete")}
             </div>
             <div onClick={onCancel}>
               <svg
@@ -54,19 +57,19 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           </div>
 
           <div className="text-zinc-800 text-2xl font-bold font-['Noto_Sans'] leading-7 mb-5">
-            Are you sure you want to delete this item?
+            {t("areYouSure")}
           </div>
 
           <div className="flex flex-col gap-3 text-sm">
             {[
-              { label: "ID No", value: product.id.toString() },
-              { label: "Product name", value: product.name },
-              { label: "Category", value: product.category },
-              { label: "Start Date", value: product.start_date },
-              { label: "End Date", value: product.end_date },
-              { label: "Quantity", value: product.quantity.toString() },
-              { label: "Status", value: product.status },
-              { label: "Label", value: product.label },
+             { label: t("idNo"), value: product.id.toString() },
+             { label: t("productName"), value: product.name },
+             { label: t("category"), value: product.category },
+             { label: t("startDate"), value: product.start_date },
+             { label: t("endDate"), value: product.end_date },
+             { label: t("quantity"), value: product.quantity.toString() },
+             { label: t("status"), value: product.status },
+             { label:t("label"), value: product.label },
             ].map((item, idx) => (
               <div key={idx}>
                 <div className="inline-flex justify-start items-center gap-14">
@@ -88,7 +91,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
               className="w-24 h-12 px-5 py-3 bg-neutral-100 rounded-lg flex justify-center items-center"
             >
               <div className="text-stone-500 text-lg font-bold font-['Noto_Sans'] leading-snug">
-                Cancel
+                {t("cancel")}
               </div>
             </button>
             <button
@@ -96,7 +99,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
               className="w-24 h-12 px-5 py-3 bg-red-500 rounded-lg flex justify-center items-center"
             >
               <div className="text-white text-lg font-bold font-['Noto_Sans'] leading-snug">
-                Yes
+                {t("yes")}
               </div>
             </button>
           </div>

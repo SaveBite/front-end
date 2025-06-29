@@ -6,6 +6,7 @@ import EditItem from "./EditItem";
 import Header from "./Header";
 import Info from "./Info";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 export type Product = {
   id: number;
@@ -27,6 +28,7 @@ const Content = ({
   selected: string;
   setSelected: (tab: string) => void;
 }) => {
+  const t = useTranslations("tracking");
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +37,7 @@ const Content = ({
     axios
       .get("/api/getProducts")
       .then((res) => {
-        console.log("✅ Loaded products:", res.data);
+        console.log("Loaded products:", res.data);
         const items = res.data?.data?.data || res.data?.data || res.data;
         setProducts(Array.isArray(items) ? items : []);
       })
@@ -57,7 +59,7 @@ const Content = ({
   const nearCount = products.filter((p) => p.status === "near").length;
 
   const renderContent = () => {
-    if (loading) return <div className="p-4">Loading...</div>;
+    if (loading) return <div className="p-4">{t("loading")}</div>;
 
     let filteredProducts: Product[] = products;
     if (selected === "expired") {
@@ -80,7 +82,7 @@ const Content = ({
             expiredCount={expiredCount}
             nearCount={nearCount}
           />
-          <div className="p-4 text-center text-gray-500">No items found.</div>
+          <div className="p-4 text-center text-gray-500">{t("noItems")}</div>
         </>
       );
     }
@@ -99,7 +101,7 @@ const Content = ({
               expiredCount={expiredCount}
               nearCount={nearCount}
             />
-            <Info/>
+            <Info />
             <AllItems
               selected={selected}
               setSelected={setSelected}
@@ -121,8 +123,6 @@ const Content = ({
             />
           )
         );
-      default:
-        return <div className="p-4">No tab selected</div>;
     }
   };
 

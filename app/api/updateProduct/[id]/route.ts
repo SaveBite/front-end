@@ -9,7 +9,6 @@ export async function PUT(
 
   const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NhdmUtYml0ZS5naG9uaW0ubWFra2FoLnNvbHV0aW9ucy9hcGkvdjEvd2Vic2l0ZS9hdXRoL3NpZ24vaW4iLCJpYXQiOjE3NTExNTQxODgsImV4cCI6MTc1MjQ1MDE4OCwibmJmIjoxNzUxMTU0MTg4LCJqdGkiOiJBcWU3WDUyVVhoVWpQWjk3Iiwic3ViIjoiMjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.mFV0A2QR-lkAB3XGyyEaE7qIvwHQGBiGovu01i9-cUM";
 
-  // ✅ Validate required fields
   const requiredFields = [
     "number_id",
     "name",
@@ -48,7 +47,7 @@ export async function PUT(
     const data = await res.json();
 
     if (!res.ok) {
-      console.error("❌ Backend returned error:", data);
+      console.error("Backend returned error:", data);
       return NextResponse.json(
         {
           status: res.status,
@@ -60,11 +59,11 @@ export async function PUT(
     }
 
     return NextResponse.json(
-      { message: "✅ Product updated successfully", data },
+      { message: "Product updated successfully", data },
       { status: 200 }
     );
   } catch (err: any) {
-    console.error("❌ Unexpected error in PUT:", err);
+    console.error("Unexpected error in PUT:", err);
     return NextResponse.json(
       { message: "Internal Server Error", error: err.message },
       { status: 500 }
