@@ -160,6 +160,9 @@
     "Chatbite":{
       "chatbite":"Chatbite",
       "favourite":"Favourite"
+    }, "tracking" : {
+      "message" : "Add the items you’ve recently bought to keep track of when they expire, This helps you reduce food waste, save money, and plan smarter meals, Keeping an eye on expiration dates means fewer forgotten items at the back of the fridge, fewer surprise spoilages, and more intentional grocery habits." 
+      ,"tracking" : "Tracking Expiration Dates","import":"Add New"
     }
   
 }
