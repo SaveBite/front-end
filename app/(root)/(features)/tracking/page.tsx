@@ -1,17 +1,12 @@
-"use client"
-import React, { useState } from "react";
-import Content from '@/components/tracking/Content'
-import Header from "@/components/tracking/Header";
-import Info from "@/components/tracking/Info";
-
+import React from "react";
+import Content from "@/components/tracking/Content";
+export const revalidate = 0;
 function page() {
-    const [selected, setSelected] = useState("all");
-  
   return (
-    <>  
-      <Content selected={selected} setSelected={setSelected}/>
+    <>
+      <Content />
     </>
-  )
+  );
 }
 
-export default page
+export default page;

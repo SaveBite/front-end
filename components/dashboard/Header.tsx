@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { uploadProducts } from "@/actions/actions";
 
 const Header = () => {
-  const t = useTranslations("tracking");
+  const t = useTranslations("Dashboard");
 
   return (
     <div className="flex justify-between w-[90%] m-auto py-[20px]">
@@ -27,7 +27,7 @@ const Header = () => {
             type="submit"
             className="rounded-none bg-primary-500 text-white flex gap-2 items-center justify-center cursor-pointer p-[12px]"
           >
-            Submit
+            {t("submit")}
           </button>
         </div>
       </form>

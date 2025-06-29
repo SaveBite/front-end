@@ -121,7 +121,8 @@
     "unitsSold": "Units Sold",
     "salesValue": "Sales Value",
     "unitPrice": "Units price",
-    "stockQuantity": "Stock Quantity"
+    "stockQuantity": "Stock Quantity",
+    "submit":"submit"
   },
 
   "Stock": {

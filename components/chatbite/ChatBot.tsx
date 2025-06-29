@@ -34,10 +34,12 @@ const ChatBot = ({
   messages,
   favourites,
   itemsNearExpire,
+  locale,
 }: {
   messages: MessagesType[];
   favourites: MessagesType[];
   itemsNearExpire: ItemNearExpire[];
+  locale: string;
 }) => {
   const [chatMessage, setChatMessage] = useState<string>("");
   const [lowStockProductsModal, setLowStockProductsModal] =

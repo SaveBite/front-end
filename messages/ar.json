@@ -121,7 +121,8 @@
     "unitsSold": "الوحدات المباعة",
     "salesValue": "قيمة المبيعات",
     "unitPrice": "سعر الواحدة",
-    "stockQuantity": "الكمية في المستودع"
+    "stockQuantity": "الكمية في المستودع",
+    "submit":"إرسال"
   },
   "Stock": {
     "filter": "تصفية",

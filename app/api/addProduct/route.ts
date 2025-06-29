@@ -1,5 +1,6 @@
 // app/api/addProduct/route.ts
 import { decrypt } from "@/helpers/helpers";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -31,6 +32,8 @@ export async function POST(req: Request) {
     }
 
     const result = await res.json();
+    revalidatePath("/tracking");
+
     return NextResponse.json({ message: "Added", data: result });
   } catch (err) {
     return NextResponse.json(

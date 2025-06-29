@@ -1,4 +1,5 @@
 import { decrypt } from "@/helpers/helpers";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function GET() {
@@ -48,6 +49,7 @@ export async function GET() {
     }
 
     const data = await response.json();
+    revalidatePath("/tracking");
     console.log("✅ Products fetched:", data);
 
     return new Response(JSON.stringify(data), {

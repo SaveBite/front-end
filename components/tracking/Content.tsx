@@ -21,13 +21,9 @@ export type Product = {
   image: string;
 };
 
-const Content = ({
-  selected,
-  setSelected,
-}: {
-  selected: string;
-  setSelected: (tab: string) => void;
-}) => {
+const Content = () => {
+  const [selected, setSelected] = useState("all");
+
   const t = useTranslations("tracking");
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);

@@ -1,12 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MessagesType } from "./ChatBot";
 import { Heart } from "lucide-react";
 import { toggleFavourite } from "@/actions/chatbotQueries";
 import ChatMessage from "./ChatMessage";
+import { getLocale } from "next-intl/server";
+import { useLocale } from "next-intl";
 
 const Message = ({ msg }: { msg: MessagesType }) => {
   const { id, message, created_at, favourite, me } = msg;
+  const locale = useLocale();
+
   const handleOnToggle = async () => {
     const res = await toggleFavourite(id);
   };
@@ -48,7 +52,9 @@ const Message = ({ msg }: { msg: MessagesType }) => {
               height={20}
               className={`${
                 favourite && "text-red-500 fill-red-500  "
-              } cursor-pointer absolute top-4 right-4`}
+              } cursor-pointer absolute top-4 ${
+                locale === "ar" ? "left-4" : "right-4"
+              }`}
               onClick={handleOnToggle}
             />
           )}
