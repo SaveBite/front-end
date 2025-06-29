@@ -1,3 +1,5 @@
+import { decrypt } from "@/helpers/helpers";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -7,8 +9,12 @@ export async function PUT(
   const { id } = params;
   const body = await req.json();
 
-  const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3NhdmUtYml0ZS5naG9uaW0ubWFra2FoLnNvbHV0aW9ucy9hcGkvdjEvd2Vic2l0ZS9hdXRoL3NpZ24vaW4iLCJpYXQiOjE3NTExNTQxODgsImV4cCI6MTc1MjQ1MDE4OCwibmJmIjoxNzUxMTU0MTg4LCJqdGkiOiJBcWU3WDUyVVhoVWpQWjk3Iiwic3ViIjoiMjUiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.mFV0A2QR-lkAB3XGyyEaE7qIvwHQGBiGovu01i9-cUM";
-
+  // get and decrypt the session cookie
+  const session = (await cookies()).get("session");
+  const encryptedSession = session?.value;
+  const authToken = encryptedSession && (await decrypt(encryptedSession)).token;
+  // error if no token is found
+  if (!authToken) throw new Error("there is no token");
   const requiredFields = [
     "number_id",
     "name",
@@ -33,11 +39,11 @@ export async function PUT(
 
   try {
     const res = await fetch(
-      `https://save-bite.ghonim.makkah.solutions/api/v1/website/tracking-products/${id}`,
+      `${process.env.DATABASE_URL}/tracking-products/${id}`,
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${authToken}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
