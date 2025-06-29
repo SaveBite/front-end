@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { uploadProducts } from "@/actions/actions";
 
 const Header = () => {
-  const t = useTranslations("Dashboard");
+  const t = useTranslations("tracking");
 
   return (
     <div className="flex justify-between w-[90%] m-auto py-[20px]">
