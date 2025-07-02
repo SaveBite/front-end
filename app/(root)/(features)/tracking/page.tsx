@@ -1,8 +1,6 @@
 "use client"
 import React, { useState } from "react";
-import Content from '@/components/tracking/Content'
-import Header from "@/components/tracking/Header";
-import Info from "@/components/tracking/Info";
+import Content from '@/components/tracking/Content';
 
 function page() {
     const [selected, setSelected] = useState("all");

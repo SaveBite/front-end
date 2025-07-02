@@ -175,9 +175,7 @@ const EditItem = ({
                 />
               </div>
               <div className="flex justify-between items-center">
-                <p className="text-s text-gray-500">
-                  {t("editTheDates")}
-                </p>
+                <p className="text-s text-gray-500">{t("editTheDates")}</p>
                 <button
                   disabled={
                     !formData.start_date.trim() || !formData.end_date.trim()
