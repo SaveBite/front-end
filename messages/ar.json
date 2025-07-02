@@ -1,8 +1,81 @@
 {
-  "HomePage": {
-    "title": "اهلا بالعالم",
-    "about": "اذهب الي صفحة عنا "
-  },
+  "LandingPage": {
+  "Home": "الرئيسية",
+  "Account":"الحساب",
+  "Sections":"الأقسام",
+  "About us": "من نحن",
+  "Features": "الميزات",
+  "Blog": "المدونة",
+  "Contact us": "اتصل بنا",
+  "Login": "تسجيل الدخول",
+  "Sign up": "إنشاء حساب",
+  "About Us": "من نحن",
+  "We are dedicated to minimizing food waste in supermarkets by providing tools to track inventory, monitor expiration dates, and ensure that surplus food is repurposed or donated to those in need": "نحن ملتزمون بتقليل هدر الطعام في محلات السوبرماركت من خلال توفير أدوات لتتبع المخزون، ومراقبة تواريخ الانتهاء، وضمان إعادة استخدام أو التبرع بالطعام الفائض لمن هم في حاجة.",
+  "Our goal is to support community welfare and promote sustainable consumption in line with SDG Goal 12": "هدفنا هو دعم رفاهية المجتمع وتعزيز الاستهلاك المستدام بما يتماشى مع الهدف الثاني عشر من أهداف التنمية المستدامة.",
+  "Inventory Tracking": "تتبع المخزون",
+  "Get a clear overview of all products in stock and their shelf life": "احصل على نظرة واضحة على جميع المنتجات في المخزون وفترة صلاحيتها.",
+  "Expiration Alerts": "تنبيهات انتهاء الصلاحية",
+  "Receive instant alerts for items nearing their expiration dates to take early action": "استقبل تنبيهات فورية للعناصر التي تقترب من تاريخ انتهاء صلاحيتها لاتخاذ إجراء مبكر.",
+  "Recipe Chatbot": "روبوت وصفات الطعام",
+  "Discover creative recipe ideas for items nearing expiration — instantly suggested by our smart chatbot": "اكتشف أفكار وصفات إبداعية للأطعمة التي تقترب من الانتهاء — مقترحة على الفور من روبوت الدردشة الذكي لدينا.",
+  "Analytics & Reports": "التحليلات والتقارير",
+  "Access insights on waste trends and make better restocking decisions": "اطّلع على رؤى حول اتجاهات الهدر واتخذ قرارات أفضل لإعادة التخزين.",
+  "Donation Managment": "إدارة التبرعات",
+  "Donate surplus food directly to local charities with just a few taps": "تَبرع بالطعام الفائض مباشرة إلى الجمعيات الخيرية المحلية ببضع نقرات فقط.",
+  
+  "From The Blog": "من المدونة",
+  
+  "How Supermarkets Can Become the Frontline Warriors Against Food Waste": "كيف يمكن أن تصبح المتاجر الكبرى خط الدفاع الأول في مواجهة هدر الطعام",
+  "From Shelves to Shelters: Why Food Donations Matter More Than Ever": "من الرفوف إلى الملاجئ: لماذا التبرعات الغذائية أصبحت أكثر أهمية من أي وقت مضى",
+  "Smarter Stock, Less Waste: How AI and Chatbots Are Changing Food Retail": "مخزون أذكى، هدر أقل: كيف يغير الذكاء الاصطناعي وروبوتات الدردشة تجارة التجزئة في الطعام",
+
+  "Food waste isn’t just a household problem — supermarkets play a massive role in what gets thrown away This article explores how smarter inventory practices, proactive expiration tracking, and local donation partnerships can empower supermarkets to lead the fight against food waste Learn how technology like SaveBite transforms daily operations into sustainable solutions": "هدر الطعام ليس مجرد مشكلة منزلية — بل تلعب المتاجر الكبرى دورًا كبيرًا في كمية الطعام التي يتم التخلص منها. تستكشف هذه المقالة كيف يمكن للممارسات الذكية في إدارة المخزون، وتتبع تواريخ الانتهاء بشكل استباقي، والشراكات المحلية في التبرع، أن تعزز من قدرة المتاجر على مكافحة هدر الطعام. تعرف على كيف يمكن للتقنيات مثل SaveBite أن تحوّل العمليات اليومية إلى حلول مستدامة.",
+
+  "Every day, tons of edible food are discarded while communities nearby go hungry This post highlights the impact of food donations, breaks down the logistics, and shows how platforms like SaveBite are making it easier than ever for supermarkets to connect with verified charities Learn how donating surplus isn't just good — it's necessary": "يتم التخلص من أطنان من الطعام الصالح للأكل يوميًا بينما تعاني مجتمعات مجاورة من الجوع. تسلط هذه المقالة الضوء على أهمية التبرع بالطعام، وتشرح الجوانب اللوجستية، وتعرض كيف تسهّل منصات مثل SaveBite على المتاجر التعاون مع الجمعيات الخيرية المعتمدة. تعرف على كيف أن التبرع بالفائض ليس فقط جيدًا — بل ضروريًا.",
+
+  "Artificial intelligence is no longer just a buzzword — it’s changing how food businesses operate In this article, we explore how SaveBite’s AI-powered chatbot helps reuse items nearing expiration by suggesting quick recipes, and how analytics can forecast demand to reduce overstocking Smart technology, real savings, and a better planet": "لم يعد الذكاء الاصطناعي مجرد كلمة رنانة — بل يغير طريقة عمل الأعمال الغذائية. نستعرض في هذه المقالة كيف يساعد روبوت SaveBite الذكي المعتمد على الذكاء الاصطناعي في إعادة استخدام العناصر التي اقتربت من انتهاء صلاحيتها من خلال اقتراح وصفات سريعة، وكيف تساعد التحليلات على التنبؤ بالطلب لتقليل فائض المخزون. تقنية ذكية، توفير حقيقي، وكوكب أفضل.",
+
+
+
+  
+  "How It Works": "كيف يعمل",
+  "Testimonials": "آراء المستخدمين",
+  "Contact Us": "اتصل بنا",
+
+  "Our Mission": "مهمتنا",
+  "SDG 12 Goal": "الهدف 12 من أهداف التنمية المستدامة",
+  "Meet the Team": "تعرف على الفريق",
+
+  "Donation Management": "إدارة التبرعات",
+  "Analytics Dashboard": "لوحة التحليلات",
+
+  "Supermarkets vs Food Waste": "السوبرماركت مقابل هدر الطعام",
+  "Why Food Donations Matter": "لماذا تهم تبرعات الطعام",
+  "How AI Can Reduce Waste": "كيف يمكن للذكاء الاصطناعي تقليل الهدر",
+  "Supermarkets vs Food Waste: Who Holds the Power": "السوبرماركت مقابل هدر الطعام: من يملك القوة؟",
+  "Why Food Donations Should Be Part of Every Retail Strategy": "لماذا يجب أن تكون تبرعات الطعام جزءًا من كل استراتيجية بيع بالتجزئة",
+  "How AI is Helping Stores Make Smarter Inventory Decisions": "كيف يساعد الذكاء الاصطناعي المتاجر على اتخاذ قرارات مخزون أذكى",
+  "5 Ways to Reuse Food Before It Goes to Waste": "5 طرق لإعادة استخدام الطعام قبل أن يهدر",
+  "Understanding Expiration Dates: Sell-By, Use-By & Best-By": "فهم تواريخ انتهاء الصلاحية: يُباع قبل، يُستخدم قبل، الأفضل قبل",
+  "How to Start a Donation Partnership with Local Charities": "كيفية بدء شراكة تبرع مع الجمعيات الخيرية المحلية",
+  "The Psychology Behind Food Waste in Retail": "علم النفس وراء هدر الطعام في قطاع التجزئة",
+  "Reducing Loss, Increasing Impact: How Tech Saves Food": "تقليل الخسائر، زيادة التأثير: كيف تنقذ التكنولوجيا الطعام",
+  "What the SDGs Say About Sustainable Food Systems": "ما تقوله أهداف التنمية المستدامة عن أنظمة الغذاء المستدامة",
+  
+  "Terms of Services": "شروط الخدمة",
+  "Privacy Policy": "سياسة الخصوصية",
+  "CopyrightNotice": "© 2025 SaveBite. جميع الحقوق محفوظة."
+
+
+
+
+
+
+    
+
+}
+
+,
   "Login-with-img": {
     "loginToSaveBite": "سجل في سايفبايت",
     "email": "إيميل",

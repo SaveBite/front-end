@@ -14,6 +14,9 @@ const config: Config = {
       animation: {
         "spin-slow": "spin 3s linear infinite",
       },
+      screens: {
+        tablet: "875px",
+      },
       colors: {
         primary: {
           "50": "#EDFBEA",

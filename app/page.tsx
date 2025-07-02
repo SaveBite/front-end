@@ -1,12 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import AboutUs from "@/components/landingPage/AboutUs";
+import Blog from "@/components/landingPage/Blog";
+import Features from "@/components/landingPage/Features";
+import Footer from "@/components/landingPage/Footer";
+import Header from "@/components/landingPage/Header";
 
 const Page = () => {
-  const t = useTranslations("HomePage");
   return (
-    <div>
-      <div>{t("title")}</div>
-      <Button className="bg-primary-500 hover:bg-primary-200">test</Button>
+    <div className="scroll-smooth">
+      <Header />
+      <AboutUs />
+      <Features />
+      <Blog />
+      <Footer />
     </div>
   );
 };
