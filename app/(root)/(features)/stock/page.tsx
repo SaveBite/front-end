@@ -8,14 +8,15 @@ import { getPredict } from "@/actions/actions";
 
 const Page = async () => {
   const predictData = (await getPredict()).data ?? [];
-  console.log(predictData);
 
   return (
     <div className="flex-1">
       <StockHeader />
-      <div className="mx-auto  px-[40px] py-[20px] mt-[30px] bg-white w-[90%] rounded-lg">
+      <div className="mx-auto  px-[40px] py-[20px] mt-[30px] bg-white w-[90%] h-[400px] rounded-lg">
         <ChartOperations predictData={predictData} />
-        <LinearChart predictData={predictData} />
+        <div className="w-full h-[300px] pl-6 pr-6">
+          <LinearChart predictData={predictData} />
+        </div>
       </div>
       <StockOperations
         startDate={predictData.start_date}

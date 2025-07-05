@@ -34,7 +34,7 @@ const UserFoundBefore = ({ flag }: props) => {
                     height={12}
                   />
                 </p>
-                <span>the user is found before</span>
+                <span>something went wrong ,try again</span>
               </div>
               <button onClick={handleDismiss}>
                 <Image src="/x.svg" alt="not found" width={12} height={12} />

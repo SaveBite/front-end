@@ -239,7 +239,7 @@ export async function handleSignupForm(
     {
       name: "Phone-Number",
       validate: (value: string) => /^\d{11}$/.test(value),
-      error: "Phone number is required",
+      error: "Invalid phone number",
     },
     {
       name: "favorite-drink",

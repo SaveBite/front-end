@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 const PhoneNumberInput = ({ error }: { error?: string }) => {
   const t = useTranslations("Sign-up-form");
   const [selectedCountry, setSelectedCountry] = useState(t("egypt"));
-  const [phoneNumber, setPhoneNumber] = useState("+20");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const countries = [
     { name: t("egypt"), code: "+20" },
@@ -23,17 +23,17 @@ const PhoneNumberInput = ({ error }: { error?: string }) => {
   ];
 
   const handleCountryChange = (value: string) => {
-    const selected = countries.find((country) => country.name === value);
-    if (selected) {
-      setSelectedCountry(selected.name);
-      setPhoneNumber(selected.code);
-    }
+    // const selected = countries.find((country) => country.name === value);
+    // if (selected) {
+    //   // setSelectedCountry(selected.name);
+    //   setPhoneNumber(selected.code);
+    // }
   };
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
+      <div className="flex flex-col sm:flex-row items-center sm:items-stretch">
         <div className="relative w-full sm:w-auto">
-          <Select onValueChange={handleCountryChange} value={selectedCountry}>
+          {/* <Select onValueChange={handleCountryChange} value={selectedCountry}>
             <SelectTrigger
               className={`px-[12px] h-[78px] border-[1px] 
             ${error ? "border-error-500" : "border-black-200"}
@@ -52,7 +52,7 @@ const PhoneNumberInput = ({ error }: { error?: string }) => {
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
         </div>
         <input
           type="text"

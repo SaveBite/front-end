@@ -20,10 +20,10 @@ const StockOperations = ({
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams.toString());
   return (
-    <div className="w-[90%] flex justify-between items-center mx-auto my-[30px] ">
-      <div className="flex justify-between items-center gap-2">
+    <div className="w-[90%] flex max-lg:flex-col max-lg:items-center flex-row gap-2 justify-between items-center mx-auto my-[30px] ">
+      <div className="flex flex-1 justify-between items-center gap-2">
         <Input
-          className="w-[350px]"
+          className="flex-1"
           placeholder="Search Product Name or Category"
           onChange={(e) => {
             newSearchParams.set("search", e.target.value);

@@ -34,7 +34,7 @@ function customXlabelColor(context: any) {
 }
 const options = {
   responsive: true, // Prevent automatic resizing
-  maintainAspectRatio: true, // Allow custom width/height
+  maintainAspectRatio: false, // Allow custom width/height
   scales: {
     x: {
       ticks: {
@@ -92,13 +92,7 @@ function LinearChart({ predictData }: { predictData: any }) {
       };
     }),
   };
-  return (
-    <Line
-      data={data}
-      options={options}
-      className="mx-auto w-[100%] max-h-[300px]"
-    />
-  );
+  return <Line data={data} options={options} className=" max-w-full h-full" />;
 }
 
 export default LinearChart;

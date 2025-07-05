@@ -12,7 +12,7 @@ function CardList({ statistics }: { statistics: Partial<StatisticsType> }) {
   return (
     <>
       {statistics?.stockInHand && (
-        <div className={`flex gap-4 w-[90%] m-auto py-[30px] `}>
+        <div className={`flex flex-wrap gap-4 w-[90%] m-auto py-[30px] `}>
           <Card
             title="stockInHand"
             data={stockInHand ?? ""}

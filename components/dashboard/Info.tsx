@@ -14,7 +14,9 @@ const Info = () => {
             <Image fill src="/dashboard/info.svg" alt="info.svg" />
           </div>
           <div className="flex-1">
-            <span>{t("message")}</span>
+            <span className="max-sm:text-xs sm:text-md md:text-lg lg:text-xl">
+              {t("message")}
+            </span>
           </div>
           <div
             className="w-[20px] h-full relative cursor-pointer"

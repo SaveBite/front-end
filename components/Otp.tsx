@@ -2,6 +2,7 @@
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import ReuseableButton from "./ReuseableButton";
 import { useTranslations } from "next-intl";
+import { useFormStatus } from "react-dom";
 interface Props {
   handleOTP: () => void;
   setOTPCode: React.Dispatch<React.SetStateAction<string>>;
@@ -9,6 +10,7 @@ interface Props {
 }
 const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
   const t = useTranslations("verify-img");
+  const { pending } = useFormStatus();
   return (
     <div>
       <div className="w-fit mx-auto">
@@ -58,7 +60,7 @@ const Otp = ({ setOTPCode, handleOTP, error }: Props) => {
             className="text-error-500"
             onClick={() => console.log("hello world")}
           >
-            {t("clickToResend")}
+            {pending ? "loading..." : t("clickToResend")}
           </button>
         </div>
       </div>

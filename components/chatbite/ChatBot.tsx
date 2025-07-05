@@ -7,6 +7,7 @@ import Message from "./Message";
 import FavouriteCard from "./FavouriteCard";
 import { useTranslations } from "next-intl";
 import ChatbiteModal from "./ChatbiteModal";
+import ChatWaiting from "./chatWaiting";
 export type QuestionType = { msg: string; image: string };
 export type MessagesType = {
   created_at: string;
@@ -44,6 +45,7 @@ const ChatBot = ({
   const [chatMessage, setChatMessage] = useState<string>("");
   const [lowStockProductsModal, setLowStockProductsModal] =
     useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const ulRef = useRef<HTMLUListElement | null>(null);
   const t = useTranslations("Chatbite");
 
@@ -55,10 +57,12 @@ const ChatBot = ({
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    scrollToBottom();
+    setIsLoading(true);
     const { created_at, favourite, id, me, message } = await storeMessage(
       chatMessage,
       "0"
@@ -66,8 +70,7 @@ const ChatBot = ({
     setChatMessage("");
 
     const messageObject = await getModelResponse(message);
-    console.log(messageObject);
-
+    setIsLoading(false);
     if (messageObject?.title) {
       const {
         created_at: secCreatedAt,
@@ -87,11 +90,11 @@ const ChatBot = ({
       <div className="mx-auto">
         <span className="h3medium">{t("chatbite")}</span>
       </div>
-      <div className="w-full h-[calc(100vh-160px)] border-4 border-solid border-black-100 rounded-2xl flex flex-row   gap-2  p-[20px]">
+      <div className="w-full h-[calc(100vh-160px)] border-4 border-solid border-black-100 rounded-2xl flex   gap-2  p-[20px]">
         <div
           className={`${
             favourites.length
-              ? "w-[80%] ltr:border-r-[2px] rtl:border-l-[2px] border-solid border-black-100"
+              ? "w-[80%] ltr:border-r-[2px] rtl:border-l-[2px] border-solid border-black-100  "
               : "w-full"
           }  px-12  flex  flex-col gap-4 jus`}
         >
@@ -105,6 +108,7 @@ const ChatBot = ({
                   {messages.map((msg, i) => (
                     <Message msg={msg} key={i} />
                   ))}
+                  {isLoading && <ChatWaiting />}
                 </ul>
               </div>
             ) : (
@@ -145,14 +149,17 @@ const ChatBot = ({
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
               />
-              <button onClick={handleLowStockProductModal}>
+              <span
+                onClick={handleLowStockProductModal}
+                className="cursor-pointer"
+              >
                 <Image
                   src="/chatbite/list.png"
                   alt="chatbite_list"
                   width={30}
                   height={30}
                 />
-              </button>
+              </span>
               <button className="pl-1 pr-3" disabled={!chatMessage}>
                 {chatMessage ? (
                   <Image

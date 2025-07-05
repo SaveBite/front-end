@@ -28,14 +28,18 @@ const Page = async () => {
     category_overstocking_change = {},
     revenue = "0",
     revenue_change = 0,
+    spoilage_rate,
+    spoilage_rate_change,
+    waste_to_sales_ratio,
+    waste_to_sales_ratio_change,
   } = analyticsData || {};
 
   return (
     <div className="w-[90%] mx-auto py-[20px]">
       <span className="h3medium">{t("analytics")}</span>
-      <div className="py-[20px] grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3 ">
+      <div className="py-[20px]  ">
         {analyticsData && (
-          <>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-1 gap-y-3">
             <AnalyticCard
               attributeName="stockTurnoverRate"
               rate={stock_turnover_rate}
@@ -62,16 +66,16 @@ const Page = async () => {
             />
             <AnalyticCard
               attributeName="spoilageRate"
-              rate="0.26"
-              rateChange={0}
+              rate={spoilage_rate ?? "0.26"}
+              rateChange={spoilage_rate_change ?? 0}
               attributeImage="spoilage_rate.png"
               color="#72FFAF"
               msg="Estimates waste due to overstocking"
             />
             <AnalyticCard
               attributeName="wasteToSalesRatio"
-              rate="0.000235"
-              rateChange={0}
+              rate={waste_to_sales_ratio ?? "0.000235"}
+              rateChange={waste_to_sales_ratio_change ?? 0}
               attributeImage="waste_to_sale_ratio.png"
               color="#9DCED4"
               msg="Measures how much waste is generated per dollar of sales"
@@ -84,7 +88,7 @@ const Page = async () => {
               color="#FFB0B0"
               msg="revenue"
             />
-          </>
+          </div>
         )}
       </div>
       <div className=" bg-white p-[20px] my-2 ] ">
@@ -95,7 +99,9 @@ const Page = async () => {
             endDate={analyticsPredict.end_date}
           />
         </div>
-        <AnalyticsChart analyticsDataObject={analyticsPredict} />
+        <div className="w-full h-[300px]">
+          <AnalyticsChart analyticsDataObject={analyticsPredict} />
+        </div>
       </div>
     </div>
   );

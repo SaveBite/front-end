@@ -4,8 +4,11 @@ import { Input } from "../ui/input";
 import Profile from "./Profile";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-
-const LayoutHeader = () => {
+interface Props {
+  name: string;
+  email: string;
+}
+const LayoutHeader = ({ name, email }: Props) => {
   const t = useTranslations("Layout");
   return (
     <div className="h-20 w-full border-solid border border-extra-gray-border bg-[#FFFFFF] flex items-center">
@@ -22,10 +25,10 @@ const LayoutHeader = () => {
       </div>
       <div className="flex-1 flex justify-between p-[20px]">
         <Input
-          className="w-[300px] rounded-l-full rounded-r-full focus:w-[500px] transition-all ease-in-out duration-500"
+          className="max-w-[300px] rounded-l-full rounded-r-full  transition-all ease-in-out duration-500"
           placeholder={t("searchAnything")}
         />
-        <Profile img="" name="" email="" />
+        <Profile name={name} email={email} />
       </div>
     </div>
   );

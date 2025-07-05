@@ -9,7 +9,7 @@ import CustomSelect from "./CustomSelect";
 import ReuseableButton from "./ReuseableButton";
 import { useFormState } from "react-dom";
 import { handleSignupForm } from "@/actions/actions";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { getLoginAnswers } from "@/helpers/loginAnswers";
 import { useTranslations } from "next-intl";
 import UserFoundBefore from "./UserFoundBefore";
@@ -19,7 +19,10 @@ const SignupForm = () => {
   const [answersArr, setAnswersArr] = useState<
     { id: number; content: string }[] | never
   >([]);
-  const [errorMessage, dispatch] = useFormState(handleSignupForm, undefined);
+  const [errorMessage, dispatch, isPending] = useActionState(
+    handleSignupForm,
+    undefined
+  );
 
   useEffect(() => {
     async function fetchLoginAnswers() {
@@ -147,7 +150,9 @@ const SignupForm = () => {
             <span className="text-green-500"> {t("terms")}</span>
           </div>
         </div>
-        <ReuseableButton type="secondary">{t("create")}</ReuseableButton>
+        <ReuseableButton type="secondary" isLoading={isPending}>
+          {t("create")}
+        </ReuseableButton>
       </form>
       <UserFoundBefore flag={errorMessage} />
     </>

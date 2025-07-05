@@ -20,10 +20,13 @@ function ManageOperations() {
   }
 
   return (
-    <div className="w-[90%] m-auto py-[30px] flex justify-between">
-      <div className="flex gap-2">
+    <div
+      className="w-[90%] m-auto py-[30px] flex flex-col md:flex-row
+     justify-between gap-2"
+    >
+      <div className="flex flex-1 gap-2">
         <Input
-          className="lg:w-[400px] md:w-[300px] sm:w-[200px] rounded-lg"
+          className="flex-1 rounded-lg"
           placeholder={t("searchProductName")}
           onChange={(e) => handleDashboardSearchQuery(e)}
         />

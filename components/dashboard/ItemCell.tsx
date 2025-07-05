@@ -25,7 +25,7 @@ function ItemCell({ item }: Props) {
     salesValue,
   } = item;
   return (
-    <div className="w-full flex items-center bg-white">
+    <div className="w-full flex flex-wrap max-lg:flex-col max-lg:items-center items-center bg-white">
       <span className="flex-1 py-[8px] px-[20px]">{date}</span>
       <span className="flex-1 py-[8px] px-[20px]">{productName}</span>
       <span className="flex-1 py-[8px] px-[20px]">{category}</span>

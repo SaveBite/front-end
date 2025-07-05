@@ -23,7 +23,7 @@ const Password = ({ id, error = "" }: Props) => {
         />
 
         <button
-          className="absolute right-[2%] top-1/2 -translate-y-1/2"
+          className="absolute ltr:right-[2%] rtl:left-[2%] top-1/2 -translate-y-1/2"
           onClick={(e) => {
             e.preventDefault();
             if (visibility === "text") setVisibility("password");

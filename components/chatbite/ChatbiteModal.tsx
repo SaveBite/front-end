@@ -66,7 +66,7 @@ const ChatbiteModal = ({ trigger, setTrigger, itemsNearExpire }: Props) => {
                 These ingredients are aboute to expire
               </h3>
               <div className="flex flex-col gap-3 overflow-auto scrollbar-hide">
-                {itemsNearExpire.map((item, index) => (
+                {itemsNearExpire?.map((item, index) => (
                   <label key={index} className="flex gap-2">
                     <Checkbox
                       name={item.name}

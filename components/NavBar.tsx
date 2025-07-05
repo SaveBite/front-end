@@ -6,7 +6,7 @@ export default function NavBar() {
   const t = useTranslations("Sign-up");
 
   return (
-    <div className="flex shadow-md justify-between px-[120px]">
+    <div className="flex max-sm:flex-col max-sm:items-center flex-row shadow-md justify-between px-[120px]">
       <div className="logo p-[14px]">
         <Image src="/SaveBite.svg" alt="alt" width={149} height={50} />
       </div>

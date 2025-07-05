@@ -12,7 +12,13 @@ export async function middleware(request: NextRequest) {
   const openOtpFlag = request.cookies.get("intermediate-session");
 
   //protectedRoutes
-  const protectedRoutes = ["/dashboard"];
+  const protectedRoutes = [
+    "/dashboard",
+    "/analytics",
+    "chatbite",
+    "stock",
+    "tracking",
+  ];
 
   //auth routes
   const authRoutes = ["/signup", "/login"];

@@ -32,6 +32,13 @@ const LostImgForm = () => {
 
   return (
     <div className="w-fit lg:w-[500px] absolute top-[50%] -translate-y-1/2 left-1/2 -translate-x-1/2">
+      <img
+        src="/savebite.svg"
+        alt="savebite.svg"
+        width={200}
+        height={100}
+        className="hidden max-sm:block"
+      />
       <div className="flex flex-col">
         <span className="text-black-900 h4bold md:h3bold lg:h2bold">
           {t("lostYourImage")}

@@ -5,13 +5,19 @@ interface Props {
   type?: string;
   children: React.ReactNode;
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
+  isLoading?: boolean;
 }
-const ReuseableButton = ({ type = "primary", onclick, children }: Props) => {
+const ReuseableButton = ({
+  type = "primary",
+  onclick,
+  children,
+  isLoading,
+}: Props) => {
   const { pending } = useFormStatus();
 
   return (
     <Button
-      disabled={pending}
+      disabled={isLoading}
       onClick={onclick ? onclick : () => console.log("only fire form")}
       className={`h-[72px] mt-[16px] w-[100%] text-[19px] font-[500] ${
         type === "primary" &&
@@ -24,7 +30,11 @@ const ReuseableButton = ({ type = "primary", onclick, children }: Props) => {
 
       `}
     >
-      {pending ? <div className="spinner animate-spin"></div> : children}
+      {pending || isLoading ? (
+        <div className="spinner animate-spin"></div>
+      ) : (
+        children
+      )}
     </Button>
   );
 };
