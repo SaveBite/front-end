@@ -30,7 +30,7 @@ const NavigateLink = ({ name }: Props) => {
             width={27}
             height={27}
           />
-          <span>{t(name)}</span>
+          <span className="hidden md:block">{t(name)}</span>
         </div>
       </div>
     </Link>

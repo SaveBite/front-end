@@ -135,7 +135,7 @@ export const getModelResponse = async (message: string) => {
   if (!authToken) throw new Error("there is no token");
   //request the data cuz you are authenticated user
   try {
-    const req = await fetch("https://savebite.hossamohsen.me/generate-recipe", {
+    const req = await fetch(`${process.env.CHATBOT_RESPONSE_MODEL}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -14,7 +14,7 @@ const Info = () => {
             <Image fill src="/dashboard/info.svg" alt="info.svg" />
           </div>
           <div className="flex-1">
-            <span className="max-sm:text-xs sm:text-md md:text-lg lg:text-xl">
+            <span className="max-sm:text-xs sm:text-md md:text-lg lg:text-xl overflow-auto">
               {t("message")}
             </span>
           </div>

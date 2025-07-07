@@ -9,7 +9,7 @@ function SortList() {
   const newSearchParams = new URLSearchParams(searchParams.toString());
 
   return (
-    <div className="flex gap-1 w-[100%] mx-auto">
+    <div className="flex flex-wrap gap-1 w-[100%] mx-auto">
       <StockSortFilter
         name="productName"
         filter={() => {

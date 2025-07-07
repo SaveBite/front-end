@@ -17,6 +17,7 @@ export const AnalyticCard = ({
   color,
   msg,
 }: Props) => {
+  console.log(parseFloat(rate));
   const t = useTranslations("Analytics");
   return (
     <div className="group h-[150px]  bg-white rounded-lg shadow-sm  py-[14px] px-[16px] relative  basis-1/3  ">
@@ -32,11 +33,11 @@ export const AnalyticCard = ({
         <span className="title1">{t(attributeName)}</span>
         <span className="sm:title2bold md:title1bold lg:h5bold">
           {attributeName === "revenue"
-            ? `${rate}EGP`
+            ? `${rate} EGP`
             : attributeName === "stockTurnoverRate" ||
               attributeName === "reorderAccuracyRate" ||
               attributeName === "spoilageRate"
-            ? `${parseFloat(rate) * 100}%`
+            ? `${parseFloat(rate * 100).toFixed(3)}%`
             : rate}
         </span>
       </div>

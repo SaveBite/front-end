@@ -23,9 +23,9 @@ const LayoutHeader = ({ name, email }: Props) => {
           />
         </Link>
       </div>
-      <div className="flex-1 flex justify-between p-[20px]">
+      <div className="flex-1 flex justify-between p-[20px] max-md:justify-end">
         <Input
-          className="max-w-[300px] rounded-l-full rounded-r-full  transition-all ease-in-out duration-500"
+          className="max-md:hidden max-w-[300px] rounded-l-full rounded-r-full  transition-all ease-in-out duration-500"
           placeholder={t("searchAnything")}
         />
         <Profile name={name} email={email} />

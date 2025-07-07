@@ -20,7 +20,7 @@ const Logout = () => {
           width={27}
           height={27}
         />
-        <span>{t("logout")}</span>
+        <span className="hidden md:block">{t("logout")}</span>
       </div>
     </div>
   );
