@@ -15,9 +15,10 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = [
     "/dashboard",
     "/analytics",
-    "chatbite",
-    "stock",
-    "tracking",
+    "/chatbite",
+    "/stock",
+    "/tracking",
+    "/community"
   ];
 
   //auth routes

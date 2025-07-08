@@ -43,7 +43,7 @@ const Header = ({
         </div>
       </div>
 
-      <div className="flex justify-start gap-5 w-[100%] pt-[28px] border-extra-gray-border border-b-2  mb-[60px] text-gray-400">
+      <div className="flex justify-start gap-5 w-[100%] pt-[28px] border-extra-gray-border border-b-2  mb-[40px] text-gray-400">
         <div
           onClick={() => setSelected("all")}
           className={`ml-[30px] w-[135px] border-b-4 text-center  cursor-pointer ${

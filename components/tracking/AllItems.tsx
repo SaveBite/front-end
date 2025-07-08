@@ -78,22 +78,25 @@ const AllItems = ({
   };
 
   return (
-    <div className="w-[90%] mx-auto rounded-lg">
-      <div className="py-3 bg-white rounded-lg flex justify-between items-center mb-4">
-        {[
-          t("idNo"),
-          t("product"),
-          t("status"),
-          t("quantity"),
-          t("startDate"),
-          t("endDate"),
-          t("details"),
-          t("actions"),
-        ].map((label) => (
-          <div key={label} className="w-32 text-center text-gray-400 font-bold text-base">
-            {label}
-          </div>
-        ))}
+   <div className="w-[90%] mx-auto rounded-lg overflow-hidden mb-[30px]">
+      {/* Desktop Header - Hidden on mobile */}
+      <div className="hidden md:block py-3 bg-white rounded-lg mb-4">
+        <div className="grid grid-cols-8 gap-2 px-2">
+          {[
+            t("idNo"),
+            t("product"),
+            t("status"),
+            t("quantity"),
+            t("startDate"),
+            t("endDate"),
+            t("details"),
+            t("actions"),
+          ].map((label) => (
+            <div key={label} className="text-center text-gray-400 font-bold text-sm lg:text-base">
+              {label}
+            </div>
+          ))}
+        </div>
       </div>
 
       {currentItems.length === 0 ? (
@@ -112,64 +115,142 @@ const AllItems = ({
           return (
             <div
               key={product.id}
-              className={`relative px-2 bg-white flex justify-between items-center ${roundedClass}`}
+              className={`relative bg-white mb-2 md:mb-0 ${roundedClass} border md:border-0 rounded-lg md:rounded-none`}
             >
-              <div className="w-32 text-center text-gray-400 font-bold">{product.id}</div>
-              <div className="w-32 text-center text-zinc-800 font-medium">{product.name}</div>
-              <div className="w-32 flex justify-center">
-                <div className={`px-2 py-1 rounded ${statusClass} text-base`}>
-                  {product.status}
+              {/* Mobile Card Layout */}
+              <div className="block md:hidden p-4 space-y-3">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <div className="text-sm text-gray-400 font-medium">{t("idNo")}</div>
+                    <div className="text-gray-800 font-bold">{product.id}</div>
+                  </div>
+                  <div className="relative">
+                    <button
+                      onClick={() =>
+                        setActiveActionIndex(activeActionIndex === index ? null : index)
+                      }
+                      className="bg-gray-100 px-2 py-1 rounded"
+                    >
+                      ...
+                    </button>
+                    {activeActionIndex === index && (
+                      <div className="absolute right-0 top-10 w-28 bg-white shadow-md rounded z-50 font-medium">
+                        <button
+                          className="w-full flex items-center px-3 py-2 hover:bg-gray-100"
+                          onClick={() => {
+                            setEditProduct(product);
+                            setSelected("edit");
+                          }}
+                        >
+                          <span className="ml-2 text-gray-800">{t("edit")}</span>
+                        </button>
+                        <button
+                          className="w-full flex items-center px-3 py-2 hover:bg-red-100 text-red-500"
+                          onClick={() => handleDelete(product)}
+                        >
+                          <span className="ml-2"> {t("delete")} </span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <div className="text-gray-400 font-medium">{t("product")}</div>
+                    <div className="text-zinc-800 font-medium">{product.name}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 font-medium">{t("status")}</div>
+                    <div className={`inline-block px-2 py-1 rounded ${statusClass} text-sm`}>
+                      {product.status}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 font-medium">{t("quantity")}</div>
+                    <div className="text-gray-800 font-bold">{product.quantity}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 font-medium">{t("startDate")}</div>
+                    <div className="text-gray-800 font-bold">{product.start_date}</div>
+                  </div>
+                  <div>
+                    <div className="text-gray-400 font-medium">{t("endDate")}</div>
+                    <div className="text-gray-800 font-bold">{product.end_date}</div>
+                  </div>
+                </div>
+                
+                <div className="pt-2 border-t">
+                  <button
+                    onClick={() => {
+                      setSelectedProduct(product);
+                      setShowDetails(true);
+                    }}
+                    className="w-full px-4 py-2 bg-gray-100 rounded text-zinc-900 font-medium hover:bg-gray-200"
+                  >
+                    {t("viewDetails")}
+                  </button>
                 </div>
               </div>
-              <div className="w-32 text-center text-gray-400 font-bold">{product.quantity}</div>
-              <div className="w-32 text-center text-gray-400 font-bold">{product.start_date}</div>
-              <div className="w-32 text-center text-gray-400 font-bold">{product.end_date}</div>
-              <div className="w-32 flex justify-center">
-                <button
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setShowDetails(true);
-                  }}
-                  className="px-4 my-4 bg-gray-100 rounded text-zinc-900 font-medium"
-                >
-                  {t("viewDetails")}
-                </button>
-              </div>
-              <div className="w-32 flex justify-center relative">
-                <button
-                  onClick={() =>
-                    setActiveActionIndex(activeActionIndex === index ? null : index)
-                  }
-                  className="bg-gray-100 px-2 py-1 rounded"
-                >
-                  ...
-                </button>
-                {activeActionIndex === index && (
-                  <div className="absolute right-0 top-10 w-28 bg-white shadow-md rounded z-50 font-medium">
-                    <button
-                      className="w-full flex items-center px-3 py-2 hover:bg-gray-100"
-                      onClick={() => {
-                        setEditProduct(product);
-                        setSelected("edit");
-                      }}
-                    >
-                      <span className="ml-2 text-gray-800">{t("edit")}</span>
-                    </button>
-                    <button
-                      className="w-full flex items-center px-3 py-2 hover:bg-red-100 text-red-500"
-                      onClick={() => handleDelete(product)}
-                    >
-                      <span className="ml-2"> {t("delete")} </span>
-                    </button>
+
+              {/* Desktop Grid Layout */}
+              <div className="hidden md:grid grid-cols-8 gap-2 px-2 py-3 items-center">
+                <div className="text-center text-gray-400 font-bold text-sm lg:text-base">{product.id}</div>
+                <div className="text-center text-zinc-800 font-medium text-sm lg:text-base">{product.name}</div>
+                <div className="flex justify-center">
+                  <div className={`px-2 py-1 rounded ${statusClass} text-sm lg:text-base`}>
+                    {product.status}
                   </div>
-                )}
+                </div>
+                <div className="text-center text-gray-400 font-bold text-sm lg:text-base">{product.quantity}</div>
+                <div className="text-center text-gray-400 font-bold text-sm lg:text-base">{product.start_date}</div>
+                <div className="text-center text-gray-400 font-bold text-sm lg:text-base">{product.end_date}</div>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => {
+                      setSelectedProduct(product);
+                      setShowDetails(true);
+                    }}
+                    className="px-4 py-2 bg-gray-100 rounded text-zinc-900 font-medium hover:bg-gray-200 text-sm lg:text-base"
+                  >
+                    {t("viewDetails")}
+                  </button>
+                </div>
+                <div className="flex justify-center relative">
+                  <button
+                    onClick={() =>
+                      setActiveActionIndex(activeActionIndex === index ? null : index)
+                    }
+                    className="bg-gray-100 px-2 py-1 rounded"
+                  >
+                    ...
+                  </button>
+                  {activeActionIndex === index && (
+                    <div className="absolute right-0 top-10 w-28 bg-white shadow-md rounded z-50 font-medium">
+                      <button
+                        className="w-full flex items-center px-3 py-2 hover:bg-gray-100"
+                        onClick={() => {
+                          setEditProduct(product);
+                          setSelected("edit");
+                        }}
+                      >
+                        <span className="ml-2 text-gray-800">{t("edit")}</span>
+                      </button>
+                      <button
+                        className="w-full flex items-center px-3 py-2 hover:bg-red-100 text-red-500"
+                        onClick={() => handleDelete(product)}
+                      >
+                        <span className="ml-2"> {t("delete")} </span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           );
         })
       )}
 
- 
       {showDeleteModal && selectedProduct && (
         <DeleteModal
           product={selectedProduct}
