@@ -71,6 +71,12 @@ const ChatBot = ({
 
     const messageObject = await getModelResponse(message);
     setIsLoading(false);
+    if (messageObject?.result === "ERROR") {
+      // Handle error response from AI model
+      const errorMessage = messageObject.msg || t("errorMessage");
+      await storeMessage(errorMessage, "1");
+      return;
+    }
     if (messageObject?.title) {
       const {
         created_at: secCreatedAt,

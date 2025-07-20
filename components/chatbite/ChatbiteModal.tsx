@@ -78,6 +78,9 @@ const ChatbiteModal = ({ trigger, setTrigger, itemsNearExpire }: Props) => {
                     <span>{item.name}</span>
                   </label>
                 ))}
+                {itemsNearExpire?.length === 0 && (
+                  <p className="text-gray-500">No items near expiry</p>
+                )}
               </div>
             </div>
             <button

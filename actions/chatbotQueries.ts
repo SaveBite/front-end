@@ -146,6 +146,7 @@ export const getModelResponse = async (message: string) => {
     });
     const res = await req.json();
     console.log(res);
+    console.log("hola");
 
     const cleaned = res.result
       .replace(/```json\n?/, "")
@@ -157,6 +158,10 @@ export const getModelResponse = async (message: string) => {
     return parsed;
   } catch (error: any) {
     console.error(error.message || "AI model request failed");
+    return {
+      result: "ERROR",
+      msg: "sorry, I could not process your request at the moment.",
+    };
   }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +186,7 @@ export const getLowStockItems = async () => {
       }
     );
     const res = await req.json();
-    return res.data.data;
+    return res.data;
   } catch (error) {
     return { error };
   }

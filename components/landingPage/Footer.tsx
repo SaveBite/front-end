@@ -32,7 +32,7 @@ const Footer = () => {
   const t = useTranslations("LandingPage");
   return (
     <footer
-      className="px-24 py-28 bg-[#f2f2f2] flex flex-col gap-10"
+      className="px-12 md:px-24 py-28 bg-[#f2f2f2] flex flex-col gap-10"
       id="contact-us"
     >
       <div className="flex max-md:flex-col max-md:items-center sm:flex-row flex-wrap pb-20 border-b border-solid border-[#ccc]">

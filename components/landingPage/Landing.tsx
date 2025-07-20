@@ -7,7 +7,7 @@ const Landing = () => {
   const locale = useLocale();
   return (
     <main
-      className="px-24 py-10 h-[700px] flex flex-col items-center md:flex-row md:items-starts"
+      className="px-12 md:px-24 py-10 h-[700px] flex flex-col items-center md:flex-row md:items-starts"
       dir="ltr"
     >
       <div

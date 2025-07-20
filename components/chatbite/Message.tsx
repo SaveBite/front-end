@@ -10,7 +10,6 @@ import { useLocale } from "next-intl";
 const Message = ({ msg }: { msg: MessagesType }) => {
   const { id, message, created_at, favourite, me } = msg;
   const locale = useLocale();
-
   const handleOnToggle = async () => {
     const res = await toggleFavourite(id);
   };
@@ -31,7 +30,7 @@ const Message = ({ msg }: { msg: MessagesType }) => {
       } gap-3`}
     >
       <img
-        src={me ? "/layout/amrdiab.png" : "/chatbite/chief.png"}
+        src={me ? "/user.svg" : "/chatbite/chief.png"}
         alt="chatImage"
         className="rounded-full w-[50px] h-[50px]"
       />
@@ -40,7 +39,7 @@ const Message = ({ msg }: { msg: MessagesType }) => {
           me ? "bg-white" : "bg-primary-50"
         } flex items-start gap-3 shadow-md `}
       >
-        <div className="max-w-[600px] break-words whitespace-pre-wrap relative rounded-[12px]">
+        <div className="max-w-[600px] break-words whitespace-pre-wrap relative rounded-[12px] p-3">
           {typeof readable !== "string" ? (
             <ChatMessage msg={readable} />
           ) : (
@@ -52,9 +51,9 @@ const Message = ({ msg }: { msg: MessagesType }) => {
               height={20}
               className={`${
                 favourite && "text-red-500 fill-red-500  "
-              } cursor-pointer absolute top-4 ${
-                locale === "ar" ? "left-4" : "right-4"
-              }`}
+              } cursor-pointer  absolute top-8 ${
+                locale === "ar" ? "left-8" : "right-8"
+              } `}
               onClick={handleOnToggle}
             />
           )}

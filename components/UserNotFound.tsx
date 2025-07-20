@@ -8,7 +8,7 @@ const UserNotFound = ({ flag }: props) => {
   console.log(flag);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    if (flag?.includes("user is not found")) {
+    if (flag?.includes("Invalid Credentials")) {
       setVisible(true);
     } else {
       setVisible(false);

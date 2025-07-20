@@ -12,11 +12,9 @@ const Page = async () => {
   const favouriteMessagesRes = await getfavourites();
   const lowStockItems = await getLowStockItems();
   const locale = await getLocale();
-  console.log(lowStockItems);
   const lowStockItemsNames = lowStockItems?.map((item) => ({
     name: item.name,
   }));
-  console.log(lowStockItemsNames);
 
   return (
     <div className=" mx-auto py-[20px] w-[90%]">

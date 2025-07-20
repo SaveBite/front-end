@@ -35,7 +35,7 @@ const ChatMessage = ({ msg }: { msg: Recipe }) => {
         <span>🍳 instructions: </span>
         <ul>
           {instructions.map((item, i) => (
-            <li key={i}>{`${i}. ${item}`}</li>
+            <li key={i}>{`${i + 1}. ${item}`}</li>
           ))}
         </ul>
       </div>

@@ -362,6 +362,7 @@ export async function getPredict() {
     },
   });
   const res = await req.json();
+  console.log(res);
   return res;
 }
 

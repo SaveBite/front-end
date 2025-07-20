@@ -8,6 +8,7 @@ import { getPredict } from "@/actions/actions";
 
 const Page = async () => {
   const predictData = (await getPredict()).data ?? [];
+  console.log("predicted data : ", predictData);
 
   return (
     <div className="flex-1">
